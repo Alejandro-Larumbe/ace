@@ -1,14 +1,28 @@
 from .db import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
+from sqlalchemy.ext.declarative import declarative_base
 
-class User(db.Model, UserMixin):
+Base = declarative_base()
+
+
+class User(Base, UserMixin):
   __tablename__ = 'users'
 
   id = db.Column(db.Integer, primary_key = True)
   username = db.Column(db.String(40), nullable = False, unique = True)
+  first_name = db.Column(db.String(40), nullable =False)
+  last_name = db.Column(db.String(40), nullable = False)
+  profile_pic_url= db.Column(db.String(1000))
   email = db.Column(db.String(255), nullable = False, unique = True)
+  address = db.Column(db.String(500))
   hashed_password = db.Column(db.String(255), nullable = False)
+  type = db.Column(db.String(50))
+
+  __mapper_args__ = {
+      'polymorphic_on':type,
+      'polymorphic_identity':'users'
+  }
 
 
   @property
@@ -24,10 +38,16 @@ class User(db.Model, UserMixin):
   def check_password(self, password):
     return check_password_hash(self.password, password)
 
-
   def to_dict(self):
     return {
       "id": self.id,
       "username": self.username,
-      "email": self.email
+      "email": self.email,
+      "username": self.username,
+      "first_name": self.first_name,
+      "last_name": self.last_name,
+      "profile_pic_url": self.profile_pic_url,
+      "email": self.email,
+      "address": self.address,
+      "type": self.type
     }
