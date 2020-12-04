@@ -1,20 +1,27 @@
 from .db import db
+from sqlalchemy.schema import ForeignKey
+from werkzeug.security import generate_password_hash, check_password_hash
+from flask_login import UserMixin
 from .user import User
-from sqlalchemy.schema import Column, ForeignKey
 
 
 class Adult(User):
   __tablename__ = 'adults'
 
-  id = db.Column(db.Integer, db.ForeignKey('users.id'), primary_key=True)
-  isParent = db.Column(db.Boolean)
-  instructor_id = db.Column(db.Integer, ForeignKey("instructors.id"))
+  id = db.Column(db.Integer, ForeignKey('users.id'), primary_key = True)
+  is_student = db.Column(db.Boolean)
+  is_parent = db.Column(db.Boolean)
+  instructor_id = db.Column(db.Integer, ForeignKey("instructors.id"), nullable = False)
 
   __mapper_args__ = {
     'polymorphic_identity':'adults',
   }
 
+
   def to_dict(self):
     return {
-      "id": self.id
+      "id": self.id,
+      "is_student": self.is_student,
+      "is_parent": self.is_parent,
+      "instructor_id": self.instructor_id
     }

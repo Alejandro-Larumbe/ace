@@ -10,7 +10,6 @@ class User(Base, UserMixin):
   __tablename__ = 'users'
 
   id = db.Column(db.Integer, primary_key = True)
-  username = db.Column(db.String(40), nullable = False, unique = True)
   first_name = db.Column(db.String(40), nullable =False)
   last_name = db.Column(db.String(40), nullable = False)
   profile_pic_url= db.Column(db.String(1000))
