@@ -19,9 +19,10 @@ class Adult(User):
 
 
   def to_dict(self):
-    return {
-      "id": self.id,
+    user_dict = super().to_dict()
+    user_dict.update({
       "is_student": self.is_student,
       "is_parent": self.is_parent,
       "instructor_id": self.instructor_id
-    }
+    })
+    return user_dict

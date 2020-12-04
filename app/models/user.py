@@ -1,12 +1,9 @@
 from .db import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
-from sqlalchemy.ext.declarative import declarative_base
-
-Base = declarative_base()
 
 
-class User(Base, UserMixin):
+class User(db.Model, UserMixin):
   __tablename__ = 'users'
 
   id = db.Column(db.Integer, primary_key = True)
@@ -40,9 +37,7 @@ class User(Base, UserMixin):
   def to_dict(self):
     return {
       "id": self.id,
-      "username": self.username,
       "email": self.email,
-      "username": self.username,
       "first_name": self.first_name,
       "last_name": self.last_name,
       "profile_pic_url": self.profile_pic_url,

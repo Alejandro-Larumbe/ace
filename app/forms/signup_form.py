@@ -9,10 +9,13 @@ def user_exists(form, field):
     email = field.data
     user = User.query.filter(User.email == email).first()
     if user:
-        raise ValidationError("User is already registered.")
+        raise ValidationError(f"User is already registered.")
 
 
 class SignUpForm(FlaskForm):
-    username = StringField('username', validators=[DataRequired()])
-    email = StringField('email', validators=[DataRequired(), user_exists])
+    first_name = StringField('first name', validators=[DataRequired()])
+    last_name = StringField('last name', validators=[DataRequired()])
+    email = StringField('email', validators=[DataRequired(), Email('please enter valid email'), user_exists])
     password = StringField('password', validators=[DataRequired()])
+    type = StringField('type', validators=[DataRequired()])
+    instructor_id = StringField('instructor id')

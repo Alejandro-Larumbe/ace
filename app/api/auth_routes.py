@@ -1,5 +1,5 @@
 from flask import Blueprint, jsonify, session, request
-from app.models import User, db
+from app.models import User, db, Instructor, Adult
 from app.forms import LoginForm
 from app.forms import SignUpForm
 from flask_login import current_user, login_user, logout_user, login_required
@@ -63,11 +63,23 @@ def sign_up():
     form = SignUpForm()
     form['csrf_token'].data = request.cookies['csrf_token']
     if form.validate_on_submit():
-        user = User(
-            username=form.data['username'],
-            email=form.data['email'],
-            password=form.data['password']
-        )
+        if form.data["type"] == 'instructors':
+            user = Instructor(
+                first_name=form.data['first_name'],
+                last_name=form.data['last_name'],
+                email=form.data['email'],
+                password=form.data['password'],
+                type=form.data['type']
+            )
+        elif form.data["type"] == 'adults':
+            user = Adult(
+                first_name=form.data['first_name'],
+                last_name=form.data['last_name'],
+                email=form.data['email'],
+                password=form.data['password'],
+                type=form.data['type'],
+                instructor_id=form.data['instructor_id']
+            )
         db.session.add(user)
         db.session.commit()
         login_user(user)

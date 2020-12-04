@@ -18,8 +18,9 @@ class Instructor(User):
 
 
   def to_dict(self):
-    return {
-      "id": self.id,
+    user_dict = super().to_dict()
+    user_dict.update({
       "studio_name": self.studio_name,
       "studio_logo_url": self.studio_logo_url
-    }
+    })
+    return user_dict
