@@ -1,14 +1,10 @@
 import React, { useState } from "react";
 import { Redirect } from 'react-router-dom';
-import { signUp } from '../../services/auth';
-
+import { useDispatch } from 'react-redux';
+import { signUp } from '../../store/actions/authActions';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogTitle from '@material-ui/core/DialogTitle';
+import { makeStyles } from '@material-ui/core/styles';
 
 
 
@@ -19,16 +15,29 @@ const SignUpForm = ({ authenticated, setAuthenticated, open, type, instructorId,
   const [repeatPassword, setRepeatPassword] = useState("");
   const [firstName, setFirstName] = useState("");
   const [lastName, setLastName] = useState("");
- // const [open, setOpen] = React.useState(false);
+  const [errors, setErrors] = useState([]);
+  const dispatch = useDispatch();
 
+  // const [open, setOpen] = React.useState(false);
 
 
   const onSignUp = async (e) => {
     e.preventDefault();
     if (password === repeatPassword) {
-      const user = await signUp(email, password);
+      let user = new FormData();
+      user.append('first_name', firstName);
+      user.append('last_name', lastName);
+      user.append('email', email);
+      user.append('password', password);
+      user.append('type', type || '');
+      user.append('instructor_id', instructorId);
+
+      user = await dispatch(signUp(user));
+
       if (!user.errors) {
         setAuthenticated(true);
+      } else {
+        setErrors(user.errors);
       }
     }
   };
@@ -38,96 +47,109 @@ const SignUpForm = ({ authenticated, setAuthenticated, open, type, instructorId,
   };
 
 
-  if (authenticated) {
-    return <Redirect to="/" />;
-  }
+  if (authenticated && type === "adults") {
+    return <Redirect to={`/students`} />
+  } else if (authenticated && type === "instructors")
+    return <Redirect to={`/${type}`} />
+
 
   return (
-    <div>
-      <Dialog open={open} onClose={onClose} aria-labelledby="form-dialog-title">
-          <DialogTitle id="form-dialog-title">Signup</DialogTitle>
-          <DialogContent>
-          <form onSubmit={onSignUp}>
-            <TextField
-              autoFocus
-              margin="dense"
-              type="text"
-              label="first name"
-              name="first_name"
-              onChange={updateField(setFirstName)}
-              value={firstName}
-              required={true}
-            />
-            <TextField
-              autoFocus
-              margin="dense"
-              type="text"
-              label="last name"
-              name="last_name"
-              onChange={updateField(setLastName)}
-              value={lastName}
-              required={true}
-            />
-            <TextField
-              autoFocus
-              margin="dense"
-              type="email"
-              label="email"
-              name="email"
-              onChange={updateField(setEmail)}
-              value={email}
-              required={true}
-            />
-            <TextField
-              autoFocus
-              margin="dense"
-              label="password"
-              type="password"
-              name="password"
-              onChange={updateField(setPassword)}
-              value={password}
-              required={true}
-            />
-            <TextField
-              autoFocus
-              margin="dense"
-              label="repeat password"
-              type="password"
-              name="repeat_password"
-              onChange={updateField(setRepeatPassword)}
-              value={repeatPassword}
-              required={true}
-            />
-            <input
+    <div style={style}>
+      <div>
+        {errors.map((error) => (
+          <div>{error}</div>
+        ))}
+      </div>
+      <h1>{type} signup</h1>
+      <form onSubmit={onSignUp}>
+        <TextField
+          autoFocus
+          margin="dense"
+          type="text"
+          label="first name"
+          name="firstName"
+          onChange={updateField(setFirstName)}
+          value={firstName}
+          required={true}
+          fullWidth
+        />
+        <TextField
+          autoFocus
+          margin="dense"
+          type="text"
+          label="last name"
+          name="lastName"
+          onChange={updateField(setLastName)}
+          value={lastName}
+          required={true}
+          fullWidth
+        />
+        <TextField
+          autoFocus
+          margin="dense"
+          type="email"
+          label="email"
+          name="email"
+          onChange={updateField(setEmail)}
+          value={email}
+          required={true}
+          fullWidth
+        />
+        <TextField
+          autoFocus
+          margin="dense"
+          label="password"
+          type="password"
+          name="password"
+          onChange={updateField(setPassword)}
+          value={password}
+          required={true}
+          fullWidth
+        />
+        <TextField
+          autoFocus
+          margin="dense"
+          label="repeat password"
+          type="password"
+          name="repeat_password"
+          onChange={updateField(setRepeatPassword)}
+          value={repeatPassword}
+          required={true}
+          fullWidth
+        />
+        <input
+          style={{ visibility: 'hidden' }}
+          type="text"
+          name="type"
+          value={type}
+          required={true}
+          readOnly
+        ></input>
+        {
+          instructorId
+            ? <input
               style={{ visibility: 'hidden' }}
               type="text"
-              name="type"
-              value={type}
-              required={true}
+              name="instructorId"
+              value={instructorId}
+              readOnly
             ></input>
-            {
-              instructorId
-                ? <input
-                  style={{ visibility: 'hidden' }}
-                  type="text"
-                  name="instructor_id"
-                  value={instructorId}
-                ></input>
-                : null
-            }
-          </form>
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={onClose} color="primary">
-              Cancel
+            : null
+        }
+        <Button onClick={onClose} color="primary">
+          Cancel
           </Button>
-            <Button type="submit" onClick={onClose} color="primary">
-              Subscribe
-          </Button>
-          </DialogActions>
-      </Dialog>
+        <Button type="submit" onClick={onClose} color="primary">
+          Sign Up
+        </Button>
+      </form>
     </div>
   );
 };
+
+const style = {
+  width: '25%',
+  heigth: 'auto'
+}
 
 export default SignUpForm;

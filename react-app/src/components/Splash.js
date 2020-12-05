@@ -1,43 +1,46 @@
 import React from 'react'
+import { useHistory } from "react-router-dom";
 import Button from '@material-ui/core/Button'
-import SignUpForm from './auth/SignUpForm';
 
 
-const Splash = (props) => {
-  const [open, setOpen] = React.useState(false);
+const Splash = () => {
+  let history = useHistory();
 
-  const handleClickOpen = () => {
-    setOpen(true);
+
+  const handleSignUpStudent = () => {
+    history.push('/signup/students')
   };
 
-  const handleClose = () => {
-    setOpen(false);
+  const handleSignUpInstructor = () => {
+    history.push('/signup/instructors')
   };
+  const handleLoginStudent = () => {
+    history.push('/login/students')
+  };
+  const handleLoginInstructor = () => {
+    history.push('/login/instructors')
+  };
+
 
 return (
 
 <>
-  <Button onClick={handleClickOpen}
+  <Button onClick={handleSignUpStudent}
   >
     SignUp Student
   </Button>
-  <Button onClick={handleClickOpen}
+  <Button onClick={handleSignUpInstructor}
   >
     Signup Instructor
   </Button>
-  <SignUpForm
-    open={open}
-    onClose={handleClose}
-    type={'adults'}
-  />
-  <SignUpForm
-    open={open}
-    onClose={handleClose}
-    instructorId={1}
-    type={'instructors'}
-    {...props}
-  />
-
+  <Button onClick={handleLoginStudent}
+  >
+    Login Student
+  </Button>
+  <Button onClick={handleLoginInstructor}
+  >
+    Login Instructor
+  </Button>
 </>
 )}
 
