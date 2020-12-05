@@ -1,21 +1,18 @@
 import React, { useState } from "react";
 import { useDispatch } from 'react-redux';
-import { Redirect } from "react-router-dom";
+import { Redirect, useParams } from "react-router-dom";
 import { login } from "../../store/actions/authActions";
 
-const LoginForm = ({ authenticated, setAuthenticated, type }) => {
+const LoginForm = ({ authenticated, setAuthenticated }) => {
   const [errors, setErrors] = useState([]);
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
-
+  let { type } = useParams()
+  if (type === 'students') type = 'adults'
 
   const onLogin = async (e) => {
     e.preventDefault();
-    // let user = new FormData();
-    //   user.append('email', email);
-    //   user.append('password', password);
-    //   user.append('type', type);
 
     let user = await dispatch(login(email, password, type));
 
@@ -36,8 +33,10 @@ const LoginForm = ({ authenticated, setAuthenticated, type }) => {
 
   if (authenticated && type === "adults") {
     return <Redirect to={`/students`} />
-  } else if (authenticated && type === "instructors")
+  } else if (authenticated && type === "instructors") {
     return <Redirect to={`/${type}`} />
+  }
+
 
   return (
     <form onSubmit={onLogin}>

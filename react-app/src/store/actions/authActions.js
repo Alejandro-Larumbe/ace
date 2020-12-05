@@ -1,4 +1,4 @@
-import { LOAD_INSTRUCTOR, LOAD_STUDENT } from '../reducers/authReducers'
+import { LOAD_INSTRUCTOR, LOAD_STUDENT, LOAD_USER } from '../reducers/authReducers'
 
 
 export const signUp = (user) => {
@@ -63,5 +63,24 @@ export const login = ( email, password, type ) => {
       localStorage.setItem("user_id", data.id);
     }
     return data;
+  }
+}
+
+export const loadUser = (id) => async (dispatch) => {
+  const response = await fetch(`/api/users/${id}`)
+
+  if (response.ok) {
+      const data = await response.json();
+      if (data.type === "instructors") {
+        dispatch({
+          type: LOAD_INSTRUCTOR,
+          data
+        });
+      } else if (data.type === "adults") {
+        dispatch({
+          type: LOAD_STUDENT,
+          data
+        });
+      }
   }
 }

@@ -14,6 +14,7 @@ const userReducer = (state = {}, action) => {
         address: action.data.address,
         profilePicUrl: action.data.profile_pic_url,
         studioLogoUrl: action.data.studio_logo_url,
+        studioName: action.data.studio_name,
         type: action.data.type,
       }
 
@@ -25,6 +26,7 @@ const userReducer = (state = {}, action) => {
         lastName: action.data.last_name,
         email: action.data.email,
         address: action.data.address,
+        profilePicUrl: action.data.profile_pic_url,
         type: action.data.type,
         instructorId: action.data.instructor_id,
         isParent: action.data.is_parent,

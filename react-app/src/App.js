@@ -1,25 +1,38 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter, Route, Switch } from "react-router-dom";
+import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import { useDispatch } from 'react-redux';
 import LoginForm from "./components/auth/LoginForm";
 import SignUpForm from "./components/auth/SignUpForm";
-import NavBar from "./components/NavBar";
-import ProtectedRoute from "./components/auth/ProtectedRoute";
-import UsersList from "./components/UsersList";
-import User from "./components/User";
+import InstructorRoutes from './components/InstructorRoutes';
+import StudentRoutes from './components/StudentRoutes'
 import Splash from "./components/Splash"
 import { authenticate } from "./services/auth";
+import { loadUser } from './store/actions/authActions';
+import InstructorApp from "./components/auth/InstructorApp";
+import StudentApp from './components/auth/StudentApp';
+
 
 function App() {
   const [authenticated, setAuthenticated] = useState(false);
   const [loaded, setLoaded] = useState(false);
+  const dispatch = useDispatch();
+  let type;
 
   useEffect(() => {
     (async () => {
       const user = await authenticate();
-      if (!user.errors) {
+      if (user && !user.errors) {
         setAuthenticated(true);
       }
-      setLoaded(true);
+      const userId = localStorage.getItem("user_id");
+      (async () => {
+        await dispatch(loadUser(userId));
+        setLoaded(true);
+      })()
+
+      if (authenticated) {
+        type = user.type
+      }
     })();
   }, []);
 
@@ -27,52 +40,46 @@ function App() {
     return null;
   }
 
+  if (authenticated && type === "adults") {
+    return <Redirect to={`/students`} />
+  } else if (authenticated && type === "instructors") {
+    return <Redirect to={`/${type}`} />
+  }
+
+
   return (
     <BrowserRouter>
-      {/* <NavBar setAuthenticated={setAuthenticated} /> */}
       <Switch>
         <Route path="/" exact={true}>
           <Splash authenticated={authenticated} setAuthenticated={setAuthenticated} />
         </Route>
-        <Route path="/login/students" e¡xact={true}>
+        <Route path="/login/:type" exact={true}>
           <LoginForm
             authenticated={authenticated}
             setAuthenticated={setAuthenticated}
-            type={'adults'}
           />
         </Route>
-        {/* <Route path="/login/instructors" exact={true}>
-          <LoginForm
-            authenticated={authenticated}
-            setAuthenticated={setAuthenticated}
-            type={'instructors'}
-          />
-        </Route> */}
-        <Route path="/signup/instructors" exact={true}>
+        <Route path="/signup/:type" exact={true}>
           <SignUpForm
             authenticated={authenticated}
             setAuthenticated={setAuthenticated}
-            type={'instructors'}
           />
         </Route>
-        <Route path="/signup/students" exact={true}>
-          <SignUpForm
-            authenticated={authenticated}
-            setAuthenticated={setAuthenticated}
-            instructorId={1}
-            type={'adults'}
-          />
-        </Route>
+        <InstructorApp path='/instructors' exact={true}
+          authenticated={authenticated}
+          setAuthenticated={setAuthenticated}
+        >
+          <InstructorRoutes />
+        </InstructorApp>
+        <StudentApp path='/students' exact={true}
+          authenticated={authenticated}
+          setAuthenticated={setAuthenticated}
+        >
+          <StudentRoutes setAuthenticated={setAuthenticated} />
+        </ StudentApp>
       </Switch>
     </BrowserRouter>
-
-    /* <ProtectedRoute path="/users" exact={true} authenticated={authenticated}>
-      <UsersList/>
-    </ProtectedRoute>
-    <ProtectedRoute path="/users/:userId" exact={true} authenticated={authenticated}>
-      <User />
-    </ProtectedRoute> */
-  );
+  )
 }
 
 export default App;

@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Redirect } from 'react-router-dom';
+import { Redirect, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { signUp } from '../../store/actions/authActions';
 import Button from '@material-ui/core/Button';
@@ -9,7 +9,7 @@ import { makeStyles } from '@material-ui/core/styles';
 
 
 
-const SignUpForm = ({ authenticated, setAuthenticated, open, type, instructorId, onClose }) => {
+const SignUpForm = ({ authenticated, setAuthenticated, open, onClose }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
@@ -17,8 +17,9 @@ const SignUpForm = ({ authenticated, setAuthenticated, open, type, instructorId,
   const [lastName, setLastName] = useState("");
   const [errors, setErrors] = useState([]);
   const dispatch = useDispatch();
-
-  // const [open, setOpen] = React.useState(false);
+  let { type } = useParams()
+  if (type === 'students') type = 'adults'
+  const instructorId = 1
 
 
   const onSignUp = async (e) => {
@@ -29,8 +30,8 @@ const SignUpForm = ({ authenticated, setAuthenticated, open, type, instructorId,
       user.append('last_name', lastName);
       user.append('email', email);
       user.append('password', password);
-      user.append('type', type || '');
-      user.append('instructor_id', instructorId);
+      user.append('type', type);
+      user.append('instructor_id', instructorId );
 
       user = await dispatch(signUp(user));
 
@@ -49,9 +50,9 @@ const SignUpForm = ({ authenticated, setAuthenticated, open, type, instructorId,
 
   if (authenticated && type === "adults") {
     return <Redirect to={`/students`} />
-  } else if (authenticated && type === "instructors")
+  } else if (authenticated && type === "instructors") {
     return <Redirect to={`/${type}`} />
-
+  }
 
   return (
     <div style={style}>
