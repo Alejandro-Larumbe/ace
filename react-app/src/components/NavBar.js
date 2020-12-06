@@ -26,6 +26,8 @@ import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import MusicNoteIcon from '@material-ui/icons/MusicNote';
 import AlbumIcon from '@material-ui/icons/Album';import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
+import Link from '@material-ui/core/Link';
+
 
 const drawerWidth = 240;
 
@@ -61,11 +63,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const NavBar = ({ setAuthenticated, user, studioName, studioLogo }) => {
+const NavBar = ({ setAuthenticated, profilePicUrl, studioName, studioLogo, type }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const open = Boolean(anchorEl);
-
+  console.log(type, 'type')
+  const route = type === "instuctors" ? "instructors" : "students"
+  console.log('type', type)
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -78,6 +82,10 @@ const NavBar = ({ setAuthenticated, user, studioName, studioLogo }) => {
     await logout();
     setAuthenticated(false);
   };
+
+  const onLink = (e) => {
+    console.log(e.target.className)
+  }
 
   return (
     <div className={classes.root}>
@@ -95,7 +103,7 @@ const NavBar = ({ setAuthenticated, user, studioName, studioLogo }) => {
           </Grid>
           <Grid item xs={3}>
             <div>
-              <Avatar alt="Remy Sharp" src={user.profilePicUrl}
+              <Avatar alt="Remy Sharp" src={profilePicUrl}
                 className={classes.avatar}
                 aria-label="account of current user"
                 aria-controls="menu-appbar"
@@ -138,11 +146,17 @@ const NavBar = ({ setAuthenticated, user, studioName, studioLogo }) => {
           <div edge="start" className={classes.menuButton}>
             <img src={studioLogo} height={"100px"}></img>
           </div>
-          <List>
-            <ListItemIcon><FaceIcon /></ListItemIcon>
-            <ListItemText>Students</ListItemText>
-          </List>
-          <List>
+          {type === 'instructors'
+            ?
+            <Link href={`instructors/students`}>
+              <List >
+                <ListItemIcon><FaceIcon /></ListItemIcon>
+                <ListItemText>Students</ListItemText>
+              </List>
+            </Link>
+            : null
+          }
+          <List className={'calendar'} onClick={onLink}>
             <ListItemIcon><CalendarTodayIcon /></ListItemIcon>
             <ListItemText>Calendar</ListItemText>
           </List>
@@ -171,26 +185,5 @@ const NavBar = ({ setAuthenticated, user, studioName, studioLogo }) => {
   );
 }
 
-const NavBarContainer = ({ setAuthenticated, instructor }) => {
-  const user = useSelector(state => state.user);
 
-  const studioName = (
-    user.type === "instructors" ? user.studioName : instructor.studioName
-  )
-  const studioLogo = (
-    user.type === "instructors" ? user.studioLogoUrl : instructor.studioLogoUrl
-  )
-
-
-
-  return (
-    <NavBar
-      setAuthenticated={setAuthenticated}
-      user={user}
-      studioName={studioName}
-      studioLogo={studioLogo}
-    />
-  )
-}
-
-export default NavBarContainer;
+export default NavBar;

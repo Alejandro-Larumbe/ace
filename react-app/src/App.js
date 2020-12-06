@@ -8,8 +8,8 @@ import StudentRoutes from './components/StudentRoutes'
 import Splash from "./components/Splash"
 import { authenticate } from "./services/auth";
 import { loadUser } from './store/actions/authActions';
-import InstructorApp from "./components/auth/InstructorApp";
-import StudentApp from './components/auth/StudentApp';
+import InstructorApp from "./components/InstructorApp";
+import StudentApp from './components/StudentApp';
 
 
 function App() {
@@ -46,7 +46,6 @@ function App() {
     return <Redirect to={`/${type}`} />
   }
 
-
   return (
     <BrowserRouter>
       <Switch>
@@ -65,19 +64,19 @@ function App() {
             setAuthenticated={setAuthenticated}
           />
         </Route>
-        <InstructorApp path='/instructors' exact={true}
-          authenticated={authenticated}
-          setAuthenticated={setAuthenticated}
-        >
-          <InstructorRoutes />
-        </InstructorApp>
-        <StudentApp path='/students' exact={true}
-          authenticated={authenticated}
-          setAuthenticated={setAuthenticated}
-        >
-          <StudentRoutes setAuthenticated={setAuthenticated} />
-        </ StudentApp>
       </Switch>
+      <Route path="/instructors" >
+        <InstructorApp
+          authenticated={authenticated}
+          setAuthenticated={setAuthenticated}
+        />
+      </Route>
+      <Route path="/students" >
+        <StudentApp
+          authenticated={authenticated}
+          setAuthenticated={setAuthenticated}
+        />
+      </Route>
     </BrowserRouter>
   )
 }

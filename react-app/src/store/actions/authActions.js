@@ -22,7 +22,6 @@ export const signUp = (user) => {
           });
         }
         localStorage.setItem("user_id", data.id);
-        // debugger
         return data;
       }
       return await res.json();
