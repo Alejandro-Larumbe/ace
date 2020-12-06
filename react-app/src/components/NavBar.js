@@ -21,14 +21,18 @@ import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import InboxIcon from '@material-ui/icons/MoveToInbox';
 import MailIcon from '@material-ui/icons/Mail';
-
+import FaceIcon from '@material-ui/icons/Face';
+import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
+import MusicNoteIcon from '@material-ui/icons/MusicNote';
+import AlbumIcon from '@material-ui/icons/Album';import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
+import MenuBookIcon from '@material-ui/icons/MenuBook';
 
 const drawerWidth = 240;
 
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    flexGrow: 1,
+    display: 'flex',
   },
   menuButton: {
     marginRight: theme.spacing(2),
@@ -47,6 +51,13 @@ const useStyles = makeStyles((theme) => ({
   drawerPaper: {
     width: drawerWidth,
   },
+  toolbar: theme.mixins.toolbar,
+  content: {
+    flexGrow: 1,
+    backgroundColor: theme.palette.background.default,
+    padding: theme.spacing(3),
+  },
+
 }));
 
 
@@ -73,9 +84,7 @@ const NavBar = ({ setAuthenticated, user, studioName, studioLogo }) => {
       <AppBar position="fixed">
         <Grid container spacing={3} alignItems="center" justify="space-between">
           <Grid item xs={3}>
-            <div edge="start" className={classes.menuButton}>
-              <img src={studioLogo} height={"100px"}></img>
-            </div>
+
           </Grid>
           <Grid item xs={6}>
             <Toolbar>
@@ -125,6 +134,35 @@ const NavBar = ({ setAuthenticated, user, studioName, studioLogo }) => {
         }}
         anchor="left"
       >
+        <div className={classes.toolbar} >
+          <div edge="start" className={classes.menuButton}>
+            <img src={studioLogo} height={"100px"}></img>
+          </div>
+          <List>
+            <ListItemIcon><FaceIcon /></ListItemIcon>
+            <ListItemText>Students</ListItemText>
+          </List>
+          <List>
+            <ListItemIcon><CalendarTodayIcon /></ListItemIcon>
+            <ListItemText>Calendar</ListItemText>
+          </List>
+          <List>
+            <ListItemIcon><MusicNoteIcon /></ListItemIcon>
+            <ListItemText>Lessons</ListItemText>
+          </List>
+          <List>
+            <ListItemIcon><MenuBookIcon /></ListItemIcon>
+            <ListItemText>Repertoire</ListItemText>
+          </List>
+          <List>
+            <ListItemIcon><AlbumIcon /></ListItemIcon>
+            <ListItemText>Resources</ListItemText>
+          </List>
+          <List>
+            <ListItemIcon><AttachMoneyIcon /></ListItemIcon>
+            <ListItemText>Billing</ListItemText>
+          </List>
+        </div>
 
 
       </Drawer>

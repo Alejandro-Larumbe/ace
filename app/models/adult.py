@@ -13,6 +13,7 @@ class Adult(User):
   is_parent = db.Column(db.Boolean)
   instructor_id = db.Column(db.Integer, ForeignKey("instructors.id"), nullable = False)
 
+
   __mapper_args__ = {
     'polymorphic_identity':'adults',
   }
