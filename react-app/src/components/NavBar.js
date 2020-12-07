@@ -131,7 +131,7 @@ const NavBar = ({ setAuthenticated, profilePicUrl, studioName, studioLogo, type 
           </Grid>
         </Grid>
       </AppBar>
-      {/* <Drawer
+      <Drawer
         className={classes.drawer}
         variant="permanent"
         classes={{
@@ -186,7 +186,7 @@ const NavBar = ({ setAuthenticated, profilePicUrl, studioName, studioLogo, type 
         </div>
 
 
-      </Drawer> */}
+      </Drawer>
 
     </div >
   );
