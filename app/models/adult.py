@@ -30,6 +30,3 @@ class Adult(User):
     })
 
     return user_dict
-
-
-    # return result

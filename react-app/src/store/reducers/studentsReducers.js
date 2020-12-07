@@ -41,25 +41,7 @@ const students = (state = {}, action) => {
   switch (action.type) {
     case LOAD_STUDENTS:
       newState = { byId: {}, allIds: [] }
-      let mappedData = action.students.map(each => {
-        console.log()
-        return {
-          id: each.id,
-          firstName: each.first_name,
-          lastName: each.last_name,
-          profileOicUrl: each.profile_pic_url,
-          email: each.email,
-          address: each.address,
-          hashed_password: each.hashed_password,
-          type: each.type,
-          dob: each.dob,
-          isStudent: each.is_student,
-          isParent: each.is_parent,
-          instructorId: each.instructor_id,
-        }
-      })
-
-      mappedData.forEach(each => {
+      action.students.forEach(each => {
         newState.byId[each.id] = { ...each }
         newState.allIds = [...newState.allIds, each.id]
       })
