@@ -3,8 +3,6 @@ import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 import LoginForm from "./components/auth/LoginForm";
 import SignUpForm from "./components/auth/SignUpForm";
-import InstructorRoutes from './components/InstructorRoutes';
-import StudentRoutes from './components/StudentRoutes'
 import Splash from "./components/Splash"
 import { authenticate } from "./services/auth";
 import { loadUser } from './store/actions/authActions';

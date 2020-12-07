@@ -9,6 +9,7 @@ class Adult(User):
   __tablename__ = 'adults'
 
   id = db.Column(db.Integer, ForeignKey('users.id'), primary_key = True)
+  dob = db.Column(db.Date)
   is_student = db.Column(db.Boolean)
   is_parent = db.Column(db.Boolean)
   instructor_id = db.Column(db.Integer, ForeignKey("instructors.id"), nullable = False)
@@ -22,8 +23,10 @@ class Adult(User):
   def to_dict(self):
     user_dict = super().to_dict()
     user_dict.update({
+      "dob": self.dob,
       "is_student": self.is_student,
       "is_parent": self.is_parent,
       "instructor_id": self.instructor_id
     })
+
     return user_dict

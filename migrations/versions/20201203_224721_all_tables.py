@@ -19,9 +19,10 @@ depends_on = None
 def upgrade():
     op.create_table('adults',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('is_student', sa.Boolean, nullable=True),
-    sa.Column('is_parent', sa.Boolean, nullable=True),
-    sa.Column('instructor_id', sa.Integer, nullable=False),
+    sa.Column('dob', sa.Date(), nullable=True),
+    sa.Column('is_student', sa.Boolean(), nullable=True),
+    sa.Column('is_parent', sa.Boolean(), nullable=True),
+    sa.Column('instructor_id', sa.Integer(), nullable=False),
     sa.PrimaryKeyConstraint('id'),
     sa.ForeignKeyConstraint(['instructor_id'], ['instructors.id'], ),
     sa.ForeignKeyConstraint(['id'], ['users.id'], ),

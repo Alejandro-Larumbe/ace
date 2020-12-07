@@ -8,6 +8,7 @@ import Students from './students/Students'
 const InstructorApp = ({ authenticated, setAuthenticated }) => {
   const user = useSelector((state) => state.user)
 
+
   if (!authenticated) {
     return <Redirect to="/"/>
   }

@@ -1,12 +1,14 @@
-import { LOAD_STUDENT_INSTRUCTOR } from '../reducers/instructorReducer'
+import { LOAD_STUDENTS } from '../reducers/studentsReducers';
 
-export const getInstructor = (id) => async(dispatch) => {
+
+export const getStudents = (id) => async(dispatch) => {
   try {
-    const res = await fetch(`/api/users/${id}`)
+    const res = await fetch(`/api/instructors/${id}/students`)
     if (res.ok) {
-      const instructor = await res.json();
-      dispatch({ type: LOAD_STUDENT_INSTRUCTOR, instructor})
-      return instructor
+      const students = await res.json();
+      console.log('students', students)
+      dispatch({ type: LOAD_STUDENTS, students})
+      return students
     }
   } catch (e) {
     console.log(e)

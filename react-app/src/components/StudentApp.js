@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { BrowserRouter, Redirect } from 'react-router-dom'
-import { getInstructor } from '../store/actions/studentsActions'
+import { getInstructor } from '../store/actions/instructorActions'
 import Navbar from './NavBar';
 
 const StudentApp = ({ setAuthenticated, authenticated }) => {

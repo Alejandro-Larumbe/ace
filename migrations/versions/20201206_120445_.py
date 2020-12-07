@@ -8,6 +8,8 @@ Create Date: 2020-12-06 12:04:45.653118
 from alembic import op
 import sqlalchemy as sa
 from sqlalchemy.sql import table
+from faker import Faker
+faker = Faker()
 
 
 # revision identifiers, used by Alembic.
@@ -16,16 +18,12 @@ down_revision = '93de23161718'
 branch_labels = None
 depends_on = None
 
-adults_seed = [{
-    'id': 2,
-    'is_student': True,
-    'is_parent': False,
-    'instructor_id': 1
-}]
+adults_seed = []
 
-for i in range(3,22):
+for i in range(2,22):
     adults_seed.append({
         'id': i,
+        'dob': faker.date_of_birth(minimum_age=4, maximum_age=15),
         'is_student': True,
         'is_parent': False,
         'instructor_id': 1
@@ -48,6 +46,7 @@ def upgrade():
 
     adults = table('adults',
         sa.Column('id', sa.Integer()),
+        sa.Column('dob', sa.Date()),
         sa.Column('is_student', sa.Boolean()),
         sa.Column('is_parent', sa.Boolean()),
         sa.Column('instructor_id', sa.Integer()),

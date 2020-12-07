@@ -24,7 +24,7 @@ import MailIcon from '@material-ui/icons/Mail';
 import FaceIcon from '@material-ui/icons/Face';
 import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import MusicNoteIcon from '@material-ui/icons/MusicNote';
-import AlbumIcon from '@material-ui/icons/Album';import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
+import AlbumIcon from '@material-ui/icons/Album'; import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
 import Link from '@material-ui/core/Link';
 
@@ -83,9 +83,6 @@ const NavBar = ({ setAuthenticated, profilePicUrl, studioName, studioLogo, type 
     setAuthenticated(false);
   };
 
-  const onLink = (e) => {
-    console.log(e.target.className)
-  }
 
   return (
     <div className={classes.root}>
@@ -148,34 +145,44 @@ const NavBar = ({ setAuthenticated, profilePicUrl, studioName, studioLogo, type 
           </div>
           {type === 'instructors'
             ?
-            <Link href={`instructors/students`}>
+            <NavLink to={`/students`}>
               <List >
                 <ListItemIcon><FaceIcon /></ListItemIcon>
                 <ListItemText>Students</ListItemText>
               </List>
-            </Link>
+            </NavLink>
             : null
           }
-          <List className={'calendar'} onClick={onLink}>
-            <ListItemIcon><CalendarTodayIcon /></ListItemIcon>
-            <ListItemText>Calendar</ListItemText>
-          </List>
-          <List>
-            <ListItemIcon><MusicNoteIcon /></ListItemIcon>
-            <ListItemText>Lessons</ListItemText>
-          </List>
-          <List>
-            <ListItemIcon><MenuBookIcon /></ListItemIcon>
-            <ListItemText>Repertoire</ListItemText>
-          </List>
-          <List>
-            <ListItemIcon><AlbumIcon /></ListItemIcon>
-            <ListItemText>Resources</ListItemText>
-          </List>
-          <List>
-            <ListItemIcon><AttachMoneyIcon /></ListItemIcon>
-            <ListItemText>Billing</ListItemText>
-          </List>
+          <NavLink to={`/schedule`}>
+            <List >
+              <ListItemIcon><CalendarTodayIcon /></ListItemIcon>
+              <ListItemText>Schedule</ListItemText>
+            </List>
+          </NavLink>
+          <NavLink to={`/lessons`}>
+            <List>
+              <ListItemIcon><MusicNoteIcon /></ListItemIcon>
+              <ListItemText>Lessons</ListItemText>
+            </List>
+          </NavLink>
+          <NavLink to={`/repertoire`}>
+            <List>
+              <ListItemIcon><MenuBookIcon /></ListItemIcon>
+              <ListItemText>Repertoire</ListItemText>
+            </List>
+          </NavLink>
+          <NavLink to={`/resources`}>
+            <List>
+              <ListItemIcon><AlbumIcon /></ListItemIcon>
+              <ListItemText>Resources</ListItemText>
+            </List>
+          </NavLink>
+          <NavLink to={`/billing`}>
+            <List>
+              <ListItemIcon><AttachMoneyIcon /></ListItemIcon>
+              <ListItemText>Billing</ListItemText>
+            </List>
+          </NavLink>
         </div>
 
 
