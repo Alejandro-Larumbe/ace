@@ -8,7 +8,7 @@ export const getStudents = (id) => async(dispatch) => {
       const students = await res.json();
       console.log('students', students)
       dispatch({ type: LOAD_STUDENTS, students})
-      return students
+      return students.students
     }
   } catch (e) {
     console.log(e)
