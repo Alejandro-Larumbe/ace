@@ -5,6 +5,7 @@ import Navbar from './NavBar';
 import Students from './students/Students';
 import User from './user/User.js';
 import UserEdit from './user/UserEdit';
+import LessonCreate from '../components/lessons/LessonCreate'
 
 const InstructorApp = ({ authenticated, setAuthenticated }) => {
   const user = useSelector((state) => state.user)
@@ -18,13 +19,14 @@ const InstructorApp = ({ authenticated, setAuthenticated }) => {
   }
 
   return (
-    <BrowserRouter basename="/instructors">
+    <BrowserRouter basename={'/instructors/:id'}>
       <Navbar
         setAuthenticated={setAuthenticated}
         studioName={user.studioName}
         studioLogo={user.studioLogoUrl}
         profilePicUrl={user.profilePicUrl}
         type={user.type}
+        id={user.id}
       />
       <Switch>
         <Route path="/students/:id/edit">
@@ -35,6 +37,12 @@ const InstructorApp = ({ authenticated, setAuthenticated }) => {
         </Route>
         <Route path="/students" >
           <Students />
+        </Route>
+        <Route path="/edit-profile" >
+          <UserEdit />
+        </Route>
+        <Route path="/lesson-create/" >
+          <LessonCreate/>
         </Route>
       </Switch>
     </BrowserRouter>

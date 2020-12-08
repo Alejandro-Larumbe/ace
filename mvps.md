@@ -2,6 +2,14 @@
 
 Ace is a app built to help private music instructors manage their studio.
 
+### Tecnologies
+
+* React / Redux
+* Flask
+* SQLAlchemy
+* Material-UI
+
+
 ### Goals
 
 * Dual login (instructor and students)

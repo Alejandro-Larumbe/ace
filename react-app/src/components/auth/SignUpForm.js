@@ -1,5 +1,5 @@
 import React, { useState } from "react";
-import { Redirect, useParams } from 'react-router-dom';
+import { Redirect, useHistory, useParams } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { signUp } from '../../store/actions/authActions';
 import Button from '@material-ui/core/Button';
@@ -20,6 +20,7 @@ const SignUpForm = ({ authenticated, setAuthenticated, open, onClose }) => {
   let { type } = useParams()
   if (type === 'students') type = 'adults'
   const instructorId = 1
+  let history = useHistory();
 
 
   const onSignUp = async (e) => {
@@ -37,6 +38,7 @@ const SignUpForm = ({ authenticated, setAuthenticated, open, onClose }) => {
 
       if (!user.errors) {
         setAuthenticated(true);
+        history.push(`/${type}/${user.id}`)
       } else {
         setErrors(user.errors);
       }

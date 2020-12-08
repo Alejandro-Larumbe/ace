@@ -44,6 +44,9 @@ const UserCard = ({ student, getStudent }) => {
 
   if (!student) return null;
 
+  const onEdit = () => {
+    history.push(`/students/${student.id}/edit`)
+  }
 
   return (
     <>
@@ -72,7 +75,7 @@ const UserCard = ({ student, getStudent }) => {
             </ListItem>
           </List>
           <Fab className={classes.fab} color="secondary" aria-label="edit">
-            <EditIcon onClick={() => history.push(`/students/${student.id}/edit`)} />
+            <EditIcon onClick={onEdit} />
           </Fab>
         </Paper>
       </div>

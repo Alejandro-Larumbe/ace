@@ -63,13 +63,13 @@ function App() {
           />
         </Route>
       </Switch>
-      <Route path="/instructors" >
+      <Route path="/instructors/" >
         <InstructorApp
           authenticated={authenticated}
           setAuthenticated={setAuthenticated}
         />
       </Route>
-      <Route path="/students" >
+      <Route path="/students/" >
         <StudentApp
           authenticated={authenticated}
           setAuthenticated={setAuthenticated}

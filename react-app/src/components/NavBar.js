@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { NavLink } from 'react-router-dom';
+import { NavLink, useHistory } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { logout } from "../services/auth";
 
@@ -63,13 +63,12 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const NavBar = ({ setAuthenticated, profilePicUrl, studioName, studioLogo, type }) => {
+const NavBar = ({ setAuthenticated, profilePicUrl, studioName, studioLogo, type, id }) => {
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
+  const history = useHistory();
   const open = Boolean(anchorEl);
-  console.log(type, 'type')
   const route = type === "instuctors" ? "instructors" : "students"
-  console.log('type', type)
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -78,10 +77,16 @@ const NavBar = ({ setAuthenticated, profilePicUrl, studioName, studioLogo, type 
     setAnchorEl(null);
   };
 
+  const onEditProfile = () => {
+    history.push(`/${id}/edit-profile`)
+    setAnchorEl(null);
+  };
+
   const onLogout = async (e) => {
     await logout();
     setAuthenticated(false);
   };
+
 
 
   return (
@@ -124,7 +129,7 @@ const NavBar = ({ setAuthenticated, profilePicUrl, studioName, studioLogo, type 
                 open={open}
                 onClose={handleClose}
               >
-                <MenuItem onClick={handleClose}>Profile</MenuItem>
+                <MenuItem onClick={onEditProfile}>Profile</MenuItem>
                 <MenuItem onClick={onLogout}>log out</MenuItem>
               </Menu>
             </div>

@@ -209,7 +209,6 @@ function StudentsTable({ studentsById, getStudentsById }) {
 
   let students = Object.values(studentsById)
 
-  console.log('students', students)
 
   function createData(id, firstName, lastName, email, dob) {
     return { id, firstName, lastName, email, dob };

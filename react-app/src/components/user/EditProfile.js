@@ -41,31 +41,27 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const UserCard = ({ student, loadStudent }) => {
-  const [email, setEmail] = useState(student.email);
-  const [firstName, setFirstName] = useState(student.first_name);
-  const [lastName, setLastName] = useState(student.last_name);
-  const [address, setAddress] = useState(student.address);
-  const [phoneNumber, setPhoneNumber] = useState(student.phone_number);
-  const [dob, setDob] = useState(student.dob);
+const UserCard = ({ user }) => {
+  const [email, setEmail] = useState('');
+  const [firstName, setFirstName] = useState('');
+  const [lastName, setLastName] = useState('');
+  const [address, setAddress] = useState('');
+  const [phoneNumber, setPhoneNumber] = useState('');
   const classes = useStyles();
   const history = useHistory();
   const dispatch = useDispatch();
 
   useEffect(() => {
-    setEmail(student.email)
-    setFirstName(student.first_name)
-    setLastName(student.last_name)
-    setAddress(student.address)
-    setPhoneNumber(student.phone_number)
-    setDob(student.dob)
-  }, [student])
+    setEmail(user.email)
+    setFirstName(user.first_name)
+    setLastName(user.last_name)
+    setAddress(user.address)
+    setPhoneNumber(user.phone_number)
+  })
 
+  if (!user) return null;
 
-
-  if (!student) return null;
-
-  const onSignUp = async (e, email, firstName, lastName, address, phoneNumber, dob) => {
+  const onSignUp = async (e) => {
     e.preventDefault();
 
   }
@@ -81,8 +77,6 @@ const UserCard = ({ student, loadStudent }) => {
     // history.goBack();
   }
 
-  console.log('student', student)
-
   return (
     <>
       <form onSubmit={onSignUp}>
@@ -96,7 +90,7 @@ const UserCard = ({ student, loadStudent }) => {
                   label="first name"
                   name="firstName"
                   onChange={updateField(setFirstName)}
-                  defaultValue={firstName}
+                  defaultValue={user.first_name}
                   value={firstName}
                   required={true}
                   fullWidth
@@ -105,7 +99,6 @@ const UserCard = ({ student, loadStudent }) => {
               <Divider />
               <ListItem button>
                 <TextField
-                  variant="outlined"
                   margin="dense"
                   type="text"
                   label="last name"
@@ -118,20 +111,6 @@ const UserCard = ({ student, loadStudent }) => {
                 />
               </ListItem>
               <Divider light />
-              <ListItem button>
-                <TextField
-                  margin="dense"
-                  type="text"
-                  label="dob"
-                  name="dob"
-                  onChange={updateField(setDob)}
-                  defaultValue={dob}
-                  value={dob}
-                  required={true}
-                  fullWidth
-                />
-              </ListItem>
-              <Divider />
               <ListItem button>
                 <TextField
                   margin="dense"
@@ -189,24 +168,16 @@ const UserCard = ({ student, loadStudent }) => {
 }
 
 
-const UserEditContainer = (props) => {
-  const student = useSelector(state => state.student)
-  const { id } = useParams()
-  const dispatch = useDispatch()
-
-
-  useEffect(() => {
-    dispatch(loadStudent(id));
-  }, []);
-
-  if (!student) return null
+const EditProfileContainer = (props) => {
+  const user = useSelector(state => state.user)
 
 
   return (
     <UserCard
-      student={student}
+      user={user}
+    // getuser={() => dispatch(loadStudent(id))}
     />
   )
 }
 
-export default UserEditContainer
+export default EditProfileContainer

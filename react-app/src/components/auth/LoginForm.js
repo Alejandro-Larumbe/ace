@@ -1,6 +1,6 @@
 import React, { useState } from "react";
 import { useDispatch } from 'react-redux';
-import { Redirect, useParams } from "react-router-dom";
+import { Redirect, useParams, useHistory } from "react-router-dom";
 import { login } from "../../store/actions/authActions";
 
 const LoginForm = ({ authenticated, setAuthenticated }) => {
@@ -9,7 +9,9 @@ const LoginForm = ({ authenticated, setAuthenticated }) => {
   const [password, setPassword] = useState("");
   const dispatch = useDispatch();
   let { type } = useParams()
+  let history = useHistory();
   if (type === 'students') type = 'adults'
+
 
   const onLogin = async (e) => {
     e.preventDefault();
@@ -18,6 +20,7 @@ const LoginForm = ({ authenticated, setAuthenticated }) => {
 
     if (!user.errors) {
       setAuthenticated(true);
+      history.push(`/${type}/${user.id}`)
     } else {
       setErrors(user.errors);
     }
