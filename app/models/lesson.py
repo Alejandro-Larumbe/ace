@@ -10,7 +10,6 @@ class Lesson(db.Model):
   id = Column(Integer, primary_key=True)
   start_time = Column(db.DateTime, nullable=False)
   end_time = Column(db.DateTime, nullable=False,)
-  rate = Column(Numeric(6,2), nullable=False)
   student_id = Column(Integer, ForeignKey(Adult.id), nullable=False)
   instructor_id = Column(Integer, ForeignKey(Instructor.id), nullable=False)
 
@@ -19,7 +18,6 @@ class Lesson(db.Model):
       "id": self.id,
       "start_time": str(self.start_time),
       "end_time": str(self.end_time),
-      "rate": self.rate,
       "student_id": self.student_id,
       "instructor_id": self.instructor_id
     }

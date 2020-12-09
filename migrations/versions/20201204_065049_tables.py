@@ -46,7 +46,6 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('start_time', sa.DateTime(), nullable=False),
     sa.Column('end_time', sa.DateTime(), nullable=False),
-    sa.Column('rate', sa.Numeric(precision=6, scale=2), nullable=False),
     sa.Column('student_id', sa.Integer(), nullable=False),
     sa.Column('instructor_id', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['instructor_id'], ['instructors.id'], ),

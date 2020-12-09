@@ -46,9 +46,8 @@ const useStyles = makeStyles((theme) => ({
 
 const LessonCreate = () => {
   const [errors, setErrors] = useState([]);
-  const [rate, setRate] = useState(60);
-  const [startTime, setStartTime] = useState(new Date());
-  const [endTime, setEndTime] = useState(new Date());
+  const [startTime, setStartTime] = useState(format(new Date(), 'yyyy-MM-dd HH:mm:ss'));
+  const [endTime, setEndTime] = useState(format(new Date(), 'yyyy-MM-dd HH:mm:ss'));
   const [students, setStudents] = useState([]);
   const [studentId, setStudentId] = useState('');
   const [open, setOpen] = React.useState(false);
@@ -100,8 +99,7 @@ const LessonCreate = () => {
     let lesson = new FormData();
       lesson.append('start_time', startTime);
       lesson.append('end_time', endTime);
-      lesson.append('student_id', studentId);
-      lesson.append('rate', rate);
+      lesson.append('student_id', parseInt(studentId));
     // lesson = ''
     console.log(startTime)
 

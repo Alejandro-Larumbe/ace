@@ -9,7 +9,7 @@ export const createLesson = (lesson, id) => async()  => {
     // body: JSON.stringify(lesson)
     body:lesson,
   });
-  const data = await response.json()
-  console.log('data', data)
+  // const data = await response.json()
+  // console.log('data', data)
   return await response.json();
 }
