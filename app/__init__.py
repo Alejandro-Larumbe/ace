@@ -10,8 +10,7 @@ from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
 from .api.instructor_routes import instructor_routes
 from .api.student_routes import student_routes
-from .api.lesson_routes import lessons
-lessons
+from .api.lesson_routes import lesson_routes
 from .seeds import seed_commands
 
 from .config import Config

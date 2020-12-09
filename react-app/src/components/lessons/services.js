@@ -1,4 +1,4 @@
-const fetchNames = async (id) => {
+export const fetchNames = async (id) => {
   const response = await fetch(`/api/students/all_names/${id}`, {
     headers: {
       "Content-Type": "application/json",
@@ -6,5 +6,7 @@ const fetchNames = async (id) => {
   });
   return await response.json();
 };
+
+
 
 export default fetchNames;

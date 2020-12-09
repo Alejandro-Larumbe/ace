@@ -8,8 +8,8 @@ class Lesson(db.Model):
   __tablename__ = 'lessons'
 
   id = Column(Integer, primary_key=True)
-  start_time = Column(DateTime, nullable=False)
-  end_time = Column(DateTime, nullable=False)
+  start_time = Column(db.DateTime, nullable=False)
+  end_time = Column(db.DateTime, nullable=False,)
   rate = Column(Numeric(6,2), nullable=False)
   student_id = Column(Integer, ForeignKey(Adult.id), nullable=False)
   instructor_id = Column(Integer, ForeignKey(Instructor.id), nullable=False)
@@ -17,8 +17,8 @@ class Lesson(db.Model):
   def to_dict(self):
     return {
       "id": self.id,
-      "datetime": self.datetime,
-      "duration": self.duration,
+      "start_time": str(self.start_time),
+      "end_time": str(self.end_time),
       "rate": self.rate,
       "student_id": self.student_id,
       "instructor_id": self.instructor_id

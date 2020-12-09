@@ -13,11 +13,14 @@ import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import { MuiPickersUtilsProvider, KeyboardTimePicker, KeyboardDatePicker } from '@material-ui/pickers';
 import removeTimeZone from '../../services/dateUtil'
-import fetchNames from './services'
+import { fetchNames } from './services'
 import { ListItemText } from '@material-ui/core';
 import InputLabel from '@material-ui/core/InputLabel';
 
-import createLesson from './actions'
+import { createLesson } from './actions'
+
+import {format} from 'date-fns';
+
 
 
 
@@ -42,13 +45,14 @@ const useStyles = makeStyles((theme) => ({
 
 
 const LessonCreate = () => {
-
+  const [errors, setErrors] = useState([]);
   const [rate, setRate] = useState(60);
-  const [startDate, setStartDate] = useState(new Date('2014-08-18T12:00:00'));
-  const [endDate, setEndDate] = useState(new Date('2014-08-18T12:00:00'));
+  const [startTime, setStartTime] = useState(new Date());
+  const [endTime, setEndTime] = useState(new Date());
   const [students, setStudents] = useState([]);
-  const [student, setStudent] = useState('');
+  const [studentId, setStudentId] = useState('');
   const [open, setOpen] = React.useState(false);
+  const dispatch = useDispatch();
 
   const history = useHistory();
   const { id } = useParams()
@@ -60,34 +64,54 @@ const LessonCreate = () => {
       const names = await fetchNames(id);
       await setStudents(names)
     })();
-  }, [])
+  }, [startTime, studentId, endTime])
 
 
   const handleChange = (event) => {
-    setStudent(event.target.value);
+    setStudentId(event.target.value);
   };
 
   const handleDateChange = (date) => {
-    setStartDate(date);
-    setEndDate(date);
+    date = format(date, 'yyyy-MM-dd HH:mm:ss')
+    console.log(date)
+    setStartTime(date);
+    setEndTime(date);
   };
 
   const handleStartTimeChange = (date) => {
-    setStartDate(date);
+    date = format(date, 'yyyy-MM-dd HH:mm:ss')
+    console.log(date)
+    setStartTime(date);
   }
 
   const handleEndTimeChange = (date) => {
-    setEndDate(date);
+    date = format(date, 'yyyy-MM-dd HH:mm:ss')
+    console.log(date)
+    setEndTime(date);
   }
 
   const onCreate = (e) => {
     e.preventDefault()
-    // console.log(endDate, startDate)
+    // console.log(endTime, startTime)
 
   }
-  const onSubmit = () => {
+  const onSubmit = async(e) => {
     e.preventDefault()
+    let lesson = new FormData();
+      lesson.append('start_time', startTime);
+      lesson.append('end_time', endTime);
+      lesson.append('student_id', studentId);
+      lesson.append('rate', rate);
+    // lesson = ''
+    console.log(startTime)
 
+      lesson = await dispatch(createLesson(lesson, parseInt(id)))
+      // lesson = await dispatch(createLesson(startTime, endTime, studentId, rate, parseInt(id)))
+    if (!lesson.errors) {
+      history.push(`/${id}/lessons`)
+    } else {
+      console.log(lesson.errors);
+    }
   }
 
 
@@ -109,12 +133,12 @@ const LessonCreate = () => {
                     open={open}
                     onClose={() => setOpen(false)}
                     onOpen={() => setOpen(true)}
-                    value={student}
+                    value={studentId}
                     onChange={handleChange}
                   >
                     {students.map(student => {
                       return (
-                        <MenuItem value={student.id}>{student.full_name}</MenuItem>
+                        <MenuItem key={student.id} value={student.id}>{student.full_name}</MenuItem>
                       )
                     })}
                   </Select>
@@ -123,11 +147,11 @@ const LessonCreate = () => {
                   <KeyboardDatePicker
                     disableToolbar
                     variant="inline"
-                    format="MM/dd/yyyy"
+                    // format="MM/dd/yyyy"
                     margin="normal"
                     id="date-picker-inline"
                     label="Select Date"
-                    value={startDate}
+                    value={startTime}
                     onChange={handleDateChange}
                     KeyboardButtonProps={{
                       'aria-label': 'change date',
@@ -136,8 +160,9 @@ const LessonCreate = () => {
                   <KeyboardTimePicker
                     margin="normal"
                     id="time-picker"
+                    // format="MM/dd/yyyy"
                     label="Select Start Time"
-                    value={startDate}
+                    value={startTime}
                     minutesStep={5}
                     onChange={handleStartTimeChange}
                     KeyboardButtonProps={{
@@ -147,8 +172,9 @@ const LessonCreate = () => {
                   <KeyboardTimePicker
                     margin="normal"
                     id="time-picker"
+                    // format="MM/dd/yyyy"
                     label="Select End Time"
-                    value={endDate}
+                    value={endTime}
                     minutesStep={5}
                     onChange={handleEndTimeChange}
                     KeyboardButtonProps={{
