@@ -10,7 +10,8 @@ from .api.user_routes import user_routes
 from .api.auth_routes import auth_routes
 from .api.instructor_routes import instructor_routes
 from .api.student_routes import student_routes
-
+from .api.lesson_routes import lessons
+lessons
 from .seeds import seed_commands
 
 from .config import Config
@@ -35,6 +36,7 @@ app.register_blueprint(user_routes, url_prefix='/api/users')
 app.register_blueprint(auth_routes, url_prefix='/api/auth')
 app.register_blueprint(instructor_routes, url_prefix='/api/instructors')
 app.register_blueprint(student_routes, url_prefix='/api/students')
+app.register_blueprint(lesson_routes, url_prefix='/api/lessons')
 db.init_app(app)
 Migrate(app, db)
 

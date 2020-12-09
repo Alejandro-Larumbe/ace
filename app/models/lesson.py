@@ -8,8 +8,8 @@ class Lesson(db.Model):
   __tablename__ = 'lessons'
 
   id = Column(Integer, primary_key=True)
-  datetime = Column(DateTime, nullable=False)
-  duration = Column(Integer, nullable=False)
+  start_time = Column(DateTime, nullable=False)
+  end_time = Column(DateTime, nullable=False)
   rate = Column(Numeric(6,2), nullable=False)
   student_id = Column(Integer, ForeignKey(Adult.id), nullable=False)
   instructor_id = Column(Integer, ForeignKey(Instructor.id), nullable=False)

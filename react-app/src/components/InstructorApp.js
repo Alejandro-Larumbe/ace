@@ -19,7 +19,7 @@ const InstructorApp = ({ authenticated, setAuthenticated }) => {
   }
 
   return (
-    <BrowserRouter basename={'/instructors/:id'}>
+    <BrowserRouter basename={'/instructors/'}>
       <Navbar
         setAuthenticated={setAuthenticated}
         studioName={user.studioName}
@@ -41,7 +41,7 @@ const InstructorApp = ({ authenticated, setAuthenticated }) => {
         <Route path="/edit-profile" >
           <UserEdit />
         </Route>
-        <Route path="/lesson-create/" >
+        <Route path="/:id/lesson-create/" >
           <LessonCreate/>
         </Route>
       </Switch>

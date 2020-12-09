@@ -20,7 +20,7 @@ def user(id):
     return user.to_dict()
 
 
-@user_routes.route('/<int:id>', methods=['PUt'])
+@user_routes.route('/<int:id>', methods=['PUT'])
 def user_update(id):
     form = UserUpdateForm()
     # form['csrf_token'].data = request.cookies['csrf_token']

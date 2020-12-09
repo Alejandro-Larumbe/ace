@@ -12,7 +12,6 @@ import Menu from '@material-ui/core/Menu';
 import Grid from '@material-ui/core/Grid';
 
 import Drawer from '@material-ui/core/Drawer';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
 import Divider from '@material-ui/core/Divider';
@@ -164,7 +163,7 @@ const NavBar = ({ setAuthenticated, profilePicUrl, studioName, studioLogo, type,
               <ListItemText>Schedule</ListItemText>
             </List>
           </NavLink>
-          <NavLink to={`/lessons`}>
+          <NavLink to={`/${id}/lesson-create`}>
             <List>
               <ListItemIcon><MusicNoteIcon /></ListItemIcon>
               <ListItemText>Lessons</ListItemText>
