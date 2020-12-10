@@ -4,6 +4,7 @@ from app.forms import LessonForm
 from app.models import Lesson, db
 from flask import request
 from datetime import datetime
+from .utils import get_month
 
 
 lesson_routes = Blueprint('lesson_routes', __name__)
@@ -45,6 +46,8 @@ def validation_errors_to_error_messages(validation_errors):
 def create_lesson(id):
   form = LessonForm()
   form['csrf_token'].data = request.cookies['csrf_token']
+  # print('form data---------------', form.data['start_time'])
+  # print('Type: ',type(form.data['start_time']))
   if form.validate_on_submit():
     lesson = Lesson(
       start_time = form.data['start_time'],
@@ -52,9 +55,6 @@ def create_lesson(id):
       student_id = int(form.data['student_id']),
       instructor_id = id
     )
-    print('starttime--------------------', form.data['start_time'])
-    print('endtime--------------------', form.data['end_time'])
-    print(form.data['start_time'] == form.data['end_time'])
     db.session.add(lesson)
     db.session.commit()
     return jsonify(lesson.to_dict())
@@ -64,3 +64,22 @@ def create_lesson(id):
 def lessons(id):
   lessons = Lesson.query.filter(Lesson.instructor_id == id)
   return jsonify([lesson.to_dict] for lesson in lessons)
+
+@lesson_routes.route('/<int:id>/schedule')
+def get_schedule(id):
+  request_month = get_month(request.get_json()['date'])
+  lessons = Lesson.query.filter(Lesson.instructor_id == id).all()
+  month = [lesson.to_dict() for lesson in lessons if lesson.start_time.month == request_month]
+  return jsonify(month)
+
+
+
+
+  # lessons = Lesson.query.filter(Lesson.id == 344).one()
+  # lessons = Lesson.query.filter(Lesson.instructor_id == id).all()
+  # result = [lesson.to_dict() for lesson in lessons if get_month(lesson.start_time) == request_month]
+  # print([lesson.to_dict() for lesson in lessons])
+  # print('month-------', lessons.start_time.month)
+  # print(result)
+  # return jsonify(result)
+  # return 'hi'

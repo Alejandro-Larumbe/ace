@@ -99,6 +99,10 @@ const LessonCreate = () => {
     if (startTime > endTime) {
       setErrors(['end time must be after starting time'])
       // return errors;
+    } else if (startTime < format(new Date(), 'yyyy-MM-dd HH:mm:ss')) {
+      setErrors(['start time has passed'])
+    } else if(startTime === endTime){
+      setErrors(['start time must be different to end time'])
     } else {
       let lesson = new FormData();
       lesson.append('start_time', startTime);
@@ -112,7 +116,8 @@ const LessonCreate = () => {
       if (!lesson.errors) {
         history.push(`/${id}/lessons`)
       } else {
-        console.log(lesson.errors);
+        console.log(lesson.errors)
+        setErrors([lesson.errors])
       }
     }
   }

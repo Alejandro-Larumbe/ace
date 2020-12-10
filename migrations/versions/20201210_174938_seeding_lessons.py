@@ -22,15 +22,17 @@ date2 = datetime.datetime(2020, 12, 11, 16, 00, 00)
 date3 = datetime.datetime(2020, 12, 11, 17, 00, 00)
 date4 = datetime.datetime(2020, 12, 11, 18, 00, 00)
 
+def week_delta(wk):
+return datetime.timedelta(weeks=wk)
+
+def day_delta(d):
+return datetime.timedelta(days=d + 1)
+
+one_hour = datetime.timedelta(hours=1)
+
 def date_iterator(date, student_id):
   result = []
-  def week_delta(wk):
-    return datetime.timedelta(weeks=wk)
 
-  def day_delta(d):
-    return datetime.timedelta(days=d + 1)
-
-  one_hour = datetime.timedelta(hours=1)
   for x in range(20):
     result.append(
       {
@@ -49,9 +51,7 @@ def date_iterator(date, student_id):
             "instructor_id": 1
           }
         )
-
   return result
-
 
 
 def upgrade():
