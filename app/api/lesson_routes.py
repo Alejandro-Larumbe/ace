@@ -52,11 +52,12 @@ def create_lesson(id):
       student_id = int(form.data['student_id']),
       instructor_id = id
     )
-    print('lesson------------------', lesson.to_dict())
+    print('starttime--------------------', form.data['start_time'])
+    print('endtime--------------------', form.data['end_time'])
+    print(form.data['start_time'] == form.data['end_time'])
     db.session.add(lesson)
     db.session.commit()
     return jsonify(lesson.to_dict())
-  print('formdata--------------------', form.data)
   return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 @lesson_routes.route('/instructor/<int:id>')

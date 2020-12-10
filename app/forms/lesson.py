@@ -3,8 +3,11 @@ from wtforms import StringField, DateTimeField, IntegerField, SelectField
 from wtforms.validators import DataRequired, Email, ValidationError
 
 
-def date_is_available():
-  pass
+# def ends_before_it_starts(form, field):
+#   print(-----------)
+#   pass
+
+# def ends_after
 
 
 class LessonForm(FlaskForm):

@@ -19,7 +19,7 @@ import InputLabel from '@material-ui/core/InputLabel';
 
 import { createLesson } from './actions'
 
-import {format} from 'date-fns';
+import { format } from 'date-fns';
 
 
 
@@ -29,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     margin: 'auto',
     marginTop: 100,
-    maxWidth: 500,
+    maxWidth: 700,
   },
   dateContainer: {
     display: 'flex',
@@ -94,108 +94,118 @@ const LessonCreate = () => {
     // console.log(endTime, startTime)
 
   }
-  const onSubmit = async(e) => {
+  const onSubmit = async (e) => {
     e.preventDefault()
-    let lesson = new FormData();
+    if (startTime > endTime) {
+      setErrors(['end time must be after starting time'])
+      // return errors;
+    } else {
+      let lesson = new FormData();
       lesson.append('start_time', startTime);
       lesson.append('end_time', endTime);
       lesson.append('student_id', parseInt(studentId));
-    // lesson = ''
-    console.log(startTime)
+      // lesson = ''
+      console.log(startTime)
 
       lesson = await dispatch(createLesson(lesson, parseInt(id)))
       // lesson = await dispatch(createLesson(startTime, endTime, studentId, rate, parseInt(id)))
-    if (!lesson.errors) {
-      history.push(`/${id}/lessons`)
-    } else {
-      console.log(lesson.errors);
+      if (!lesson.errors) {
+        history.push(`/${id}/lessons`)
+      } else {
+        console.log(lesson.errors);
+      }
     }
   }
 
 
-  return (
-    <>
-      <h1 className={classes.root} >lesson create</h1>
-      <form onSubmit={onCreate}>
-        <div className={classes.root}>
-          <Paper variant="outlined" >
-            <List component="nav" className={classes.list} aria-label="mailbox folders">
-              <div className={classes.container}>
-                <ListItem button>
-                  <InputLabel style={{width: '75%'}} id="select-student">Select Student:</InputLabel>
-                  <Select
-                    labelId="select-student"
-                    label="Select Student"
-                    fullWidth
-                    id="select-student"
-                    open={open}
-                    onClose={() => setOpen(false)}
-                    onOpen={() => setOpen(true)}
-                    value={studentId}
-                    onChange={handleChange}
-                  >
-                    {students.map(student => {
-                      return (
-                        <MenuItem key={student.id} value={student.id}>{student.full_name}</MenuItem>
-                      )
-                    })}
-                  </Select>
-                </ListItem>
-                <ListItem button>
-                  <KeyboardDatePicker
-                    disableToolbar
-                    variant="inline"
-                    // format="MM/dd/yyyy"
-                    margin="normal"
-                    id="date-picker-inline"
-                    label="Select Date"
-                    value={startTime}
-                    onChange={handleDateChange}
-                    KeyboardButtonProps={{
-                      'aria-label': 'change date',
-                    }}
-                  />
-                  <KeyboardTimePicker
-                    margin="normal"
-                    id="time-picker"
-                    // format="MM/dd/yyyy"
-                    label="Select Start Time"
-                    value={startTime}
-                    minutesStep={5}
-                    onChange={handleStartTimeChange}
-                    KeyboardButtonProps={{
-                      'aria-label': 'change time',
-                    }}
-                  />
-                  <KeyboardTimePicker
-                    margin="normal"
-                    id="time-picker"
-                    // format="MM/dd/yyyy"
-                    label="Select End Time"
-                    value={endTime}
-                    minutesStep={5}
-                    onChange={handleEndTimeChange}
-                    KeyboardButtonProps={{
-                      'aria-label': 'change time',
-                    }}
-                  />
-                </ListItem>
-                <ListItem button>
-                </ListItem>
-              </div>
-              <Divider light />
-              <Button onClick={() => history.goBack()} color="primary">
-                Cancel
+    return (
+      <>
+        <h1 className={classes.root} >lesson create</h1>
+        <form onSubmit={onCreate}>
+          <div className={classes.root}>
+            <div className={errors}>
+              {errors && errors.map(error => {
+                return <p>{error}</p>
+              })}
+            </div>
+            <Paper variant="outlined" >
+              <List component="nav" className={classes.list} aria-label="mailbox folders">
+                <div className={classes.container}>
+                  <ListItem button>
+                    <InputLabel style={{ width: '75%' }} id="select-student">Select Student:</InputLabel>
+                    <Select
+                      labelId="select-student"
+                      label="Select Student"
+                      fullWidth
+                      id="select-student"
+                      open={open}
+                      onClose={() => setOpen(false)}
+                      onOpen={() => setOpen(true)}
+                      value={studentId}
+                      onChange={handleChange}
+                    >
+                      {students.map(student => {
+                        return (
+                          <MenuItem key={student.id} value={student.id}>{student.full_name}</MenuItem>
+                        )
+                      })}
+                    </Select>
+                  </ListItem>
+                  <ListItem button>
+                    <KeyboardDatePicker
+                      disableToolbar
+                      variant="inline"
+                      // format="MM/dd/yyyy"
+                      margin="normal"
+                      id="date-picker-inline"
+                      label="Select Date"
+                      value={startTime}
+                      onChange={handleDateChange}
+                      KeyboardButtonProps={{
+                        'aria-label': 'change date',
+                      }}
+                    />
+                    <KeyboardTimePicker
+                      margin="normal"
+                      id="time-picker"
+                      // format="MM/dd/yyyy"
+                      label="Select Start Time"
+                      value={startTime}
+                      minutesStep={5}
+                      onChange={handleStartTimeChange}
+                      KeyboardButtonProps={{
+                        'aria-label': 'change time',
+                      }}
+                    />
+                    <KeyboardTimePicker
+                      margin="normal"
+                      id="time-picker"
+                      // format="MM/dd/yyyy"
+                      label="Select End Time"
+                      value={endTime}
+                      minutesStep={5}
+                      onChange={handleEndTimeChange}
+                      KeyboardButtonProps={{
+                        'aria-label': 'change time',
+                      }}
+                    />
+                  </ListItem>
+                  <ListItem button>
+                  </ListItem>
+                </div>
+                <Divider light />
+                <Button onClick={() => history.goBack()} color="primary">
+                  Cancel
               </Button>
-              <Button type="submit" onClick={onSubmit} color="primary">
-                Create Lesson
+                <Button type="submit" onClick={onSubmit} color="primary">
+                  Create Lesson
               </Button>
-            </List>
-          </Paper>
-        </div>
-      </form>
-    </>
-  );
-}
+              </List>
+            </Paper>
+          </div>
+        </form>
+      </>
+    );
+  }
 
-export default LessonCreate;
+  export default LessonCreate;
