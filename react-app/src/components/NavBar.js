@@ -149,7 +149,7 @@ const NavBar = ({ setAuthenticated, profilePicUrl, studioName, studioLogo, type,
           </div>
           {type === 'instructors'
             ?
-            <NavLink to={`/students`}>
+            <NavLink to={`/${id}/students`}>
               <List >
                 <ListItemIcon><FaceIcon /></ListItemIcon>
                 <ListItemText>Students</ListItemText>
@@ -157,7 +157,7 @@ const NavBar = ({ setAuthenticated, profilePicUrl, studioName, studioLogo, type,
             </NavLink>
             : null
           }
-          <NavLink to={`/schedule`}>
+          <NavLink to={`/${id}/schedule`}>
             <List >
               <ListItemIcon><CalendarTodayIcon /></ListItemIcon>
               <ListItemText>Schedule</ListItemText>
@@ -169,19 +169,19 @@ const NavBar = ({ setAuthenticated, profilePicUrl, studioName, studioLogo, type,
               <ListItemText>Lessons</ListItemText>
             </List>
           </NavLink>
-          <NavLink to={`/repertoire`}>
+          <NavLink to={`/${id}/repertoire`}>
             <List>
               <ListItemIcon><MenuBookIcon /></ListItemIcon>
               <ListItemText>Repertoire</ListItemText>
             </List>
           </NavLink>
-          <NavLink to={`/resources`}>
+          <NavLink to={`/${id}/resources`}>
             <List>
               <ListItemIcon><AlbumIcon /></ListItemIcon>
               <ListItemText>Resources</ListItemText>
             </List>
           </NavLink>
-          <NavLink to={`/billing`}>
+          <NavLink to={`/${id}/billing`}>
             <List>
               <ListItemIcon><AttachMoneyIcon /></ListItemIcon>
               <ListItemText>Billing</ListItemText>

@@ -6,6 +6,7 @@ import Students from './students/Students';
 import User from './user/User.js';
 import UserEdit from './user/UserEdit';
 import LessonCreate from '../components/lessons/LessonCreate'
+import Schedule from '../components/schedule/Schedule';
 
 const InstructorApp = ({ authenticated, setAuthenticated }) => {
   const user = useSelector((state) => state.user)
@@ -29,20 +30,23 @@ const InstructorApp = ({ authenticated, setAuthenticated }) => {
         id={user.id}
       />
       <Switch>
-        <Route path="/students/:id/edit">
+        <Route path="/:instructorId/students/:id/edit">
           <UserEdit />
         </Route>
-        <Route path="/students/:id">
+        <Route path="/:instructorId/students/:id">
           <User />
         </Route>
-        <Route path="/students" >
+        <Route path="/:instructorId/students" >
           <Students />
         </Route>
         <Route path="/edit-profile" >
           <UserEdit />
         </Route>
         <Route path="/:id/lesson-create/" >
-          <LessonCreate/>
+          <LessonCreate />
+        </Route>
+        <Route>
+          <Schedule />
         </Route>
       </Switch>
     </BrowserRouter>

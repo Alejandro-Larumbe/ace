@@ -7,5 +7,11 @@ def get_month(str):
   date = datetime.strptime(str, "%Y-%m-%d %H:%M:%S")
   return date.month
 
+def get_year(str):
+  date = datetime.strptime(str, "%Y-%m-%d %H:%M:%S")
+  return date.year
+
+
+
 # def month(mydate):
 #   return date.month

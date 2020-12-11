@@ -1,10 +1,10 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
 from flask_login import login_required
+from sqlalchemy import extract
 from app.forms import LessonForm
 from app.models import Lesson, db
-from flask import request
 from datetime import datetime
-from .utils import get_month
+from .utils import get_month, get_year
 
 
 lesson_routes = Blueprint('lesson_routes', __name__)
@@ -68,18 +68,23 @@ def lessons(id):
 @lesson_routes.route('/<int:id>/schedule')
 def get_schedule(id):
   request_month = get_month(request.get_json()['date'])
-  lessons = Lesson.query.filter(Lesson.instructor_id == id).all()
-  month = [lesson.to_dict() for lesson in lessons if lesson.start_time.month == request_month]
-  return jsonify(month)
+  request_year = get_year(request.get_json()['date'])
+  lessons = Lesson.query.filter(extract('year', Lesson.start_time) == request_year, extract('month', Lesson.start_time) == request_month, id == Lesson.instructor_id).all()
+  data = {}
+  weeks = {}
+  days = {}
+
+  for lesson in lessons:
+    data[lesson.id] = lesson.to_dict()
+    week_no = lesson.start_time.isocalendar()[1]
+    day_no = lesson.start_time.day
+    print(week_no)
+    if week_no not in weeks:
+      weeks[week_no] = []
+    weeks[week_no].append(lesson.id)
+    if day_no not in days:
+      days[day_no] = []
+    days[day_no].append(lesson.id)
 
 
-
-
-  # lessons = Lesson.query.filter(Lesson.id == 344).one()
-  # lessons = Lesson.query.filter(Lesson.instructor_id == id).all()
-  # result = [lesson.to_dict() for lesson in lessons if get_month(lesson.start_time) == request_month]
-  # print([lesson.to_dict() for lesson in lessons])
-  # print('month-------', lessons.start_time.month)
-  # print(result)
-  # return jsonify(result)
-  # return 'hi'
+  return jsonify(data, weeks, days)
