@@ -81,7 +81,6 @@ const UserCard = ({ student, loadStudent }) => {
     // history.goBack();
   }
 
-  console.log('student', student)
 
   return (
     <>

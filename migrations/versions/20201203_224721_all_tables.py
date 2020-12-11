@@ -24,7 +24,7 @@ def upgrade():
     sa.Column('is_parent', sa.Boolean(), nullable=True),
     sa.Column('instructor_id', sa.Integer(), nullable=False),
     sa.PrimaryKeyConstraint('id'),
-    sa.ForeignKeyConstraint(['instructor_id'], ['instructors.id'], ),
+    sa.ForeignKeyConstraint(['instructor_id'], ['users.id'], ),
     sa.ForeignKeyConstraint(['id'], ['users.id'], ),
     )
 

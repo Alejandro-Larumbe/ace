@@ -11,8 +11,8 @@ class Invoice(db.Model):
   date = Column(Date, nullable=False)
   term = Column(String(50), nullable=False)
   isPayed = Column(Boolean)
-  student_id = Column(Integer, ForeignKey(Adult.id), nullable=False)
-  instuctor_id = Column(Integer, ForeignKey(Instructor.id), nullable=False)
+  student_id = Column(Integer, ForeignKey(User.id), nullable=False)
+  instuctor_id = Column(Integer, ForeignKey(User.id)User, nullable=False)
 
   def to_dict(self):
     return {

@@ -14,6 +14,9 @@ class Lesson(db.Model):
   student_id = Column(Integer, ForeignKey(Adult.id), nullable=False)
   instructor_id = Column(Integer, ForeignKey(Instructor.id), nullable=False)
 
+  student_first_name = db.relationship('Adult')
+  student_last_name = db.relationship('Adult')
+
   # @property
   # def return_month(self):
   #   return self.start_time.month
@@ -30,5 +33,7 @@ class Lesson(db.Model):
       "start_time": str(self.start_time),
       "end_time": str(self.end_time),
       "student_id": self.student_id,
-      "instructor_id": self.instructor_id
+      "instructor_id": self.instructor_id,
+      "student_first_name": self.adult.first_name,
+      "student_last_name": self.adult.last_name
     }

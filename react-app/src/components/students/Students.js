@@ -334,26 +334,6 @@ function StudentsTable({ studentsById, getStudentsById }) {
 
 
 
-
-
-// const Students = ({getStudents, students}) => {
-
-
-//   useEffect(() => {
-//     getStudents();
-//   }, []);
-
-//   if (!students) {
-//     return <h1>No students yet</h1>
-//   }
-
-//   return (
-//   <h1>hi</h1>
-//   )
-// }
-
-
-
 const StudentsContainer = () => {
   const studentsById = useSelector(state => state.students.byId)
   const id = useSelector(state => state.user.id)

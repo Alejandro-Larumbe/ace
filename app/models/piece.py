@@ -12,7 +12,7 @@ class Piece(db.Model):
   composer = Column(String(50))
   number = Column(Integer)
   book_id = Column(Integer, ForeignKey(Book.id))
-  instructor_id = Column(Integer, ForeignKey(Instructor.id), nullable=False)
+  instructor_id = Column(Integer, ForeignKey(User.id), nullable=False)
 
   def to_dict(self):
     return {

@@ -12,9 +12,9 @@ class Adult(User):
   dob = db.Column(db.Date)
   is_student = db.Column(db.Boolean)
   is_parent = db.Column(db.Boolean)
-  instructor_id = db.Column(db.Integer, ForeignKey("instructors.id"), nullable = False)
+  instructor_id = db.Column(db.Integer, ForeignKey("users.id"), nullable = False)
 
-
+  lessons = db.relationship('Lesson')
   __mapper_args__ = {
     'polymorphic_identity':'adults',
   }
