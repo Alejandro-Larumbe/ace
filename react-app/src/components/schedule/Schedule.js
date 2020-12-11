@@ -41,7 +41,7 @@ export default function Schedule({ byId, dayArray, setCurrentDate, currentDate }
 
                   if (dayArray[day]) {
                     dayArray[day].forEach(each => {
-                      console.log(each)
+                      console.log(byId[each])
                       const time = format(new Date(byId[each]['start_time']), 'p')
 
                       console.log(time)

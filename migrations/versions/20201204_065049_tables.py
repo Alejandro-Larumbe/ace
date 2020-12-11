@@ -48,8 +48,8 @@ def upgrade():
     sa.Column('end_time', sa.DateTime(), nullable=False),
     sa.Column('student_id', sa.Integer(), nullable=False),
     sa.Column('instructor_id', sa.Integer(), nullable=False),
-    sa.ForeignKeyConstraint(['instructor_id'], ['instructors.id'], ),
-    sa.ForeignKeyConstraint(['student_id'], ['adults.id'], ),
+    sa.ForeignKeyConstraint(['instructor_id'], ['users.id'], ),
+    sa.ForeignKeyConstraint(['student_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('resource_types',
