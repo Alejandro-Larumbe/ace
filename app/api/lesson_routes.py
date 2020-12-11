@@ -5,6 +5,8 @@ from app.forms import LessonForm
 from app.models import Lesson, db
 from datetime import datetime
 from .utils import get_month, get_year
+import operator
+
 
 
 lesson_routes = Blueprint('lesson_routes', __name__)
@@ -65,26 +67,33 @@ def lessons(id):
   lessons = Lesson.query.filter(Lesson.instructor_id == id)
   return jsonify([lesson.to_dict] for lesson in lessons)
 
-@lesson_routes.route('/<int:id>/schedule')
-def get_schedule(id):
-  request_month = get_month(request.get_json()['date'])
-  request_year = get_year(request.get_json()['date'])
-  lessons = Lesson.query.filter(extract('year', Lesson.start_time) == request_year, extract('month', Lesson.start_time) == request_month, id == Lesson.instructor_id).all()
-  data = {}
+@lesson_routes.route('/<int:id>/schedule/<int:year>/<int:month>')
+def get_schedule(id, year, month):
+  print('---------year', int(year), type(year))
+  print('---------momth', month, type(month))
+  month = month + 1
+  lessons = Lesson.query.filter(extract('year', Lesson.start_time) == year, extract('month', Lesson.start_time) == month, id == Lesson.instructor_id).all()
+  if len(lessons) == 0:
+    return {'message': 'No lessons scheduled'}
+  byId = {}
   weeks = {}
   days = {}
 
+
+
+
   for lesson in lessons:
-    data[lesson.id] = lesson.to_dict()
-    week_no = lesson.start_time.isocalendar()[1]
+    # print('--------------------', lesson.to_dict())
+    byId[lesson.id] = lesson.to_dict()
+    # week_no = lesson.start_time.isocalendar()[1]
     day_no = lesson.start_time.day
-    print(week_no)
-    if week_no not in weeks:
-      weeks[week_no] = []
-    weeks[week_no].append(lesson.id)
+    # print(week_no)
+    # if week_no not in weeks:
+    #   weeks[week_no] = []
+    # weeks[week_no].append(lesson.id)
     if day_no not in days:
       days[day_no] = []
+
     days[day_no].append(lesson.id)
 
-
-  return jsonify(data, weeks, days)
+  return jsonify({"byId": byId, 'days': days})

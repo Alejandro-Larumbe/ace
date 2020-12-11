@@ -22,7 +22,6 @@ export function calendarRows(date) {
 
   const rows = []
   console.log(weekdayFirstDayOfMonth)
-  console.log('length', rows.length)
   let i = 0;
   let j = 1
   while (i < weeksInMonth) {

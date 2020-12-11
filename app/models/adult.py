@@ -14,6 +14,7 @@ class Adult(User):
   is_parent = db.Column(db.Boolean)
   instructor_id = db.Column(db.Integer, ForeignKey("instructors.id"), nullable = False)
 
+  lessons = db.relationship('Lesson')
 
   __mapper_args__ = {
     'polymorphic_identity':'adults',
