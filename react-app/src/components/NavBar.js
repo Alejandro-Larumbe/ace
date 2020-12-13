@@ -2,6 +2,7 @@ import React, { useState } from 'react';
 import { NavLink, useHistory, Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { logout } from "../services/auth";
+import CssBaseline from '@material-ui/core/CssBaseline';
 
 import Avatar from '@material-ui/core/Avatar';
 import { makeStyles } from '@material-ui/core/styles';
@@ -10,7 +11,7 @@ import Typography from '@material-ui/core/Typography';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
 import Grid from '@material-ui/core/Grid';
-
+import MenuIcon from '@material-ui/icons/Menu';
 import Drawer from '@material-ui/core/Drawer';
 import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
@@ -28,41 +29,85 @@ import MenuBookIcon from '@material-ui/icons/MenuBook';
 import Link from '@material-ui/core/Link';
 
 
-const drawerWidth = 240;
+const drawerWidth = 200;
 
 
 const useStyles = makeStyles((theme) => ({
   root: {
     display: 'flex',
   },
-  menuButton: {
-    marginRight: theme.spacing(2),
+  logoContainer: {
+    height: '14vh',
+    objectFit: 'contain',
+    display: 'flex',
+    justifyContent: 'center',
+    // marginRight: theme.spacing(2),
+    alignItems: 'center',
   },
+  appbar: {
+    display: 'flex',
+    justifyContent: 'center',
+    width: `calc(100% - ${drawerWidth}px)`,
+    height: '8vh',
+    marginLeft: drawerWidth,
+    zIndex: theme.zIndex.drawer + 1,
+  },
+  bar2: {
+    display: 'flex',
+    flexDirection: 'row',
+    justifyContent: 'center',
+    alignItems:'center',
+    width: `calc(100% - ${drawerWidth}px)`,
+    marginTop: '8vh',
+    background: 'none',
+  },
+
   title: {
     flexGrow: 1,
-  },
-  avatar: {
-    width: theme.spacing(10),
-    height: theme.spacing(10),
   },
   drawer: {
     width: drawerWidth,
     flexShrink: 0,
   },
+  item: {
+    textDecoration: 'none',
+    color: 'white',
+  },
   drawerPaper: {
     width: drawerWidth,
   },
   toolbar: theme.mixins.toolbar,
-  content: {
-    flexGrow: 1,
-    backgroundColor: theme.palette.background.default,
-    padding: theme.spacing(3),
+  link: {
+    textDecoration: 'none'
   },
+  toolbar: theme.mixins.toolbar,
+  listItem: {
+    paddingTop: "20px",
+    paddingBottom: '20px',
+  },
+  avatar: {
+    width: theme.spacing(16),
+    height: theme.spacing(16),
+  },
+  avatar2: {
+    width: theme.spacing(8),
+    height: theme.spacing(8),
+    marginLeft: '30px',
+  },
+  container: {
+    display: 'flex',
+    flexDirection: 'column',
+    height: "20vh",
+    justifyContent: "space-around",
+    marginLeft: '100px'
+
+  }
 
 }));
 
 
-const NavBar = ({ setAuthenticated, profilePicUrl, studioName, studioLogo, type, id }) => {
+const NavBar = ({ setAuthenticated, user }) => {
+  const { profilePicUrl, studioName, studioLogo, type, id, firstName } = user
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const history = useHistory();
@@ -91,50 +136,48 @@ const NavBar = ({ setAuthenticated, profilePicUrl, studioName, studioLogo, type,
 
   return (
     <div className={classes.root}>
-      <AppBar position="fixed">
-        <Grid container spacing={3} alignItems="center" justify="space-between">
-          <Grid item xs={3}>
+      <CssBaseline />
+      <AppBar className={classes.appbar} position="fixed">
+        <Toolbar>
+          <Typography variant="h4" noWrap className={classes.title}>
+            {studioName}
+          </Typography>
+          <MenuIcon
+            className={classes.menuIcon}
+            aria-label="account of current user"
+            aria-controls="menu-appbar"
+            aria-haspopup="true"
+            onClick={handleMenu}
+            color="inherit"
+            fontSize={'large'}
 
-          </Grid>
-          <Grid item xs={6}>
-            <Toolbar>
-              <Typography variant="h6" noWrap className={classes.title}>
-                {studioName}
-              </Typography>
-            </Toolbar>
-          </Grid>
-          <Grid item xs={3}>
-            <div>
-              <Avatar alt="Remy Sharp" src={profilePicUrl}
-                className={classes.avatar}
-                aria-label="account of current user"
-                aria-controls="menu-appbar"
-                aria-haspopup="true"
-                onClick={handleMenu}
-                color="inherit"
+          />
+          {/* <Avatar alt="Remy Sharp" src={profilePicUrl}
               >
-              </Avatar>
-              <Menu
-                id="menu-appbar"
-                anchorEl={anchorEl}
-                anchorOrigin={{
-                  vertical: 'top',
-                  horizontal: 'left',
-                }}
-                keepMounted
-                transformOrigin={{
-                  vertical: 'top',
-                  horizontal: 'left',
-                }}
-                open={open}
-                onClose={handleClose}
-              >
-                <MenuItem onClick={onEditProfile}>Profile</MenuItem>
-                <MenuItem onClick={onLogout}>log out</MenuItem>
-              </Menu>
-            </div>
-          </Grid>
-        </Grid>
+            </Avatar> */}
+          <Menu
+            id="menu-appbar"
+            anchorEl={anchorEl}
+            anchorOrigin={{
+              vertical: 'top',
+              horizontal: 'left',
+            }}
+            keepMounted
+            transformOrigin={{
+              vertical: 'top',
+              horizontal: 'left',
+            }}
+            open={open}
+            onClose={handleClose}
+          >
+            <MenuItem onClick={onEditProfile}>Profile</MenuItem>
+            <MenuItem onClick={onLogout}>log out</MenuItem>
+          </Menu>
+
+        </Toolbar>
+      </AppBar>
+      <AppBar className={classes.bar2} color="transparent">
+          <h1>Welcome {firstName}</h1><Avatar className={classes.avatar2} src={profilePicUrl}></Avatar>
       </AppBar>
       <Drawer
         className={classes.drawer}
@@ -145,52 +188,43 @@ const NavBar = ({ setAuthenticated, profilePicUrl, studioName, studioLogo, type,
         anchor="left"
       >
         <div className={classes.toolbar} >
-          <div edge="start" className={classes.menuButton}>
-            <img src={studioLogo} height={"100px"}></img>
+          <div className={classes.logoContainer}>
+            <Avatar alt="Studio Logo" className={classes.avatar} src={'https://ace-management.s3.us-east-2.amazonaws.com/Amelia+String+Academy+Logo+2.jpg'}
+            >
+            </Avatar>
           </div>
-          {type === 'instructors'
-            ?
-            <NavLink to={`/${id}/students`}>
-              <List >
+          {/* <Divider /> */}
+          <List >
+            {type === 'instructors'
+              ?
+              <ListItem component={NavLink} to={`/${id}/students`} className={classes.listItem} button>
                 <ListItemIcon><FaceIcon /></ListItemIcon>
                 <ListItemText>Students</ListItemText>
-              </List>
-            </NavLink>
-            : null
-          }
-          <NavLink to={`/${id}/schedule`}>
-            <List >
+              </ListItem>
+              : null
+            }
+            <ListItem component={NavLink} to={`/${id}/schedule`} className={classes.listItem} button>
               <ListItemIcon><CalendarTodayIcon /></ListItemIcon>
               <ListItemText>Schedule</ListItemText>
-            </List>
-          </NavLink>
-          <NavLink to={`/${id}/lesson-create`}>
-            <List>
+            </ListItem>
+            <ListItem component={NavLink} to={`/${id}/lesson-create`} className={classes.listItem} button>
               <ListItemIcon><MusicNoteIcon /></ListItemIcon>
               <ListItemText>Lessons</ListItemText>
-            </List>
-          </NavLink>
-          <NavLink to={`/${id}/repertoire`}>
-            <List>
+            </ListItem>
+            <ListItem to={`/${id}/repertoire`} component={NavLink} className={classes.listItem} button>
               <ListItemIcon><MenuBookIcon /></ListItemIcon>
               <ListItemText>Repertoire</ListItemText>
-            </List>
-          </NavLink>
-          <NavLink to={`/${id}/resources`}>
-            <List>
+            </ListItem>
+            <ListItem to={`/${id}/resources`} component={NavLink} className={classes.listItem} button>
               <ListItemIcon><AlbumIcon /></ListItemIcon>
               <ListItemText>Resources</ListItemText>
-            </List>
-          </NavLink>
-          <NavLink to={`/${id}/billing`}>
-            <List>
+            </ListItem>
+            <ListItem component={NavLink} to={`/${id}/billing`} className={classes.listItem} button>
               <ListItemIcon><AttachMoneyIcon /></ListItemIcon>
               <ListItemText>Billing</ListItemText>
-            </List>
-          </NavLink>
+            </ListItem>
+          </List>
         </div>
-
-
       </Drawer>
 
     </div >

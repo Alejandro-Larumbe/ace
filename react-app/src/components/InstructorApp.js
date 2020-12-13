@@ -23,11 +23,7 @@ const InstructorApp = ({ authenticated, setAuthenticated }) => {
     <BrowserRouter basename={'/instructors/'}>
       <Navbar
         setAuthenticated={setAuthenticated}
-        studioName={user.studioName}
-        studioLogo={user.studioLogoUrl}
-        profilePicUrl={user.profilePicUrl}
-        type={user.type}
-        id={user.id}
+        user={ user }
       />
       <Switch>
         <Route path="/:instructorId/students/:id/edit">

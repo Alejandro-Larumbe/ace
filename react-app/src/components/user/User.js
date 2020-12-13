@@ -2,6 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
 import { loadStudent } from './userActions';
+import { format, parse } from 'date-fns';
 
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
@@ -18,34 +19,34 @@ import Paper from '@material-ui/core/Paper';
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
+    maxWidth: 400,
     margin: 'auto',
-    marginTop: 100,
-    maxWidth: 360,
+    marginTop: '22vh',
     backgroundColor: theme.palette.background.paper,
+    position: 'relative'
+
   },
   fab: {
-    margin: 0,
-    top: 'auto',
-    right: 200,
-    bottom: 200,
-    left: 'auto',
-    position: 'fixed',
+    position: 'absolute',
+    bottom: theme.spacing(-8),
+    right: theme.spacing(-4),
+
   }
 }));
 
-const UserCard = ({ student, getStudent }) => {
+const UserCard = ({ user, getStudent }) => {
   const classes = useStyles();
   const history = useHistory();
-
 
   useEffect(() => {
     getStudent();
   }, []);
 
-  if (!student) return null;
+  if (!user) return null;
+
 
   const onEdit = () => {
-    history.push(`/students/${student.id}/edit`)
+    history.push(`${user.id}/edit`)
   }
 
   return (
@@ -53,31 +54,31 @@ const UserCard = ({ student, getStudent }) => {
       <div className={classes.root}>
         <Paper variant="outlined" >
           <List component="nav" aria-label="mailbox folders">
-            <ListItem button>
-              <Avatar alt="Remy Sharp" src={student.profile_pic_url}></Avatar>
-              <ListItemText primary="Name" primary={`${student.first_name} ${student.last_name}`} />
+            <ListItem >
+              <Avatar alt="Remy Sharp" src={user.profile_pic_url}></Avatar>
+              <ListItemText style={{marginLeft:"20px"}} primary="Name" primary={`${user.first_name} ${user.last_name}`} />
             </ListItem>
             <Divider />
-            <ListItem button>
-              <ListItemText primary="date of birth" secondary={student.dob} />
+            <ListItem >
+              <ListItemText primary="date of birth" secondary={user.dob} />
             </ListItem>
             <Divider light />
-            <ListItem button divider>
-              <ListItemText primary="phone number" secondary={student.phone_number} />
+            <ListItem  divider>
+              <ListItemText primary="phone number" secondary={user.phone_number} />
             </ListItem>
             <Divider light />
-            <ListItem button divider>
-              <ListItemText primary="email" secondary={student.email} />
+            <ListItem  divider>
+              <ListItemText primary="email" secondary={user.email} />
             </ListItem>
             <Divider light />
-            <ListItem button>
-              <ListItemText primary="address" secondary={student.address} />
+            <ListItem >
+              <ListItemText primary="address" secondary={user.address} />
             </ListItem>
           </List>
+        </Paper>
           <Fab className={classes.fab} color="secondary" aria-label="edit">
             <EditIcon onClick={onEdit} />
           </Fab>
-        </Paper>
       </div>
     </>
   );
@@ -87,7 +88,7 @@ const UserCard = ({ student, getStudent }) => {
 
 
 const UserCardContainer = (props) => {
-  const student = useSelector(state => state.student)
+  const user = useSelector(state => state.student)
   const { id } = useParams()
   const dispatch = useDispatch()
 
@@ -95,7 +96,7 @@ const UserCardContainer = (props) => {
 
   return (
     <UserCard
-      student={student}
+      user={user}
       getStudent={() => dispatch(loadStudent(id))}
     />
   )

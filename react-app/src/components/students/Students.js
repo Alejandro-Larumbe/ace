@@ -165,9 +165,11 @@ EnhancedTableToolbar.propTypes = {
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    flexGrow: 1,
+    // maxWidth: 700,
     width: '100%',
-    margin: 'auto',
-    marginTop: 100,
+    margin: `auto`,
+    marginTop: '22vh',
     width: '50%',
   },
   paper: {
@@ -237,7 +239,7 @@ function StudentsTable({ studentsById, getStudentsById }) {
   };
 
   const handleClick = (event, id) => {
-    history.push(`/students/${id}`)
+    history.push(`students/${id}`)
   };
 
   const handleChangePage = (event, newPage) => {
@@ -292,15 +294,6 @@ function StudentsTable({ studentsById, getStudentsById }) {
                         key={row.name}
                         selected={isItemSelected}
                       >
-                        {/* <TableCell padding="checkbox">
-                          <Checkbox
-                            checked={isItemSelected}
-                            inputProps={{ 'aria-labelledby': labelId }}
-                          />
-                        </TableCell> */}
-                        {/* <TableCell component="th" id={labelId} scope="row" padding="none">
-                          {row.name}
-                        </TableCell> */}
                         <TableCell align="right">{row.firstName}</TableCell>
                         <TableCell align="right">{row.lastName}</TableCell>
                         <TableCell align="right">{row.email}</TableCell>
@@ -330,27 +323,6 @@ function StudentsTable({ studentsById, getStudentsById }) {
     </div>
   );
 }
-
-
-
-
-
-
-// const Students = ({getStudents, students}) => {
-
-
-//   useEffect(() => {
-//     getStudents();
-//   }, []);
-
-//   if (!students) {
-//     return <h1>No students yet</h1>
-//   }
-
-//   return (
-//   <h1>hi</h1>
-//   )
-// }
 
 
 

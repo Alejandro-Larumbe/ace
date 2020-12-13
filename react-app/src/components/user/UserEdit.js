@@ -18,9 +18,9 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     '& > *': {
       width: '100%',
+      maxWidth: 500,
       margin: 'auto',
-      marginTop: 100,
-      maxWidth: 360,
+      marginTop: '22vh',
       backgroundColor: theme.palette.background.paper,
     },
   },

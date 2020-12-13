@@ -4,11 +4,12 @@ import { calendarRows, weekDays } from './calendarRows';
 import Typography from '@material-ui/core/Typography';
 import { getMonth } from './actions';
 import { format, parse } from 'date-fns';
+import CssBaseline from '@material-ui/core/CssBaseline';
 
 
 const style = {
   margin: 'auto',
-  marginTop: 100,
+  marginTop: '22vh',
   maxWidth: 700,
 }
 
@@ -25,6 +26,7 @@ export default function Schedule({ byId, dayArray, setCurrentDate, currentDate }
 
   return (
     <div style={style}>
+      <CssBaseline />
       <table>
         <tr>
           {weekDays.map(week => {

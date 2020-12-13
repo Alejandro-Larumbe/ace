@@ -202,16 +202,6 @@ const LoginForm = ({ authenticated, setAuthenticated, open, handleOpen, handleCl
               >
                 Sign In
               </Button>
-              <Button
-                type="button"
-                fullWidth
-                variant="contained"
-                color="secondary"
-                className={classes.cancel}
-                onClick={handleClose}
-              >
-                Cancel
-              </Button>
               <Link href="/signup" variant="body2">
                 {"Don't have an account? Sign Up"}
               </Link>

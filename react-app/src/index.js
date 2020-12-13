@@ -21,11 +21,11 @@ let store = configureStore(initialStore);
 ReactDOM.render(
   <React.StrictMode>
     <Provider store={store}>
-      {/* <ThemeProvider theme={theme}> */}
+      <ThemeProvider theme={theme}>
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
           <App />
         </MuiPickersUtilsProvider>
-      {/* </ThemeProvider> */}
+      </ThemeProvider>
     </Provider>
   </React.StrictMode>,
   document.getElementById('root')

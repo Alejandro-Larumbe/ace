@@ -14,7 +14,7 @@ function App() {
   const [authenticated, setAuthenticated] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
-  const [type, setType] = useState()
+  const [ type, setType ] = useState();
 
   useEffect(() => {
     (async () => {
@@ -22,12 +22,12 @@ function App() {
       if (user && !user.errors) {
         setAuthenticated(true);
       }
-
       const userId = localStorage.getItem("user_id");
-      userId && (async () => {
+      (async () => {
         await dispatch(loadUser(userId));
         setLoaded(true);
       })()
+
       if (authenticated) {
         setType(user.type)
       }
@@ -38,12 +38,11 @@ function App() {
     return null;
   }
 
-  if (authenticated && type === "adults") {
-    return <Redirect to={`/students`} />
-  } else if (authenticated && type === "instructors") {
-    return <Redirect to={`/${type}`} />
-  }
-
+  // if (authenticated && type === "adults") {
+  //   return <Redirect to={`/students`} />
+  // } else if (authenticated && type === "instructors") {
+  //   return <Redirect to={`/${type}`} />
+  // }
   return (
     <BrowserRouter>
       <Switch>
