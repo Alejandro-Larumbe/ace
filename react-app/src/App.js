@@ -3,18 +3,18 @@ import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
 import { useDispatch } from 'react-redux';
 import LoginForm from "./components/auth/LoginForm";
 import SignUpForm from "./components/auth/SignUpForm";
-import Splash from "./components/Splash"
+import Splash from "./components/splash/Splash"
 import { authenticate } from "./services/auth";
 import { loadUser } from './store/actions/authActions';
 import InstructorApp from "./components/InstructorApp";
 import StudentApp from './components/StudentApp';
-
+import ProtectedRoute from './components/auth/ProtectedRoute'
 
 function App() {
   const [authenticated, setAuthenticated] = useState(false);
   const [loaded, setLoaded] = useState(false);
   const dispatch = useDispatch();
-  let type;
+  const [type, setType] = useState()
 
   useEffect(() => {
     (async () => {
@@ -22,14 +22,14 @@ function App() {
       if (user && !user.errors) {
         setAuthenticated(true);
       }
+
       const userId = localStorage.getItem("user_id");
-      (async () => {
+      userId && (async () => {
         await dispatch(loadUser(userId));
         setLoaded(true);
       })()
-
       if (authenticated) {
-        type = user.type
+        setType(user.type)
       }
     })();
   }, []);
@@ -50,16 +50,11 @@ function App() {
         <Route path="/" exact={true}>
           <Splash authenticated={authenticated} setAuthenticated={setAuthenticated} />
         </Route>
-        <Route path="/login/:type" exact={true}>
-          <LoginForm
-            authenticated={authenticated}
-            setAuthenticated={setAuthenticated}
-          />
-        </Route>
-        <Route path="/signup/:type" exact={true}>
+        <Route path="/signup" exact={true}>
           <SignUpForm
             authenticated={authenticated}
             setAuthenticated={setAuthenticated}
+            route={type}
           />
         </Route>
       </Switch>

@@ -47,6 +47,8 @@ export default function Schedule({ byId, dayArray, setCurrentDate, currentDate }
                       console.log(time)
                       data.push({
                         time,
+                        'name': byId[each].student_first_name,
+                        'lastNameInitial': byId[each].student_last_name.slice(0, 1)
                       })
                     })
                   }

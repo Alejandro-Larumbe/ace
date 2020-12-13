@@ -12,9 +12,11 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     margin: theme.spacing(0),
-    width: theme.spacing(16),
-    minHeight: theme.spacing(20),
+    width: theme.spacing(18),
+    minHeight: theme.spacing(15),
     padding: '10px',
+    maxHeight: theme.spacing(15),
+    overflow: 'auto',
   },
   title: {
     fontSize: 12,
@@ -39,10 +41,7 @@ export default function Tile({ day, data }) {
           return (
             <>
               <Typography variant="body2" component="p">
-                {each.student_name}
-              </Typography>
-              <Typography variant="body2" component="p">
-                {each.time}
+                {each.time} - {each.name} {each.lastNameInitial}
               </Typography>
             </>
           )

@@ -1,5 +1,5 @@
 import React, { useState } from 'react';
-import { NavLink, useHistory } from 'react-router-dom';
+import { NavLink, useHistory, Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { logout } from "../services/auth";
 
@@ -84,6 +84,7 @@ const NavBar = ({ setAuthenticated, profilePicUrl, studioName, studioLogo, type,
   const onLogout = async (e) => {
     await logout();
     setAuthenticated(false);
+    // return <Redirect to={`/`} />
   };
 
 
