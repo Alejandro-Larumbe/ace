@@ -1,8 +1,7 @@
 from .db import db
 from sqlalchemy.schema import Column, ForeignKey
 from sqlalchemy.types import Integer, Date, Boolean
-from .instructor import Instructor
-from .adult import Adult
+from .user import User
 from .resource import Resource
 from .piece import Piece
 from .book import Book
@@ -13,8 +12,8 @@ class Assignment(db.Model):
   id = Column(Integer, primary_key=True)
   date_assigned = Column(Date, nullable=False)
   is_completed = Column(Boolean)
-  instructor_id = Column(Integer, ForeignKey(Instructor.id), nullable=False)
-  student_id = Column(Integer, ForeignKey(Adult.id), nullable=False)
+  instructor_id = Column(Integer, ForeignKey(User.id), nullable=False)
+  student_id = Column(Integer, ForeignKey(User.id), nullable=False)
   resource_id = Column(Integer, ForeignKey(Resource.id))
   piece_id = Column(Integer, ForeignKey(Piece.id))
   book_id = Column(Integer, ForeignKey(Book.id))

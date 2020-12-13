@@ -8,7 +8,7 @@ class Resource(db.Model):
   id = Column(Integer, primary_key=True)
   name = Column(String(100), nullable=False)
   url = Column(String(1000), nullable=False)
-  instructor_id = Column(Integer, nullable=False)
+  instructor_id = Column(Integer, ForeignKey("users.id"), nullable=False)
   resource_type_id = Column(Integer, ForeignKey("resource_types.id"), nullable=False)
 
 

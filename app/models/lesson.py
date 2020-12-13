@@ -17,13 +17,6 @@ class Lesson(db.Model):
 
   instructor = db.relationship('User', foreign_keys=[instructor_id])
   student = db.relationship('User', foreign_keys=[student_id])
-  # def return_month(self):
-  #   return self.start_time.month
-
-
-  # @month.setter
-  # def month(self):
-  #   self.month = self.start_time.month
 
 
   def to_dict(self):

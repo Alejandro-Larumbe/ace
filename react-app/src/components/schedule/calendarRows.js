@@ -10,26 +10,26 @@ const firstDayOfTheMonth = startOfMonth(date)
 const weekDayFirstMonthDay = getDay(new Date(thisYear, thisMonth, 1))
 const weekDayLastMonthDay = getDay(new Date(thisYear, thisMonth, daysThisMonth))
 const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December']
-export const weekDays = ['Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat', 'Sun']
+export const weekDays = ['Sun', 'Mon', 'Tue', 'Wed', 'Thu', 'Fri', 'Sat']
 const weeksInMonth = getWeeksInMonth(date)
 
 export function calendarRows(date) {
   const month = getMonth(date)
   const year = getYear(date)
   const daysInMonth = getDaysInMonth(date)
-  const weekdayFirstDayOfMonth = getDay(new Date(thisYear, thisMonth, 1))
+  const weekdayFirstDayOfMonth = getDay(new Date(year, month, 1))
   const weeksInMonth = getWeeksInMonth(date)
 
   const rows = []
   console.log(weekdayFirstDayOfMonth)
   let i = 0;
-  let j = 1
+  let j = 1;
   while (i < weeksInMonth) {
     const row = []
-    if (weekdayFirstDayOfMonth !== 1 && i === 0) {
-      let l = 1;
+    if (weekdayFirstDayOfMonth !== 0 && i === 0) {
+      let l = 0;
       while (l < weekdayFirstDayOfMonth) {
-        row.push('')
+        row.push('empty')
         l++
       }
     }
@@ -37,7 +37,7 @@ export function calendarRows(date) {
       if (j <= daysInMonth) {
         row.push(j)
       } else {
-        row.push('')
+        row.push('empty')
       }
       j++
     }

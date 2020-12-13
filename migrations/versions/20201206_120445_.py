@@ -40,8 +40,8 @@ def upgrade():
 
     op.bulk_insert(instructors, [{
         'id': 1,
-        'studio_name': "Amelia's Strings Academy",
-        'studio_logo_url': 'https://ace-management.s3.us-east-2.amazonaws.com/Amelia+String+Academy+Logo.jpg'
+        'studio_name': "Amelia's String Academy",
+        'studio_logo_url': 'https://ace-management.s3.us-east-2.amazonaws.com/Amelia+String+Academy+Logo+2.jpg'
     }])
 
     adults = table('adults',

@@ -38,8 +38,8 @@ def upgrade():
     sa.Column('isPayed', sa.Boolean(), nullable=True),
     sa.Column('student_id', sa.Integer(), nullable=False),
     sa.Column('instuctor_id', sa.Integer(), nullable=False),
-    sa.ForeignKeyConstraint(['instuctor_id'], ['instructors.id'], ),
-    sa.ForeignKeyConstraint(['student_id'], ['adults.id'], ),
+    sa.ForeignKeyConstraint(['instuctor_id'], ['users.id'], ),
+    sa.ForeignKeyConstraint(['student_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('lessons',
@@ -61,8 +61,8 @@ def upgrade():
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('child_id', sa.Integer(), nullable=False),
     sa.Column('parent_id', sa.Integer(), nullable=False),
-    sa.ForeignKeyConstraint(['child_id'], ['children.id'], ),
-    sa.ForeignKeyConstraint(['parent_id'], ['adults.id'], ),
+    sa.ForeignKeyConstraint(['child_id'], ['users.id'], ),
+    sa.ForeignKeyConstraint(['parent_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('invoice_items',
@@ -83,7 +83,7 @@ def upgrade():
     sa.Column('book_id', sa.Integer(), nullable=True),
     sa.Column('instructor_id', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['book_id'], ['books.id'], ),
-    sa.ForeignKeyConstraint(['instructor_id'], ['instructors.id'], ),
+    sa.ForeignKeyConstraint(['instructor_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('resources',
@@ -93,6 +93,7 @@ def upgrade():
     sa.Column('instructor_id', sa.Integer(), nullable=False),
     sa.Column('resource_type_id', sa.Integer(), nullable=False),
     sa.ForeignKeyConstraint(['resource_type_id'], ['resource_types.id'], ),
+    sa.ForeignKeyConstraint(['instructor_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('assignments',
@@ -105,10 +106,10 @@ def upgrade():
     sa.Column('piece_id', sa.Integer(), nullable=True),
     sa.Column('book_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['book_id'], ['books.id'], ),
-    sa.ForeignKeyConstraint(['instructor_id'], ['instructors.id'], ),
+    sa.ForeignKeyConstraint(['instructor_id'], ['users.id'], ),
     sa.ForeignKeyConstraint(['piece_id'], ['pieces.id'], ),
     sa.ForeignKeyConstraint(['resource_id'], ['resources.id'], ),
-    sa.ForeignKeyConstraint(['student_id'], ['adults.id'], ),
+    sa.ForeignKeyConstraint(['student_id'], ['users.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('lesson_tasks',

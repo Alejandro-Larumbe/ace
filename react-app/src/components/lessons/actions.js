@@ -1,6 +1,5 @@
 
 export const createLesson = (lesson, id) => async()  => {
-  console.log(lesson, id)
   const response = await fetch(`/api/lessons/instructor/${id}`, {
     method: "POST",
     // headers: {

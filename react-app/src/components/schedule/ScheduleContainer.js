@@ -18,7 +18,7 @@ export default function ScheduleContainer() {
     (async () => {
       await dispatch(getMonthData(id, getYear(currentDate), getMonth(currentDate)))
     })();
-  }, []);
+  }, [currentDate]);
 
   return (
     <Schedule

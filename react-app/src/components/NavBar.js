@@ -51,14 +51,16 @@ const useStyles = makeStyles((theme) => ({
     height: '8vh',
     marginLeft: drawerWidth,
     zIndex: theme.zIndex.drawer + 1,
+    // color: theme.palette.secondary
   },
   bar2: {
     display: 'flex',
     flexDirection: 'row',
-    justifyContent: 'center',
+    justifyContent: 'flex-end',
     alignItems:'center',
     width: `calc(100% - ${drawerWidth}px)`,
-    marginTop: '8vh',
+    marginTop: '9vh',
+    marginRight: '15px',
     background: 'none',
   },
 
@@ -86,12 +88,12 @@ const useStyles = makeStyles((theme) => ({
     paddingBottom: '20px',
   },
   avatar: {
-    width: theme.spacing(16),
-    height: theme.spacing(16),
+    width: theme.spacing(18),
+    height: theme.spacing(18),
   },
   avatar2: {
-    width: theme.spacing(8),
-    height: theme.spacing(8),
+    width: theme.spacing(10),
+    height: theme.spacing(10),
     marginLeft: '30px',
   },
   container: {
@@ -107,7 +109,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 const NavBar = ({ setAuthenticated, user }) => {
-  const { profilePicUrl, studioName, studioLogo, type, id, firstName } = user
+  const { profilePicUrl, studioName, studioLogoUrl, type, id, firstName } = user
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const history = useHistory();
@@ -137,7 +139,7 @@ const NavBar = ({ setAuthenticated, user }) => {
   return (
     <div className={classes.root}>
       <CssBaseline />
-      <AppBar className={classes.appbar} position="fixed">
+      <AppBar className={classes.appbar} color={'secondary'} position="fixed">
         <Toolbar>
           <Typography variant="h4" noWrap className={classes.title}>
             {studioName}
@@ -176,7 +178,7 @@ const NavBar = ({ setAuthenticated, user }) => {
 
         </Toolbar>
       </AppBar>
-      <AppBar className={classes.bar2} color="transparent">
+      <AppBar className={classes.bar2} elevation={0} color="transparent">
           <h1>Welcome {firstName}</h1><Avatar className={classes.avatar2} src={profilePicUrl}></Avatar>
       </AppBar>
       <Drawer
@@ -189,7 +191,7 @@ const NavBar = ({ setAuthenticated, user }) => {
       >
         <div className={classes.toolbar} >
           <div className={classes.logoContainer}>
-            <Avatar alt="Studio Logo" className={classes.avatar} src={'https://ace-management.s3.us-east-2.amazonaws.com/Amelia+String+Academy+Logo+2.jpg'}
+            <Avatar alt="Studio Logo" className={classes.avatar} src={studioLogoUrl}
             >
             </Avatar>
           </div>
