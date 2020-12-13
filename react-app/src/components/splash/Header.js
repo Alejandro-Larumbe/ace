@@ -45,11 +45,11 @@ const useStyles = makeStyles(theme => ({
 
   },
   container: {
-    // display: 'flex',
-    // flexDirection: 'column',
+    display: 'flex',
+    flexDirection: 'column',
     height: "130vh",
     justifyContent: "space-around",
-    // marginLeft: '100px'
+    marginLeft: '100px'
 
   }
 
