@@ -130,9 +130,10 @@ const NavBar = ({ setAuthenticated, user }) => {
   };
 
   const onLogout = async (e) => {
+    debugger
     await logout();
     setAuthenticated(false);
-    // return <Redirect to={`/`} />
+    return <Redirect to={`/`} />
   };
 
 

@@ -1,4 +1,5 @@
 import React, { useEffect } from 'react';
+import { useHistory } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
@@ -8,6 +9,7 @@ import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Avatar from '@material-ui/core/Avatar';
 import Typography from '@material-ui/core/Typography';
 import format from 'date-fns/format';
+import Button from '@material-ui/core/Button';
 
 
 
@@ -27,7 +29,7 @@ const useStyles = makeStyles((theme) => ({
 
 export default function ScheduleDay({ dayIds, byId }) {
   const classes = useStyles();
-
+  const history = useHistory()
 
 
   if (!dayIds) return <h1>nothing scheduled here yet...</h1>
@@ -59,7 +61,7 @@ export default function ScheduleDay({ dayIds, byId }) {
           data.map(each => {
             return (
               // console.log(byId[each])
-              <ListItem key={each.id} button>
+              <ListItem onClick={() => history.push(`/${each.instructor_id}/students/${each.student_id}`)} key={each.id} button>
                 <ListItemAvatar>
                   <Avatar alt="profile pic" src={each.profile_pic_url} />
                 </ListItemAvatar>
@@ -85,6 +87,16 @@ export default function ScheduleDay({ dayIds, byId }) {
 
         }
       </List >
+      <Button
+                type="button"
+                fullWidth
+                variant="contained"
+                color="secondary"
+                className={classes.button}
+                onClick={() => history.goBack()}
+              >
+                Go Back
+              </Button>
     </div>
   )
 }

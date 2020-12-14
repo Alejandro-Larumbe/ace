@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
-import { loadStudent } from './userActions';
+import { loadStudent, editUser } from './userActions';
 
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
@@ -41,7 +41,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const UserCard = ({ student, loadStudent }) => {
+const UserCard = ({ student, loadStudent, id }) => {
   const [email, setEmail] = useState(student.email);
   const [firstName, setFirstName] = useState(student.first_name);
   const [lastName, setLastName] = useState(student.last_name);
@@ -75,17 +75,21 @@ const UserCard = ({ student, loadStudent }) => {
   };
 
   const onSubmit = async (e) => {
-    console.log(
-      email, firstName, lastName, address, phoneNumber
-    )
-    // history.goBack();
+    e.preventDefault();
+
+    const user = dispatch(editUser(id, email, firstName, lastName, address, phoneNumber))
+
+    if(!user.errors) {
+      history.goBack()
+    }
   }
 
   console.log('student', student)
 
   return (
     <>
-      <form onSubmit={onSignUp}>
+
+      <form >
         <div className={classes.root}>
           <Paper variant="outlined" >
             <List component="nav" className={classes.list} aria-label="mailbox folders">
@@ -105,7 +109,7 @@ const UserCard = ({ student, loadStudent }) => {
               <Divider />
               <ListItem button>
                 <TextField
-                  variant="outlined"
+                  // variant="outlined"
                   margin="dense"
                   type="text"
                   label="last name"
@@ -177,7 +181,7 @@ const UserCard = ({ student, loadStudent }) => {
               <Button onClick={() => history.goBack()} color="primary">
                 Cancel
               </Button>
-              <Button type="submit" onClick={onSubmit} color="primary">
+              <Button onClick={onSubmit} color="primary">
                 Update
               </Button>
             </List>
@@ -202,9 +206,11 @@ const UserEditContainer = (props) => {
   if (!student) return null
 
 
+
   return (
     <UserCard
       student={student}
+      id={id}
     />
   )
 }

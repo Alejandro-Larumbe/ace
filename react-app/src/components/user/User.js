@@ -113,10 +113,20 @@ const UserCard = ({ user, getStudent }) => {
               <ListItemText primary="address" secondary={user.address} />
             </ListItem>
           </List>
+          <Button
+                type="button"
+                fullWidth
+                variant="contained"
+                color="secondary"
+                className={classes.button}
+                onClick={() => history.goBack()}
+              >
+                Go Back
+              </Button>
         </Paper>
         <div className={classes.fab}>
           <Fab color="secondary" aria-label="edit">
-            <EditIcon onClick={onEdit} />
+            <EditIcon onClick={() => onEdit()} />
           </Fab>
           <Fab color={'secondary'} aria-label="delete">
             <DeleteIcon onClick={handleClickOpen} />

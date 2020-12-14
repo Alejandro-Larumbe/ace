@@ -43,8 +43,11 @@ const useStyles = makeStyles((theme) => ({
     width: '100%', // Fix IE 11 issue.
     marginTop: theme.spacing(1),
   },
+  button: {
+    margin: theme.spacing(3, 0, 0),
+  },
   submit: {
-    margin: theme.spacing(3, 0, 2),
+    margin: theme.spacing(1, 0, 2),
   },
 }));
 
@@ -98,6 +101,30 @@ const LoginForm = ({ authenticated, setAuthenticated, open, handleOpen, handleCl
 
 
 
+  const onDemoInstructor = async (e) => {
+    e.preventDefault();
+
+    let user = await dispatch(login('demo@instructor.com', 'password', 'instructors'));
+
+    if (!user.errors) {
+      setAuthenticated(true);
+      history.push(`/instructors/${user.id}/schedule`)
+    } else {
+      setErrors(user.errors);
+    }
+  };
+  const onDemoStudent = async (e) => {
+    e.preventDefault();
+
+    let user = await dispatch(login('demo@student.com', 'password', 'adults'));
+
+    if (!user.errors) {
+      setAuthenticated(true);
+      history.push(`/students/${user.id}/schedule`)
+    } else {
+      setErrors(user.errors);
+    }
+  };
   const onLogin = async (e) => {
     e.preventDefault();
 
@@ -105,7 +132,7 @@ const LoginForm = ({ authenticated, setAuthenticated, open, handleOpen, handleCl
 
     if (!user.errors) {
       setAuthenticated(true);
-      history.push(`/${type}/${user.id}`)
+      history.push(`/${type}/${user.id}/schedule`)
     } else {
       setErrors(user.errors);
     }
@@ -124,9 +151,9 @@ const LoginForm = ({ authenticated, setAuthenticated, open, handleOpen, handleCl
   };
 
   if (authenticated && type === "adults") {
-    return <Redirect to={`/students/${id}`} />
+    return <Redirect to={`/students/${id}/schedule`} />
   } else if (authenticated && type === "instructors") {
-    return <Redirect to={`/${type}/${id}`} />
+    return <Redirect to={`/${type}/${id}/schedule`} />
   }
 
 
@@ -167,7 +194,7 @@ const LoginForm = ({ authenticated, setAuthenticated, open, handleOpen, handleCl
                 ))}
               </div>
               <TextField
-                variant="outlined"
+                // variant="outlined"
                 margin="normal"
                 required
                 fullWidth
@@ -180,7 +207,7 @@ const LoginForm = ({ authenticated, setAuthenticated, open, handleOpen, handleCl
                 onChange={updateEmail}
               />
               <TextField
-                variant="outlined"
+                // variant="outlined"
                 margin="normal"
                 required
                 fullWidth
@@ -193,6 +220,27 @@ const LoginForm = ({ authenticated, setAuthenticated, open, handleOpen, handleCl
                 value={password}
                 onChange={updatePassword}
               />
+              <Button
+                type="button"
+                fullWidth
+                variant="contained"
+                color="secondary"
+                className={classes.button}
+                onClick={onDemoInstructor}
+              >
+                Demo Instructor
+              </Button>
+              <Button
+                type="button"
+                fullWidth
+                variant="contained"
+                color="secondary"
+                className={classes.submit}
+                onClick={onDemoStudent}
+
+              >
+                Demo Student
+              </Button>
               <Button
                 type="submit"
                 fullWidth

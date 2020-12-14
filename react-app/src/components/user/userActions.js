@@ -26,3 +26,26 @@ export const deleteUser = (id) => async (dispatch) => {
     return data;
   }
 }
+
+export const editUser = (id, email, firstName, lastName, address, phoneNumber) => async (dispatch) => {
+  const response = await fetch(`/api/users/${id}`, {
+    method: 'PUT',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      'first_name': firstName,
+      'last_name': lastName,
+      'phone_number': phoneNumber,
+      email,
+      address,
+
+    })
+  })
+
+  if (response.ok) {
+    const data = await response.json();
+    dispatch(getMonthData(data.instructor_id, new Date().getFullYear(), new Date().getMonth() ))
+    return data;
+  }
+}

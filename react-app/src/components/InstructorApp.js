@@ -74,10 +74,10 @@ export default function AppContainer({ authenticated, setAuthenticated }) {
     }
 
   return (
-    <InstructorApp>
+    <InstructorApp
       authenticated={authenticated}
       setAuthenticated={setAuthenticated}
-    </InstructorApp>
+    />
   )
 
 }
