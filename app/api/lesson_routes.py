@@ -97,3 +97,35 @@ def get_schedule(id, year, month):
     days[day_no].append(lesson.id)
 
   return jsonify({"byId": byId, 'days': days})
+
+
+@lesson_routes.route('/<int:id>/student/schedule/<int:year>/<int:month>')
+def get_schedule_student(id, year, month):
+  print('---------year', int(year), type(year))
+  print('---------momth', month, type(month))
+  month = month + 1
+  lessons = Lesson.query.filter(extract('year', Lesson.start_time) == year, extract('month', Lesson.start_time) == month, id == Lesson.student_id).all()
+  if len(lessons) == 0:
+    return {'message': 'No lessons scheduled'}
+  byId = {}
+  weeks = {}
+  days = {}
+
+
+
+
+  for lesson in lessons:
+    # print('--------------------', lesson.to_dict())
+    byId[lesson.id] = lesson.to_dict()
+    # week_no = lesson.start_time.isocalendar()[1]
+    day_no = lesson.start_time.day
+    # print(week_no)
+    # if week_no not in weeks:
+    #   weeks[week_no] = []
+    # weeks[week_no].append(lesson.id)
+    if day_no not in days:
+      days[day_no] = []
+
+    days[day_no].append(lesson.id)
+
+  return jsonify({"byId": byId, 'days': days})

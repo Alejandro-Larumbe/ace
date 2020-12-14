@@ -45,10 +45,10 @@ export default function DescriptionCard({ checked }) {
             Let's all Ace it together!
           </Typography>
           <Typography className={classes.text} variant="body2" color="textSecondary" component="p">
-            Ace is an app designed to empower private music teachers to do what you know best, by pproviding tools to comprehensively manage your studio. Schedule your lessons, assign repertoire and keep track of your finantials with this app!
+            Ace is an app designed to empower private music teachers do what they do best. Ace provides solutions to manage your studio. Schedule lessons, assign repertoire and keep track of your finantials with this app!
           </Typography>
           <Typography className={classes.text} variant="body2" color="textSecondary" component="p">
-            For students, Ace will help you keep motivated by keeping track of your assignments and progress.
+            Keep those students motivated! Assign repertoire, share resources, and keep track of their progress.
           </Typography>
         </CardContent>
       </Card>

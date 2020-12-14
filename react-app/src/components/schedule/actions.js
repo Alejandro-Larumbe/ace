@@ -14,3 +14,16 @@ export const getMonthData = (id, year, month) => async (dispatch) => {
     console.log(e)
   }
 }
+
+export const getMonthDataStudent = (id, year, month) => async (dispatch) => {
+  const response = await fetch(`/api/lessons/${id}/student/schedule/${year}/${month}`)
+  try {
+    if (response.ok) {
+      const data = await response.json();
+      dispatch({ type: LOAD_MONTH, data })
+      return data
+    }
+  } catch (e) {
+    console.log(e)
+  }
+}

@@ -1,4 +1,4 @@
-from flask import Blueprint, jsonify
+from flask import Blueprint, jsonify, request
 from flask_login import login_required
 from app.forms import UserUpdateForm
 from app.models import User, db
@@ -23,18 +23,19 @@ def user(id):
 @user_routes.route('/<int:id>', methods=['PUT'])
 def user_update(id):
     form = UserUpdateForm()
-    # form['csrf_token'].data = request.cookies['csrf_token']
-    # if form.validate_on_submit():
-    user = User.query.get(id)
-    user.first_name = form.data['first_name']
-    last_name = form.data['last_name']
-    email = form.data['email']
-    phone_number = form.data['phone_number']
-    address = form.data['address']
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        user = User.query.get(id)
+        user.first_name = form.data['first_name']
+        user.last_name = form.data['last_name']
+        user.email = form.data['email']
+        user.phone_number = form.data['phone_number']
+        user.address = form.data['address']
+        # user.dob = form.data['dob']
 
-    db.session.commit()
-    return "User Updated"
-    # return "error updating"
+        db.session.commit()
+        return "User Updated"
+    return "error updating"
 
 
 @user_routes.route('/<int:id>', methods=['DELETE'])

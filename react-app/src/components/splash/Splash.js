@@ -10,8 +10,8 @@ import LoginForm from '../auth/LoginForm';
 const useStyles = makeStyles((theme) => ({
   root: {
     // height: '130vh',
-    height: '190vh',
-    width: 'auto',
+    height: '130vh',
+    width: '100%',
     backgroundImage: `url("https://ace-management.s3.us-east-2.amazonaws.com/HNashPhoto-4117cropped.jpg")`,
     backgroundSize: 'cover',
     backgroundRepeat: "no-repeat",

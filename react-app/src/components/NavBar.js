@@ -109,8 +109,8 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const NavBar = ({ setAuthenticated, user }) => {
-  const { profilePicUrl, studioName, studioLogoUrl, type, id, firstName } = user
+const NavBar = ({ setAuthenticated, user, studioName, studioLogoUrl }) => {
+  const { profilePicUrl, type, id, firstName } = user
   const classes = useStyles();
   const [anchorEl, setAnchorEl] = useState(null);
   const history = useHistory();
@@ -130,7 +130,7 @@ const NavBar = ({ setAuthenticated, user }) => {
   };
 
   const onLogout = async (e) => {
-    debugger
+
     await logout();
     setAuthenticated(false);
     return <Redirect to={`/`} />

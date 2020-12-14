@@ -11,7 +11,7 @@ def account_type(form, field):
     user = User.query.filter(User.email == email).first()
     if user and user.type != type:
         if user.type == 'adults':
-            raise ValidationError(f"user exists with an student account.")
+            raise ValidationError(f"user exists with a student account.")
         else:
             raise ValidationError(f"user exists with an instructor account.")
 
