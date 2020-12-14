@@ -10,6 +10,8 @@ import ScheduleContainer from '../components/schedule/ScheduleContainer';
 import DayContainer from './day/ScheduleDayContainer'
 import { getMonthData } from './schedule/actions'
 import { format, getMonth, getYear } from 'date-fns';
+import Profile from './user/Profile'
+import EditProfile from './user/EditProfile'
 
 
 const InstructorApp = ({ authenticated, setAuthenticated }) => {
@@ -33,9 +35,6 @@ const InstructorApp = ({ authenticated, setAuthenticated }) => {
         <Route path="/:instructorId/students" >
           <Students />
         </Route>
-        <Route path="/edit-profile" >
-          <UserEdit />
-        </Route>
         <Route path="/:id/lesson-create" >
           <LessonCreate />
         </Route>
@@ -44,6 +43,12 @@ const InstructorApp = ({ authenticated, setAuthenticated }) => {
         </Route>
         <Route path="/:instructorId/day/:day">
           <DayContainer />
+        </Route>
+        <Route path="/:id/edit" >
+          <EditProfile />
+        </Route>
+        <Route path="/:id" >
+          <Profile />
         </Route>
       </Switch>
     </BrowserRouter>

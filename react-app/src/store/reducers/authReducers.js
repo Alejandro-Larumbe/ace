@@ -15,6 +15,7 @@ const userReducer = (state = {}, action) => {
         profilePicUrl: action.data.profile_pic_url,
         studioLogoUrl: action.data.studio_logo_url,
         studioName: action.data.studio_name,
+        phoneNumber: action.data.phone_number,
         type: action.data.type,
       }
 

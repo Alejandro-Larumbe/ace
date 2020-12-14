@@ -1,7 +1,6 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
-import { loadStudent } from './userActions';
 
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
@@ -10,6 +9,8 @@ import Divider from '@material-ui/core/Divider';
 import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
+import { loadStudent, editUser } from './userActions';
+
 
 
 
@@ -47,17 +48,20 @@ const UserCard = ({ user }) => {
   const [lastName, setLastName] = useState('');
   const [address, setAddress] = useState('');
   const [phoneNumber, setPhoneNumber] = useState('');
+  const [studioName, setStudioName] = useState('');
   const classes = useStyles();
   const history = useHistory();
   const dispatch = useDispatch();
+  const id = localStorage.getItem("user_id");
 
   useEffect(() => {
     setEmail(user.email)
-    setFirstName(user.first_name)
-    setLastName(user.last_name)
+    setFirstName(user.firstName)
+    setLastName(user.lastName)
     setAddress(user.address)
-    setPhoneNumber(user.phone_number)
-  })
+    setPhoneNumber(user.phoneNumber)
+    setStudioName(user.studioName)
+  }, [user])
 
   if (!user) return null;
 
@@ -66,16 +70,24 @@ const UserCard = ({ user }) => {
 
   }
 
+  const onSubmit = async (e) => {
+    e.preventDefault();
+
+    const user = dispatch(editUser(id, email, firstName, lastName, address, phoneNumber))
+
+    if(!user.errors) {
+      history.goBack()
+    }
+  }
+
+
   const updateField = (callback) => (e) => {
     callback(e.target.value);
   };
 
-  const onSubmit = async (e) => {
-    console.log(
-      email, firstName, lastName, address, phoneNumber
-    )
+
     // history.goBack();
-  }
+
 
   return (
     <>
@@ -90,7 +102,7 @@ const UserCard = ({ user }) => {
                   label="first name"
                   name="firstName"
                   onChange={updateField(setFirstName)}
-                  defaultValue={user.first_name}
+                  defaultValue={user.firstName}
                   value={firstName}
                   required={true}
                   fullWidth
@@ -148,6 +160,19 @@ const UserCard = ({ user }) => {
                   onChange={updateField(setAddress)}
                   defaultValue={address}
                   value={address}
+                  required={true}
+                  fullWidth
+                />
+              </ListItem>
+              <ListItem button>
+                <TextField
+                  margin="dense"
+                  type="studioName"
+                  label="studio name"
+                  name="studioName"
+                  onChange={updateField(setStudioName)}
+                  defaultValue={studioName}
+                  value={studioName}
                   required={true}
                   fullWidth
                 />

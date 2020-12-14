@@ -124,8 +124,8 @@ const NavBar = ({ setAuthenticated, user }) => {
     setAnchorEl(null);
   };
 
-  const onEditProfile = () => {
-    history.push(`/${id}/edit-profile`)
+  const onProfile = () => {
+    history.push(`/${id}`)
     setAnchorEl(null);
   };
 
@@ -174,7 +174,7 @@ const NavBar = ({ setAuthenticated, user }) => {
             open={open}
             onClose={handleClose}
           >
-            <MenuItem onClick={onEditProfile}>Profile</MenuItem>
+            <MenuItem onClick={onProfile}>Profile</MenuItem>
             <MenuItem onClick={onLogout}>log out</MenuItem>
           </Menu>
 
@@ -213,9 +213,9 @@ const NavBar = ({ setAuthenticated, user }) => {
             </ListItem>
             <ListItem component={NavLink} to={`/${id}/lesson-create`} className={classes.listItem} button>
               <ListItemIcon><MusicNoteIcon /></ListItemIcon>
-              <ListItemText>Lessons</ListItemText>
+              <ListItemText>Add Lesson</ListItemText>
             </ListItem>
-            <ListItem to={`/${id}/repertoire`} component={NavLink} className={classes.listItem} button>
+            {/* <ListItem to={`/${id}/repertoire`} component={NavLink} className={classes.listItem} button>
               <ListItemIcon><MenuBookIcon /></ListItemIcon>
               <ListItemText>Repertoire</ListItemText>
             </ListItem>
@@ -226,7 +226,7 @@ const NavBar = ({ setAuthenticated, user }) => {
             <ListItem component={NavLink} to={`/${id}/billing`} className={classes.listItem} button>
               <ListItemIcon><AttachMoneyIcon /></ListItemIcon>
               <ListItemText>Billing</ListItemText>
-            </ListItem>
+            </ListItem> */}
           </List>
         </div>
       </Drawer>

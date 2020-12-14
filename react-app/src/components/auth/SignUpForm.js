@@ -53,6 +53,15 @@ const useStyles = makeStyles((theme) => ({
   submit: {
     margin: theme.spacing(3, 0, 2),
   },
+  title: {
+    marginTop: '2vh',
+    marginLeft: '2vw',
+  },
+  logo: {
+    position: "absolute",
+    bottom: 30,
+    left: 30,
+  }
 }));
 
 const SignUpForm = ({ authenticated, setAuthenticated, open, onClose, route }) => {
@@ -87,7 +96,7 @@ const SignUpForm = ({ authenticated, setAuthenticated, open, onClose, route }) =
 
       if (!user.errors) {
         setAuthenticated(true);
-        history.push(`/${type}/${user.id}`)
+        history.push(`/${type}/${user.id}/schedule`)
       } else {
         setErrors(user.errors);
       }
@@ -100,115 +109,135 @@ const SignUpForm = ({ authenticated, setAuthenticated, open, onClose, route }) =
 
 
   if (authenticated && type === "adults") {
-    return <Redirect to={`/students/${userId}`} />
+    return <Redirect to={`/students/${userId}/schedule`} />
   } else if (authenticated && type === "instructors") {
-    return <Redirect to={`/${type}/${userId}`} />
+    return <Redirect to={`/${type}/${userId}/schedule`} />
   }
 
   return (
-    <Grid container component="main" className={classes.root}>
-      <CssBaseline />
-      <Grid item xs={false} sm={4} md={8} className={classes.image} >
-        <Typography component="h1" variant="h5">
-          Let's maket it there together
-          </Typography>
-      </Grid>
-      <Grid item xs={12} sm={8} md={4} component={Paper} elevation={6} square>
-        <div className={classes.paper}>
-          <div>
-            {errors.map((error) => (
-              <div>{error}</div>
-            ))}
+    <>
+      <Grid container component="main" className={classes.root}>
+        <CssBaseline />
+        <Grid item xs={false} sm={4} md={8} className={classes.image} >
+          <div className={classes.title}>
+            <Typography variant="h3">
+              Let's maket it there
+        </Typography>
+            <Typography color='primary' variant="h2">
+              together
+        </Typography>
           </div>
-          <Typography component="h1" variant="h5">
-            Sign Up
+        </Grid>
+        <Grid item xs={12} sm={8} md={4} component={Paper} elevation={6} square>
+          <div className={classes.paper}>
+            <div>
+              {errors.map((error) => (
+                <div>{error}</div>
+              ))}
+            </div>
+            <Typography component="h1" variant="h5">
+              Sign Up
           </Typography>
-          <form onSubmit={onSignUp}>
-            <TextField
-              autoFocus
-              margin="dense"
-              type="text"
-              label="first name"
-              name="firstName"
-              onChange={updateField(setFirstName)}
-              value={firstName}
-              required={true}
-              fullWidth
-            />
-            <TextField
-              autoFocus
-              margin="dense"
-              type="text"
-              label="last name"
-              name="lastName"
-              onChange={updateField(setLastName)}
-              value={lastName}
-              required={true}
-              fullWidth
-            />
-            <TextField
-              autoFocus
-              margin="dense"
-              type="email"
-              label="email"
-              name="email"
-              onChange={updateField(setEmail)}
-              value={email}
-              required={true}
-              fullWidth
-            />
-            <TextField
-              autoFocus
-              margin="dense"
-              label="password"
-              type="password"
-              name="password"
-              onChange={updateField(setPassword)}
-              value={password}
-              required={true}
-              fullWidth
-            />
-            <TextField
-              autoFocus
-              margin="dense"
-              label="repeat password"
-              type="password"
-              name="repeat_password"
-              onChange={updateField(setRepeatPassword)}
-              value={repeatPassword}
-              required={true}
-              fullWidth
-            />
-            <input
-              style={{ visibility: 'hidden' }}
-              type="text"
-              name="type"
-              value={type}
-              required={true}
-              readOnly
-            ></input>
-            {
-              instructorId
-                ? <input
-                  style={{ visibility: 'hidden' }}
-                  type="text"
-                  name="instructorId"
-                  value={instructorId}
-                  readOnly
-                ></input>
-                : null
-            }
-            <Grid container>
-              <Grid item>
-                <Link href="/signin" variant="body2">
-                  {"Already have an account? Log In"}
-                </Link>
+            <form onSubmit={onSignUp}>
+              <TextField
+                autoFocus
+                margin="dense"
+                type="text"
+                label="first name"
+                name="firstName"
+                onChange={updateField(setFirstName)}
+                value={firstName}
+                required={true}
+                fullWidth
+              />
+              <TextField
+                autoFocus
+                margin="dense"
+                type="text"
+                label="last name"
+                name="lastName"
+                onChange={updateField(setLastName)}
+                value={lastName}
+                required={true}
+                fullWidth
+              />
+              <TextField
+                autoFocus
+                margin="dense"
+                type="email"
+                label="email"
+                name="email"
+                onChange={updateField(setEmail)}
+                value={email}
+                required={true}
+                fullWidth
+              />
+              <TextField
+                autoFocus
+                margin="dense"
+                label="password"
+                type="password"
+                name="password"
+                onChange={updateField(setPassword)}
+                value={password}
+                required={true}
+                fullWidth
+              />
+              <TextField
+                autoFocus
+                margin="dense"
+                label="repeat password"
+                type="password"
+                name="repeat_password"
+                onChange={updateField(setRepeatPassword)}
+                value={repeatPassword}
+                required={true}
+                fullWidth
+              />
+              <input
+                style={{ visibility: 'hidden' }}
+                type="text"
+                name="type"
+                value={type}
+                required={true}
+                readOnly
+              ></input>
+              {
+                instructorId
+                  ? <input
+                    style={{ visibility: 'hidden' }}
+                    type="text"
+                    name="instructorId"
+                    value={instructorId}
+                    readOnly
+                  ></input>
+                  : null
+              }
+              <Grid container>
+              <Button
+                type="submit"
+                fullWidth
+                variant="contained"
+                color="secondary"
+                className={classes.submit}
+              >
+                Sign In
+              </Button>
+                <Grid item>
+                  <Link href="/signin" variant="body2">
+                    {"Already have an account? Log In"}
+                  </Link>
+                </Grid>
               </Grid>
-            </Grid>
-          </form>
-        </div>
+            </form>
+          </div>
+        </Grid>
       </Grid>
-    </Grid>
+      <div className={classes.logo}>
+      <img  src={'https://ace-management.s3.us-east-2.amazonaws.com/yellow.png'} height={"80px"} />
+      </div>
+    </>
+
   );
 };
 
