@@ -35,3 +35,18 @@ def user_update(id):
     db.session.commit()
     return "User Updated"
     # return "error updating"
+
+
+@user_routes.route('/<int:id>', methods=['DELETE'])
+def user_delete(id):
+    user= User.query.get(id)
+    print('---------', id)
+    print(user.to_dict())
+    try:
+        db.session.delete(user)
+        print('hi--------------------------------')
+        db.session.commit()
+        print('hi--------------------------------')
+        return jsonify(user)
+    except:
+        return {'errors':'Error deleting user'}, 400

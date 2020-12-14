@@ -1,7 +1,7 @@
 import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
-import { loadStudent } from './userActions';
+import { loadStudent, deleteUser } from './userActions';
 import { format, parse } from 'date-fns';
 
 import { makeStyles } from '@material-ui/core/styles';
@@ -14,6 +14,11 @@ import Fab from '@material-ui/core/Fab';
 import EditIcon from '@material-ui/icons/Edit';
 import DeleteIcon from '@material-ui/icons/Delete';
 import Paper from '@material-ui/core/Paper';
+import Button from '@material-ui/core/Button';
+import Dialog from '@material-ui/core/Dialog';
+import DialogActions from '@material-ui/core/DialogActions';
+import DialogTitle from '@material-ui/core/DialogTitle';
+import { pink } from '@material-ui/core/colors';
 
 
 
@@ -38,6 +43,7 @@ const UserCard = ({ user, getStudent }) => {
   const classes = useStyles();
   const history = useHistory();
   const [open, setOpen] = React.useState(false);
+  const dispatch = useDispatch();
 
   useEffect(() => {
     getStudent();
@@ -59,12 +65,31 @@ const UserCard = ({ user, getStudent }) => {
     history.push(`${user.id}/edit`)
   }
   const onDelete = () => {
-    history.push(`${user.id}/edit`)
+    dispatch(deleteUser(user.id))
+
   }
 
   return (
     <>
       <div className={classes.root}>
+      <div>
+      <Dialog
+        open={open}
+        onClose={handleClose}
+        aria-labelledby="alert-dialog-title"
+        aria-describedby="alert-dialog-description"
+      >
+        <DialogTitle id="alert-dialog-title">{"Are you sure you want to delete user?"}</DialogTitle>
+        <DialogActions>
+          <Button onClick={handleClose} color="primary">
+            Cancel
+          </Button>
+          <Button onClick={onDelete} color="primary" autoFocus>
+            Delete
+          </Button>
+        </DialogActions>
+      </Dialog>
+    </div>
         <Paper variant="outlined" >
           <List component="nav" aria-label="mailbox folders">
             <ListItem >
@@ -93,8 +118,8 @@ const UserCard = ({ user, getStudent }) => {
           <Fab color="secondary" aria-label="edit">
             <EditIcon onClick={onEdit} />
           </Fab>
-          <Fab color="secondary" aria-label="edit">
-            <DeleteIcon onClick={onDelete} />
+          <Fab color={'secondary'} aria-label="delete">
+            <DeleteIcon onClick={handleClickOpen} />
           </Fab>
         </div>
       </div>

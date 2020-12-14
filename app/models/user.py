@@ -16,6 +16,10 @@ class User(db.Model, UserMixin):
     hashed_password = db.Column(db.String(255), nullable=False)
     type = db.Column(db.String(50))
 
+    instructor = db.relationship('Instructor', cascade='all, delete')
+    adult = db.relationship('Adult', cascade='all, delete')
+
+
     # studio_name = db.relationship('Instructor', cascade='all, delete')
     # studio_logo_url = db.relationship('Instructor', cascade='all, delete')
     # is_student = db.relationship('Adult', cascade='all, delete')
