@@ -1,5 +1,7 @@
+import { getMonthData } from '../schedule/actions'
+import { useDispatch } from 'react-redux'
 
-export const createLesson = (lesson, id) => async()  => {
+export const createLesson = (lesson, id) => async(dispatch)  => {
   const response = await fetch(`/api/lessons/instructor/${id}`, {
     method: "POST",
     // headers: {
@@ -8,7 +10,9 @@ export const createLesson = (lesson, id) => async()  => {
     // body: JSON.stringify(lesson)
     body:lesson,
   });
-  // const data = await response.json()
+  const data = await response.json()
+  // console.log(data)
   // console.log('data', data)
-  return await response.json();
+  dispatch(getMonthData(data.instructor_id, new Date().getFullYear(), new Date().getMonth() ))
+  return data
 }

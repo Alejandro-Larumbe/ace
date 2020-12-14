@@ -38,6 +38,7 @@ const useStyles = makeStyles((theme) => ({
   },
   logoContainer: {
     height: '14vh',
+    minHeight: '14vh',
     objectFit: 'contain',
     display: 'flex',
     justifyContent: 'center',
@@ -48,7 +49,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     justifyContent: 'center',
     width: `calc(100% - ${drawerWidth}px)`,
-    height: '8vh',
+    minHeight: '8vh',
     marginLeft: drawerWidth,
     zIndex: theme.zIndex.drawer + 1,
     // color: theme.palette.secondary

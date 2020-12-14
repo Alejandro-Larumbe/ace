@@ -12,6 +12,7 @@ import Divider from '@material-ui/core/Divider';
 import Avatar from '@material-ui/core/Avatar';
 import Fab from '@material-ui/core/Fab';
 import EditIcon from '@material-ui/icons/Edit';
+import DeleteIcon from '@material-ui/icons/Delete';
 import Paper from '@material-ui/core/Paper';
 
 
@@ -30,22 +31,34 @@ const useStyles = makeStyles((theme) => ({
     position: 'absolute',
     bottom: theme.spacing(-8),
     right: theme.spacing(-4),
-
   }
 }));
 
 const UserCard = ({ user, getStudent }) => {
   const classes = useStyles();
   const history = useHistory();
+  const [open, setOpen] = React.useState(false);
 
   useEffect(() => {
     getStudent();
   }, []);
 
+  const handleClickOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+
   if (!user) return null;
 
 
   const onEdit = () => {
+    history.push(`${user.id}/edit`)
+  }
+  const onDelete = () => {
     history.push(`${user.id}/edit`)
   }
 
@@ -76,9 +89,14 @@ const UserCard = ({ user, getStudent }) => {
             </ListItem>
           </List>
         </Paper>
-          <Fab className={classes.fab} color="secondary" aria-label="edit">
+        <div className={classes.fab}>
+          <Fab color="secondary" aria-label="edit">
             <EditIcon onClick={onEdit} />
           </Fab>
+          <Fab color="secondary" aria-label="edit">
+            <DeleteIcon onClick={onDelete} />
+          </Fab>
+        </div>
       </div>
     </>
   );

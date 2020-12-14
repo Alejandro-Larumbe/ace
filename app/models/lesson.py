@@ -27,5 +27,6 @@ class Lesson(db.Model):
       "student_id": self.student_id,
       "instructor_id": self.instructor_id,
       "student_first_name": self.student.first_name,
-      "student_last_name": self.student.last_name
+      "student_last_name": self.student.last_name,
+      "profile_pic_url": self.student.profile_pic_url
     }

@@ -114,7 +114,7 @@ const LessonCreate = () => {
       lesson = await dispatch(createLesson(lesson, parseInt(id)))
       // lesson = await dispatch(createLesson(startTime, endTime, studentId, rate, parseInt(id)))
       if (!lesson.errors) {
-        history.push(`/${id}/lessons`)
+        history.push(`/${id}/schedule`)
       } else {
         console.log(lesson.errors)
         setErrors([lesson.errors])
