@@ -16,10 +16,11 @@ function App() {
   const dispatch = useDispatch();
   const [ type, setType ] = useState();
 
+  debugger;
   useEffect(() => {
     (async () => {
       const user = await authenticate();
-      if (user && !user.errors) {
+      if (!user.errors) {
         setAuthenticated(true);
       }
       const userId = localStorage.getItem("user_id");
