@@ -24,23 +24,20 @@ function App() {
       const userId = localStorage.getItem("user_id");
       if (userId) {
         user = await authenticate();
-        console.log('user-------------', user)
-        if (user && !user.errors) {
+        if (!user.errors) {
           setAuthenticated(true);
         }
 
         (async () => {
           await dispatch(loadUser(userId));
-        })()
-        if (authenticated) {
-          setType(user.type)
           setLoaded(true);
-        }
+          setType(user.type)
+        })()
+      } else {
+        setLoaded(true);
       }
-
-      setLoaded(true);
     })();
-  }, []);
+  }, [dispatch, setAuthenticated]);
 
   if (!loaded) {
     return null;

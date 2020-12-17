@@ -15,6 +15,7 @@ export const logout = async () => {
       "Content-Type": "application/json",
     }
   });
+  localStorage.removeItem("user_id");
   return await response.json();
 };
 
