@@ -1,5 +1,5 @@
 import os
-from flask import Flask, render_template, request, session
+from flask import Flask, render_template, request, session, redirect
 from flask_cors import CORS
 from flask_migrate import Migrate
 from flask_wtf.csrf import CSRFProtect, generate_csrf
@@ -11,6 +11,7 @@ from .api.auth_routes import auth_routes
 from .api.instructor_routes import instructor_routes
 from .api.student_routes import student_routes
 from .api.lesson_routes import lesson_routes
+from .api.resource_routes import resource_routes
 from .seeds import seed_commands
 
 from .config import Config
@@ -36,6 +37,7 @@ app.register_blueprint(auth_routes, url_prefix='/api/auth')
 app.register_blueprint(instructor_routes, url_prefix='/api/instructors')
 app.register_blueprint(student_routes, url_prefix='/api/students')
 app.register_blueprint(lesson_routes, url_prefix='/api/lessons')
+app.register_blueprint(resource_routes, url_prefix='/api/resources')
 db.init_app(app)
 Migrate(app, db)
 
@@ -44,10 +46,11 @@ CORS(app)
 
 @app.before_request
 def redirect_https():
-  if request.headers.get('X-Forwarded-Proto') == 'http':
-    url = request.url.replace('http://', 'https://', 1)
-    code = 301
-    return redirect(url, code=code)
+  if os.environ.get('FLASK_ENV') == 'production':
+    if request.headers.get('X-Forwarded-Proto') == 'http':
+        url = request.url.replace('http://', 'https://', 1)
+        code = 301
+        return redirect(url, code=code)
 
 
 @app.after_request

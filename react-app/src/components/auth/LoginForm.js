@@ -93,19 +93,14 @@ const LoginForm = ({ authenticated, setAuthenticated, open, handleOpen, handleCl
   const types = ["instructors", "adults"]
   const [value, setValue] = useState(0)
   const type = types[value]
-
-
   let history = useHistory();
-
   const classes = useStyles();
 
 
 
   const onDemoInstructor = async (e) => {
     e.preventDefault();
-
     let user = await dispatch(login('demo@instructor.com', 'password', 'instructors'));
-
     if (!user.errors) {
       setAuthenticated(true);
       history.push(`/instructors/${user.id}/schedule`)
@@ -113,11 +108,10 @@ const LoginForm = ({ authenticated, setAuthenticated, open, handleOpen, handleCl
       setErrors(user.errors);
     }
   };
+
   const onDemoStudent = async (e) => {
     e.preventDefault();
-
     let user = await dispatch(login('demo@student.com', 'password', 'adults'));
-
     if (!user.errors) {
       setAuthenticated(true);
       history.push(`/students/${user.id}/schedule`)

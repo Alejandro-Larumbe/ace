@@ -17,7 +17,7 @@ const useStyles = makeStyles((theme) => ({
     maxWidth: 700,
   },
   title: {
-    colSpan:2,
+    colSpan: 2,
   },
   icons: {
     fontSize: '.7em'
@@ -48,51 +48,58 @@ export default function Schedule({ byId, dayArray, setCurrentDate, currentDate }
     <div className={classes.root}>
       <CssBaseline />
       <table>
-        <tr>
-          <td colSpan={4}>
-          <Typography variant={'h3'} gutterBottom={true}>
-            <IconButton onClick={() => monthHandler('prev')}>
-              <ArrowBackIosIcon button className={classes.icons} />
-            </IconButton>
-            <IconButton onClick={() => monthHandler('next')}>
-              <ArrowForwardIosIcon className={classes.icons}/>
-            </IconButton> {format((currentDate), 'MMMM')} {format((currentDate), 'yyyy')}
-          </Typography>
-          </td>
-        </tr>
-        <tr>
-          {weekDays.map(week => {
-            return <th><Typography>{week}</Typography></th>
-          }
-          )}
-        </tr>
-        {tableRows.map((row, i) => {
-          return (
-            <tr>
-              {
-                row.map(day => {
-                  let data = []
+        <thead>
+          <tr>
+            <td colSpan={4}>
+              <Typography variant={'h3'} gutterBottom={true}>
+                <IconButton onClick={() => monthHandler('prev')}>
+                  <ArrowBackIosIcon className={classes.icons} />
+                </IconButton>
+                <IconButton onClick={() => monthHandler('next')}>
+                  <ArrowForwardIosIcon className={classes.icons} />
+                </IconButton> {format((currentDate), 'MMMM')} {format((currentDate), 'yyyy')}
+              </Typography>
+            </td>
+          </tr>
+          <tr>
+            {weekDays.map(week => {
+              return <th key={week}><Typography>{week}</Typography></th>
+            }
+            )}
+          </tr>
+        </thead>
+        <tbody>
 
-                  if (dayArray[day]) {
-                    dayArray[day].forEach(each => {
-                      const time = format(new Date(byId[each]['start_time']), 'p')
-                      data.push({
-                        time,
-                        'name': byId[each].student_first_name,
-                        'lastNameInitial': byId[each].student_last_name.slice(0, 1)
+          {tableRows.map((row, i) => {
+            return (
+              <tr key={i}>
+                {
+                  row.map((day, i) => {
+                    let data = []
+
+                    if (dayArray[day]) {
+                      dayArray[day].forEach(each => {
+                        const time = format(new Date(byId[each]['start_time']), 'p')
+                        data.push({
+                          time,
+                          'name': byId[each].student_first_name,
+                          'lastNameInitial': byId[each].student_last_name.slice(0, 1)
+                        })
                       })
-                    })
-                  }
-                  data.sort((a, b) => (a.time > b.time) ? 1 : -1)
-                  return <td>
-                    <Tile day={day} currentDate={currentDate} data={data}></Tile>
-                  </td>
+                    }
+                    data.sort((a, b) => (a.time > b.time) ? 1 : -1)
+                    return (
+                      <td key={i}>
+                        <Tile day={i} currentDate={currentDate} data={data}></Tile>
+                      </td>
+                    )
 
-                })
-              }
-            </tr>
-          )
-        })}
+                  })
+                }
+              </tr>
+            )
+          })}
+        </tbody>
       </table>
     </div>
   )

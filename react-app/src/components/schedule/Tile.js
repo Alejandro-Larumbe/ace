@@ -64,13 +64,13 @@ export default function Tile({ day, data, currentDate }) {
             {day}
           </Typography>
           {data
-            ? data.map(each => {
+            ? data.map((each, i )=> {
               return (
-                <>
-                  <Typography variant="body2" component="p">
+                <div key={i}>
+                  <Typography  variant="body2" component="p">
                     {each.time} - {each.name} {each.lastNameInitial}
                   </Typography>
-                </>
+                </div>
               )
             })
             : <Typography variant="body2" component="p">

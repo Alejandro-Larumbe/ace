@@ -13,25 +13,32 @@ import ProtectedRoute from './components/auth/ProtectedRoute'
 function App() {
   const [authenticated, setAuthenticated] = useState(false);
   const [loaded, setLoaded] = useState(false);
-  const dispatch = useDispatch();
   const [ type, setType ] = useState();
+  const dispatch = useDispatch();
 
-  debugger;
+  // debugger;
   useEffect(() => {
+    let user;
     (async () => {
-      const user = await authenticate();
-      if (!user.errors) {
-        setAuthenticated(true);
-      }
-      const userId = localStorage.getItem("user_id");
-      (async () => {
-        await dispatch(loadUser(userId));
-        setLoaded(true);
-      })()
 
-      if (authenticated) {
-        setType(user.type)
+      const userId = localStorage.getItem("user_id");
+      if (userId) {
+        user = await authenticate();
+        console.log('user-------------', user)
+        if (user && !user.errors) {
+          setAuthenticated(true);
+        }
+
+        (async () => {
+          await dispatch(loadUser(userId));
+        })()
+        if (authenticated) {
+          setType(user.type)
+          setLoaded(true);
+        }
       }
+
+      setLoaded(true);
     })();
   }, []);
 
