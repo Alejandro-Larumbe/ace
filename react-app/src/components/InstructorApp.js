@@ -14,7 +14,7 @@ import Profile from './user/Profile'
 import EditProfile from './user/EditProfile'
 
 
-const InstructorApp = ({ authenticated, setAuthenticated }) => {
+const InstructorApp = ({ setAuthenticated }) => {
   const user = useSelector((state) => state.user)
 
 

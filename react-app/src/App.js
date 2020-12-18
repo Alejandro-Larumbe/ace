@@ -9,6 +9,8 @@ import { loadUser } from './store/actions/authActions';
 import InstructorApp from "./components/InstructorApp";
 import StudentApp from './components/StudentApp';
 import ProtectedRoute from './components/auth/ProtectedRoute'
+import InstructorPrivateRoute from './components/auth/InstructorPrivateRoute'
+import StudentPrivateRoute from './components/auth/StudentPrivateRoute'
 
 function App() {
   const [authenticated, setAuthenticated] = useState(false);
@@ -58,18 +60,18 @@ function App() {
           <SignUpForm setAuthenticated={setAuthenticated} />
         </ProtectedRoute>
       </Switch>
-      <Route path="/instructors/:id" >
+      <InstructorPrivateRoute authenticated={authenticated} path="/instructors/:id" >
         <InstructorApp
           authenticated={authenticated}
           setAuthenticated={setAuthenticated}
         />
-      </Route>
-      <Route path="/students/:id" >
+      </InstructorPrivateRoute>
+      <StudentPrivateRoute authenticated={authenticated} path="/students/:id" >
         <StudentApp
           authenticated={authenticated}
           setAuthenticated={setAuthenticated}
         />
-      </Route>
+      </StudentPrivateRoute>
     </BrowserRouter>
   )
 }
