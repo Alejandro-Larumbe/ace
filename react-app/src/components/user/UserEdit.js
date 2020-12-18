@@ -40,7 +40,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const UserCard = ({ student, loadStudent, id }) => {
+const UserCard = ({ student, loadStudent, id, setView }) => {
   const [email, setEmail] = useState(student.email);
   const [firstName, setFirstName] = useState(student.first_name);
   const [lastName, setLastName] = useState(student.last_name);

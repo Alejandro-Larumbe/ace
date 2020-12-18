@@ -1,5 +1,7 @@
 import React from 'react';
+import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom';
+import { setView, setCurrentStudentId } from './actions';
 
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
@@ -190,7 +192,7 @@ const useStyles = makeStyles((theme) => ({
   toolbar: theme.mixins.toolbar,
 }));
 
-function StudentsTable({ studentsById, setCurrentStudentId, setView }) {
+function StudentsTable({ studentsById }) {
   const classes = useStyles();
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('calories');
@@ -198,7 +200,7 @@ function StudentsTable({ studentsById, setCurrentStudentId, setView }) {
   const [page, setPage] = React.useState(0);
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
-  const history = useHistory()
+  const dispatch = useDispatch();
 
   // useEffect(() => {
   //   getStudentsById();
@@ -236,8 +238,8 @@ function StudentsTable({ studentsById, setCurrentStudentId, setView }) {
   };
 
   const handleClick = (event, id) => {
-    setCurrentStudentId(id)
-    setView('student')
+    dispatch(setCurrentStudentId(id))
+    dispatch(setView('student'))
     // history.push(`students/${id}`)
   };
 

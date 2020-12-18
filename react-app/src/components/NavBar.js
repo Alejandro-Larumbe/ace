@@ -1,7 +1,9 @@
 import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { NavLink, useHistory, Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { logout } from "../services/auth";
+import { setView } from './students/actions';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
 import Avatar from '@material-ui/core/Avatar';

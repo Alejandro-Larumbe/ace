@@ -24,9 +24,9 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 const useStyles = makeStyles((theme) => ({
   root: {
     width: '100%',
-    maxWidth: 500,
+    maxWidth: 400,
     margin: 'auto',
-    // backgroundColor: theme.palette.background.paper,
+    backgroundColor: theme.palette.background.paper,
     position: 'relative'
 
   },
@@ -37,8 +37,9 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const UserCard = ({ user, setView, back }) => {
+const UserView = ({ user, setView, back }) => {
   const classes = useStyles();
+  const history = useHistory();
   const [open, setOpen] = React.useState(false);
   const dispatch = useDispatch();
 
@@ -144,4 +145,4 @@ const UserCard = ({ user, setView, back }) => {
   );
 }
 
-export default UserCard
+export default UserView

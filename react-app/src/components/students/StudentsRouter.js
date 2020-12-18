@@ -1,7 +1,15 @@
-import React from 'react';
+import React, { useEffect, useState } from 'react';
+import { useSelector, useDispatch } from 'react-redux';
+import StudentsTable from './StudentsTable';
+import { getStudents } from './actions';
+import UserCard from '../user/UserCard';
+import UserEdit from '../user/UserEdit';
+import { setCurrentStudentId, setView } from './actions';
 
-export default function StudentsRouter() {
 
+
+export default function StudentsRouter({ view, currentStudentId, studentsById, getStudents }) {
+  const dispatch = useDispatch();
 
   useEffect(() => {
     getStudents()
@@ -9,17 +17,18 @@ export default function StudentsRouter() {
 
   return (
     <>
-      {(view === 'table') && (
+      {(!view || view === 'table') && (
         <StudentsTable
           studentsById={studentsById}
-          setCurrentStudentId={setCurrentStudentId}
-          setView={setView}
+        // setCurrentStudentId={setCurrentStudentId}
+        // setView={setView}
         />
       )}
       {(view === 'student') && (
         <UserCard
           user={studentsById[currentStudentId]}
           setView={setView}
+          back={() => dispatch(setView('table'))}
         />
       )}
       {(view === 'edit') && (
