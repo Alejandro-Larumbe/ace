@@ -58,7 +58,7 @@ const UserCard = ({ user, setView }) => {
 
 
   const onEdit = () => {
-    setView('edit')
+    dispatch(setView('edit'))
   }
   const onDelete = () => {
     dispatch(deleteUser(user.id))
@@ -136,7 +136,7 @@ const UserCard = ({ user, setView }) => {
         </Paper>
         <div className={classes.fab}>
           <Fab color="secondary" aria-label="edit">
-            <EditIcon onClick={() => onEdit()} />
+            <EditIcon onClick={onEdit} />
           </Fab>
           <Fab color={'secondary'} aria-label="delete">
             <DeleteIcon onClick={handleClickOpen} />

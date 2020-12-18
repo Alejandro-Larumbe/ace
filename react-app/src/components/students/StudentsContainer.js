@@ -4,41 +4,27 @@ import StudentsTable from './StudentsTable';
 import { getStudents } from '../../store/actions/studentsActions';
 import UserCard from '../user/UserCard';
 import UserEdit from '../user/UserEdit';
+import StudentsRouter from './StudentsRouter';
 
 const StudentsContainer = () => {
   const studentsById = useSelector(state => state.students.byId)
   const id = useSelector(state => state.user.id)
+  const view = useSelector(state => state.students.view || 'table')
+  const currentStudentId = useSelector(state => state.students.currentStudentId)
   const dispatch = useDispatch();
-  const [view, setView] = useState('table')
-  const [currentStudentId, setCurrentStudentId] = useState()
 
   useEffect(() => {
     dispatch(getStudents(id))
-  }, []);
+  }, [view]);
 
 
   return (
-    <>
-      {(view === 'table') && (
-        <StudentsTable
-          studentsById={studentsById}
-          setCurrentStudentId={setCurrentStudentId}
-          setView={setView}
-        />
-      )}
-      {(view === 'student') && (
-        <UserCard
-          user={studentsById[currentStudentId]}
-          setView={setView}
-        />
-      )}
-      {(view === 'edit') && (
-        <UserEdit
-          user={studentsById[currentStudentId]}
-          setView={setView}
-        />
-      )}
-    </>
+    <StudentsRouter
+    view={view}
+    currentStudentId={currentStudentId}
+    getStudentsById={() =>dispatch(getStudents(id))}
+    />
+q
   )
 
 
