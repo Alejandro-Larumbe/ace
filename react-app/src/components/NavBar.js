@@ -201,13 +201,13 @@ const NavBar = ({ setAuthenticated, user, studioName, studioLogoUrl }) => {
           <List >
             {type === 'instructors'
               ?
-              <ListItem component={NavLink} to={`/${id}/students`} className={classes.listItem} button>
+              <ListItem component={NavLink} to={`/students`} className={classes.listItem} button>
                 <ListItemIcon><FaceIcon /></ListItemIcon>
                 <ListItemText>Students</ListItemText>
               </ListItem>
               : null
             }
-            <ListItem component={NavLink} to={`/${id}/schedule`} className={classes.listItem} button>
+            <ListItem component={NavLink} to={`/schedule`} className={classes.listItem} button>
               <ListItemIcon><CalendarTodayIcon /></ListItemIcon>
               <ListItemText>Schedule</ListItemText>
             </ListItem>

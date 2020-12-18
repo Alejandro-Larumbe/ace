@@ -324,23 +324,4 @@ function StudentsTable({ studentsById, getStudentsById }) {
   );
 }
 
-
-
-const StudentsContainer = () => {
-  const studentsById = useSelector(state => state.students.byId)
-  const id = useSelector(state => state.user.id)
-  const dispatch = useDispatch();
-
-
-  return (
-    <StudentsTable
-      studentsById={studentsById}
-      getStudentsById={() => dispatch(getStudents(id))}
-    />
-  )
-
-
-}
-
-
-export default StudentsContainer;
+export default StudentsTable;

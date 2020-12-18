@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from "react-redux";
 import { BrowserRouter, Redirect, Route, Switch, useParams } from 'react-router-dom';
 import Navbar from './NavBar';
-import Students from './students/Students';
+import Students from './students/StudentsContainer';
 import User from './user/User.js';
 import UserEdit from './user/UserEdit';
 import LessonCreate from '../components/lessons/LessonCreate'
@@ -20,7 +20,7 @@ const InstructorApp = ({ setAuthenticated }) => {
 
 
   return (
-    <BrowserRouter basename={'/instructors/:id'}>
+    <BrowserRouter basename={'/instructors'}>
       <Navbar
         setAuthenticated={setAuthenticated}
         user={user}
@@ -28,13 +28,13 @@ const InstructorApp = ({ setAuthenticated }) => {
         studioLogoUrl={user.studioLogoUrl}
       />
       <Switch>
-        <Route path="/:instructorId/students/:id/edit">
+        {/* <Route path="/students/:id/edit">
           <UserEdit />
         </Route>
-        <Route path="/:instructorId/students/:id">
+        <Route path="/students/:studentId">
           <User />
-        </Route>
-        <Route path="/:instructorId/students" >
+        </Route> */}
+        <Route path="/students" >
           <Students />
         </Route>
         <Route path="/:id/lesson-create" >
@@ -73,12 +73,12 @@ export default function AppContainer({ authenticated, setAuthenticated }) {
   }, [currentDate]);
 
 
-    if (!authenticated) {
-      return <Redirect to="/" />
-    }
-    if (authenticated && user.type === 'adults') {
-      return <Redirect to="/students" />
-    }
+  if (!authenticated) {
+    return <Redirect to="/" />
+  }
+  if (authenticated && user.type === 'adults') {
+    return <Redirect to="/students" />
+  }
 
   return (
     <InstructorApp
