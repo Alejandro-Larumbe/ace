@@ -20,7 +20,6 @@ const useStyles = makeStyles((theme) => ({
       width: '100%',
       maxWidth: 500,
       margin: 'auto',
-      marginTop: '22vh',
       backgroundColor: theme.palette.background.paper,
     },
   },

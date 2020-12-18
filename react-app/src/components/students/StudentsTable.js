@@ -190,7 +190,7 @@ const useStyles = makeStyles((theme) => ({
   toolbar: theme.mixins.toolbar,
 }));
 
-function StudentsTable({ studentsById, getStudentsById }) {
+function StudentsTable({ studentsById, setCurrentStudentId, setView }) {
   const classes = useStyles();
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('calories');
@@ -236,7 +236,9 @@ function StudentsTable({ studentsById, getStudentsById }) {
   };
 
   const handleClick = (event, id) => {
-    history.push(`students/${id}`)
+    setCurrentStudentId(id)
+    setView('student')
+    // history.push(`students/${id}`)
   };
 
   const handleChangePage = (event, newPage) => {

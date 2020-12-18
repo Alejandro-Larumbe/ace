@@ -26,7 +26,6 @@ const useStyles = makeStyles((theme) => ({
     width: '100%',
     maxWidth: 400,
     margin: 'auto',
-    marginTop: '22vh',
     backgroundColor: theme.palette.background.paper,
     position: 'relative'
 
@@ -38,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const UserCard = ({ user }) => {
+const UserCard = ({ user, setView }) => {
   const classes = useStyles();
   const history = useHistory();
   const [open, setOpen] = React.useState(false);
@@ -59,7 +58,7 @@ const UserCard = ({ user }) => {
 
 
   const onEdit = () => {
-    history.push(`${user.id}/edit`)
+    setView('edit')
   }
   const onDelete = () => {
     dispatch(deleteUser(user.id))
