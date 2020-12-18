@@ -1,6 +1,4 @@
-import React, { useEffect } from 'react';
-import { useSelector, useDispatch } from 'react-redux';
-import { getStudents } from '../../store/actions/studentsActions';
+import React from 'react';
 import { useHistory } from 'react-router-dom';
 
 import PropTypes from 'prop-types';
@@ -169,7 +167,6 @@ const useStyles = makeStyles((theme) => ({
     // maxWidth: 700,
     width: '100%',
     margin: `auto`,
-    marginTop: '22vh',
     width: '50%',
   },
   paper: {
@@ -203,9 +200,9 @@ function StudentsTable({ studentsById, getStudentsById }) {
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const history = useHistory()
 
-  useEffect(() => {
-    getStudentsById();
-  }, []);
+  // useEffect(() => {
+  //   getStudentsById();
+  // }, []);
 
   if (!studentsById) return null
 

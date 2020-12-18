@@ -13,6 +13,10 @@ import { format, getMonth, getYear } from 'date-fns';
 import Profile from './user/Profile'
 import EditProfile from './user/EditProfile'
 
+const style = {
+  marginTop: '22vh',
+  marginLeft: 200
+}
 
 const InstructorApp = ({ setAuthenticated }) => {
   const user = useSelector((state) => state.user)
@@ -27,32 +31,34 @@ const InstructorApp = ({ setAuthenticated }) => {
         studioName={user.studioName}
         studioLogoUrl={user.studioLogoUrl}
       />
-      <Switch>
-        {/* <Route path="/students/:id/edit">
+      <div style={style}>
+        <Switch>
+          {/* <Route path="/students/:id/edit">
           <UserEdit />
-        </Route>
-        <Route path="/students/:studentId">
+          </Route>
+          <Route path="/students/:studentId">
           <User />
         </Route> */}
-        <Route path="/students" >
-          <Students />
-        </Route>
-        <Route path="/:id/lesson-create" >
-          <LessonCreate />
-        </Route>
-        <Route path="/:instructorId/schedule">
-          <ScheduleContainer />
-        </Route>
-        <Route path="/:instructorId/day/:day">
-          <DayContainer />
-        </Route>
-        <Route path="/:id/edit" >
-          <EditProfile />
-        </Route>
-        <Route path="/:id" >
-          <Profile />
-        </Route>
-      </Switch>
+          <Route path="/students" >
+            <Students />
+          </Route>
+          <Route path="/:id/lesson-create" >
+            <LessonCreate />
+          </Route>
+          <Route path="/:instructorId/schedule">
+            <ScheduleContainer />
+          </Route>
+          <Route path="/:instructorId/day/:day">
+            <DayContainer />
+          </Route>
+          <Route path="/:id/edit" >
+            <EditProfile />
+          </Route>
+          <Route path="/:id" >
+            <Profile />
+          </Route>
+        </Switch>
+      </div>
     </BrowserRouter>
 
   )
