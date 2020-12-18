@@ -54,13 +54,9 @@ function App() {
         <ProtectedRoute path="/" authenticated={authenticated} exact={true}>
           <Splash setAuthenticated={setAuthenticated} />
         </ProtectedRoute>
-        <Route path="/signup" exact={true}>
-          <SignUpForm
-            authenticated={authenticated}
-            setAuthenticated={setAuthenticated}
-            route={type}
-          />
-        </Route>
+        <ProtectedRoute path="/signup" authenticated={authenticated} exact={true}>
+          <SignUpForm setAuthenticated={setAuthenticated} />
+        </ProtectedRoute>
       </Switch>
       <Route path="/instructors/:id" >
         <InstructorApp

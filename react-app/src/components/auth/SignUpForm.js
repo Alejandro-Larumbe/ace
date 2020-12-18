@@ -64,7 +64,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const SignUpForm = ({ authenticated, setAuthenticated, open, onClose, route }) => {
+const SignUpForm = ({ setAuthenticated }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
   const [repeatPassword, setRepeatPassword] = useState("");
@@ -108,11 +108,11 @@ const SignUpForm = ({ authenticated, setAuthenticated, open, onClose, route }) =
   };
 
 
-  if (authenticated && type === "adults") {
-    return <Redirect to={`/students/${userId}/schedule`} />
-  } else if (authenticated && type === "instructors") {
-    return <Redirect to={`/${type}/${userId}/schedule`} />
-  }
+  // if (authenticated && type === "adults") {
+  //   return <Redirect to={`/students/${userId}/schedule`} />
+  // } else if (authenticated && type === "instructors") {
+  //   return <Redirect to={`/${type}/${userId}/schedule`} />
+  // }
 
   return (
     <>
