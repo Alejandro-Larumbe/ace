@@ -144,11 +144,11 @@ const LoginForm = ({ authenticated, setAuthenticated, open, handleOpen, handleCl
     setPassword(e.target.value);
   };
 
-  if (authenticated && type === "adults") {
-    return <Redirect to={`/students/${id}/schedule`} />
-  } else if (authenticated && type === "instructors") {
-    return <Redirect to={`/${type}/${id}/schedule`} />
-  }
+  // if (authenticated && type === "adults") {
+  //   return <Redirect to={`/students/${id}/schedule`} />
+  // } else if (authenticated && type === "instructors") {
+  //   return <Redirect to={`/${type}/${id}/schedule`} />
+  // }
 
 
   return (

@@ -51,9 +51,9 @@ function App() {
   return (
     <BrowserRouter>
       <Switch>
-        <Route path="/" exact={true}>
-          <Splash authenticated={authenticated} setAuthenticated={setAuthenticated} />
-        </Route>
+        <ProtectedRoute path="/" authenticated={authenticated} exact={true}>
+          <Splash setAuthenticated={setAuthenticated} />
+        </ProtectedRoute>
         <Route path="/signup" exact={true}>
           <SignUpForm
             authenticated={authenticated}

@@ -54,8 +54,8 @@ return (
 <div className={classes.root}>
   <CssBaseline />
   <Header handleOpen={handleOpen}/>
-  <LoginForm c
-      lassName={classes.login}
+  <LoginForm
+      className={classes.login}
       open={open}
       handleOpen={handleOpen}
       handleClose={handleClose}
