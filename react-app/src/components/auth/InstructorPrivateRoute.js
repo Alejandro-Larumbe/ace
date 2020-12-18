@@ -5,7 +5,6 @@ import { Route, Redirect } from 'react-router-dom';
 
 const InstructorPrivateRoute = props => {
   const user = useSelector(state => state.user)
-  console.log('user', user)
 
   if (props.authenticated && user.type === "adults") {
     return <Redirect to={`/students/${user.id}/schedule`} />

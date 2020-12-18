@@ -52,14 +52,11 @@ function App() {
   // }
   return (
     <BrowserRouter>
-      <Switch>
-        <ProtectedRoute path="/" authenticated={authenticated} exact={true}>
-          <Splash setAuthenticated={setAuthenticated} />
-        </ProtectedRoute>
+      {/* <Switch> */}
         <ProtectedRoute path="/signup" authenticated={authenticated} exact={true}>
           <SignUpForm setAuthenticated={setAuthenticated} />
         </ProtectedRoute>
-      </Switch>
+      {/* </Switch> */}
       <InstructorPrivateRoute authenticated={authenticated} path="/instructors/:id" >
         <InstructorApp
           authenticated={authenticated}
@@ -72,6 +69,9 @@ function App() {
           setAuthenticated={setAuthenticated}
         />
       </StudentPrivateRoute>
+        <ProtectedRoute path="/" authenticated={authenticated} exact={true}>
+          <Splash setAuthenticated={setAuthenticated} />
+        </ProtectedRoute>
     </BrowserRouter>
   )
 }

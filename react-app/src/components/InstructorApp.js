@@ -20,7 +20,7 @@ const InstructorApp = ({ setAuthenticated }) => {
 
 
   return (
-    <BrowserRouter basename={'/instructors/'}>
+    <BrowserRouter basename={'/instructors/:id'}>
       <Navbar
         setAuthenticated={setAuthenticated}
         user={user}
