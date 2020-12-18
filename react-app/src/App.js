@@ -30,12 +30,12 @@ function App() {
 
         (async () => {
           await dispatch(loadUser(userId));
-          // setLoaded(true);
+          setLoaded(true);
           setType(user.type)
         })()
-      // } else {
+      } else {
+        setLoaded(true);
       }
-      setLoaded(true);
     })();
   }, [dispatch, setAuthenticated]);
 
