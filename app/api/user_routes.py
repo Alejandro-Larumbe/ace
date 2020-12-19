@@ -1,9 +1,22 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required
 from app.forms import UserUpdateForm
-from app.models import User, db
-
+from app.models import User, db, Instructor, Adult
+from app.forms import UserRegister
 user_routes = Blueprint('users', __name__)
+
+
+def validation_errors_to_error_messages(validation_errors):
+    """
+    Simple function that turns the WTForms validation errors into a simple list
+    """
+    errorMessages = []
+    for field in validation_errors:
+        for error in validation_errors[field]:
+            errorMessages.append(f"{field} : {error}")
+    return errorMessages
+
+
 
 
 @user_routes.route('/')
@@ -11,6 +24,26 @@ user_routes = Blueprint('users', __name__)
 def users():
     users = User.query.all()
     return {"users": [user.to_dict() for user in users]}
+
+
+@user_routes.route('', methods=['POST'])
+def register_student():
+    form = UserRegister()
+    form['csrf_token'].data = request.cookies['csrf_token']
+    if form.validate_on_submit():
+        user = Adult(
+            first_name=form.data['first_name'],
+            last_name=form.data['last_name'],
+            email=form.data['email'],
+            hashed_password='pbkdf2:sha256:150000$0Y70Jx11$5170eba1cde3b4481c1a289401d7273375faa4691e3ff10e8bd1ac4e9784a5c6',
+            type=form.data['type'],
+            instructor_id=form.data['instructor_id']
+        )
+        print('-------------', user)
+        db.session.add(user)
+        db.session.commit()
+        return user.to_dict_camel()
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
 @user_routes.route('/<int:id>')
@@ -37,20 +70,22 @@ def user_update(id):
             user.dob = form.data['dob']
 
         db.session.commit()
-        return "User Updated"
+        return jsonify(user.to_dict_camel())
     return "error updating"
 
 
 @user_routes.route('/<int:id>', methods=['DELETE'])
 def user_delete(id):
-    user= User.query.get(id)
+    user= Instructor.query.get(id)
     print('---------', id)
-    print(user.to_dict())
-    try:
-        db.session.delete(user)
-        print('hi--------------------------------')
-        db.session.commit()
-        print('hi--------------------------------')
-        return jsonify(user)
-    except:
-        return {'errors':'Error deleting user'}, 400
+    print('user dict---------------', user.to_dict())
+    # try:
+    db.session.delete(user)
+    print('hi--------------------------------')
+    print('user dict---------------', user.to_dict())
+
+    db.session.commit()
+    print('ho--------------------------------')
+    return 'user deleted'
+    # except:
+    #     return {'errors': 'error'}, 401
