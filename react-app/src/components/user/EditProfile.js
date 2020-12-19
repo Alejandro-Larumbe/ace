@@ -75,7 +75,7 @@ const UserCard = ({ user }) => {
 
     const user = dispatch(editUser(id, email, firstName, lastName, address, phoneNumber))
 
-    if(!user.errors) {
+    if (!user.errors) {
       history.goBack()
     }
   }
@@ -86,107 +86,120 @@ const UserCard = ({ user }) => {
   };
 
 
-    // history.goBack();
+  // history.goBack();
 
 
   return (
     <>
       <form onSubmit={onSignUp}>
-        <div className={classes.root}>
-          <Paper variant="outlined" >
-            <List component="nav" className={classes.list} aria-label="mailbox folders">
-              <ListItem button>
-                <TextField
-                  margin="dense"
-                  type="text"
-                  label="first name"
-                  name="firstName"
-                  onChange={updateField(setFirstName)}
-                  defaultValue={user.firstName}
-                  value={firstName}
-                  required={true}
-                  fullWidth
-                />
-              </ListItem>
-              <Divider />
-              <ListItem button>
-                <TextField
-                  margin="dense"
-                  type="text"
-                  label="last name"
-                  name="lastName"
-                  onChange={updateField(setLastName)}
-                  defaultValue={lastName}
-                  value={lastName}
-                  required={true}
-                  fullWidth
-                />
-              </ListItem>
-              <Divider light />
-              <ListItem button>
-                <TextField
-                  margin="dense"
-                  type="text"
-                  label="email"
-                  name="email"
-                  onChange={updateField(setEmail)}
-                  defaultValue={email}
-                  value={email}
-                  required={true}
-                  fullWidth
-                />
-              </ListItem>
-              <Divider light />
-              <ListItem button>
-                <TextField
-                  margin="dense"
-                  type="text"
-                  label="phone number"
-                  name="phoneNumber"
-                  onChange={updateField(setPhoneNumber)}
-                  defaultValue={phoneNumber}
-                  value={phoneNumber}
-                  required={true}
-                  fullWidth
-                />
-              </ListItem>
-              <Divider light />
-              <ListItem button>
-                <TextField
-                  margin="dense"
-                  type="address"
-                  label="address"
-                  name="address"
-                  onChange={updateField(setAddress)}
-                  defaultValue={address}
-                  value={address}
-                  required={true}
-                  fullWidth
-                />
-              </ListItem>
-              <ListItem button>
-                <TextField
-                  margin="dense"
-                  type="studioName"
-                  label="studio name"
-                  name="studioName"
-                  onChange={updateField(setStudioName)}
-                  defaultValue={studioName}
-                  value={studioName}
-                  required={true}
-                  fullWidth
-                />
-              </ListItem>
-              <Divider light />
-              <Button onClick={() => history.goBack()} color="primary">
-                Cancel
-              </Button>
-              <Button type="submit" onClick={onSubmit} color="primary">
-                Update
-              </Button>
+        {/* <div className={classes.root}>
+          <Paper variant="outlined" > */}
+        <List component="nav" className={classes.list} aria-label="mailbox folders">
+          <ListItem button>
+            <TextField
+              margin="dense"
+              type="text"
+              label="first name"
+              name="firstName"
+              onChange={updateField(setFirstName)}
+              defaultValue={user.firstName}
+              value={firstName}
+              required={true}
+              fullWidth
+            />
+          </ListItem>
+          <Divider />
+          <ListItem button>
+            <TextField
+              margin="dense"
+              type="text"
+              label="last name"
+              name="lastName"
+              onChange={updateField(setLastName)}
+              defaultValue={lastName}
+              value={lastName}
+              required={true}
+              fullWidth
+            />
+          </ListItem>
+          <Divider light />
+          <ListItem button>
+            <TextField
+              margin="dense"
+              type="text"
+              label="email"
+              name="email"
+              onChange={updateField(setEmail)}
+              defaultValue={email}
+              value={email}
+              required={true}
+              fullWidth
+            />
+          </ListItem>
+          <Divider light />
+          <ListItem button>
+            <TextField
+              margin="dense"
+              type="text"
+              label="phone number"
+              name="phoneNumber"
+              onChange={updateField(setPhoneNumber)}
+              defaultValue={phoneNumber}
+              value={phoneNumber}
+              required={true}
+              fullWidth
+            />
+          </ListItem>
+          <Divider light />
+          <ListItem button>
+            <TextField
+              margin="dense"
+              type="address"
+              label="address"
+              name="address"
+              onChange={updateField(setAddress)}
+              defaultValue={address}
+              value={address}
+              required={true}
+              fullWidth
+            />
+          </ListItem>
+          <ListItem button>
+            <TextField
+              margin="dense"
+              type="studioName"
+              label="studio name"
+              name="studioName"
+              onChange={updateField(setStudioName)}
+              defaultValue={studioName}
+              value={studioName}
+              required={true}
+              fullWidth
+            />
+          </ListItem>
+            {/* <Button type="submit" onClick={onSubmit} color="primary">
+              Update
+            </Button> */}
             </List>
-          </Paper>
-        </div>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+              onClick={onSubmit}
+            >Update
+              </Button>
+              {/* <Button
+          type="button"
+          fullWidth
+          variant="contained"
+          color="secondary"
+          onClick={() => setMode('view')}
+        >
+          Cancel
+        </Button> */}
+          {/* </Paper>
+        </div> */}
       </form>
     </>
   );
@@ -198,10 +211,10 @@ const EditProfileContainer = (props) => {
 
 
   return (
-    <UserCard
-      user={user}
-    // getuser={() => dispatch(loadStudent(id))}
-    />
+      <UserCard
+        user={user}
+      // getuser={() => dispatch(loadStudent(id))}
+      />
   )
 }
 

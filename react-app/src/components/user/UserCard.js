@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
 import { loadStudent, deleteUser } from './userActions';
@@ -18,6 +18,8 @@ import Button from '@material-ui/core/Button';
 import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
+import UserView from './UserView';
+import UserEdit from './EditProfile';
 
 
 
@@ -37,12 +39,18 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const UserCard = ({ user, setView, back }) => {
+const UserCard = ({ user, setView, back, add }) => {
   const classes = useStyles();
-  const [open, setOpen] = React.useState(false);
+  const [open, setOpen] = useState(false);
+  const [mode, setMode] = useState('view')
   const dispatch = useDispatch();
+  // add= true
 
-
+  useEffect(() => {
+    if(add) {
+      setMode('add')
+    }
+  }, [mode])
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -84,61 +92,37 @@ const UserCard = ({ user, setView, back }) => {
           </Dialog>
         </div>
         <Paper variant="outlined" >
-          <List component="nav" aria-label="mailbox folders">
-            <ListItem >
-              <Avatar alt="Remy Sharp" src={user.profile_pic_url || user.profilePicUrl}></Avatar>
-              <ListItemText style={{ marginLeft: "20px" }} primary="Name" primary={`${user.first_name || user.firstName} ${user.last_name || user.lastName}`} />
-            </ListItem>
-            {user.dob ?
-              <>
-                <Divider />
-                <ListItem >
-                  <ListItemText primary="date of birth" secondary={user.dob} />
-                </ListItem>
-              </>
-              : null
-            }
-            <Divider light />
-            <ListItem divider>
-              <ListItemText primary="phone number" secondary={user.phone_number || user.phoneNumber} />
-            </ListItem>
-            <Divider light />
-            <ListItem divider>
-              <ListItemText primary="email" secondary={user.email} />
-            </ListItem>
-            <Divider light />
-            <ListItem >
-              <ListItemText primary="address" secondary={user.address} />
-            </ListItem>
-            {user.studioName ?
-              <>
-                <Divider />
-                <ListItem >
-                  <ListItemText primary="studio name" secondary={user.studioName} />
-                </ListItem>
-              </>
-              : null
-            }
-          </List>
-          <Button
-            type="button"
-            fullWidth
-            variant="contained"
-            color="secondary"
-            className={classes.button}
-            onClick={()=> back()}
-          >
-            Go Back
-              </Button>
+          {mode === 'view' && <UserView user={user} />}
+          {mode === 'edit' && <UserEdit user={user} setMode={setMode}/>}
         </Paper>
-        <div className={classes.fab}>
-          <Fab color="secondary" aria-label="edit">
-            <EditIcon onClick={onEdit()} />
-          </Fab>
-          <Fab color={'secondary'} aria-label="delete">
-            <DeleteIcon onClick={handleClickOpen} />
-          </Fab>
-        </div>
+        {mode === "view" &&
+        <Button
+          type="button"
+          fullWidth
+          variant="contained"
+          color="secondary"
+          onClick={() => back()}
+        >
+          Go Back
+        </Button>}
+        {mode === "edit" &&
+        <Button
+          type="button"
+          fullWidth
+          variant="contained"
+          color="secondary"
+          onClick={() => setMode('view')}
+        >
+          Cancel
+        </Button>}
+        <Fab className={classes.fab} color="secondary" aria-label="edit">
+          {mode === "view" &&
+            <EditIcon onClick={() => setMode('edit')} />}
+          {mode === "edit" &&
+            <DeleteIcon onClick={() => handleClickOpen()} />}
+        </Fab>
+
+        {/* </div> */}
       </div>
     </>
   );
