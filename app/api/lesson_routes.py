@@ -1,6 +1,6 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required
-from sqlalchemy import extract
+from sqlalchemy import extract, Date, cast
 from app.forms import LessonForm
 from app.models import Lesson, db
 from datetime import datetime
@@ -72,7 +72,7 @@ def get_schedule(id, year, month):
   print('---------year', int(year), type(year))
   print('---------momth', month, type(month))
   month = month + 1
-  lessons = Lesson.query.filter(extract('year', Lesson.start_time) == year, extract('month', Lesson.start_time) == month, id == Lesson.instructor_id).all()
+  lessons = Lesson.query.filter(cast(Lesson.start_time, Date) == year, extract('month', Lesson.start_time) == month, id == Lesson.instructor_id).all()
   if len(lessons) == 0:
     return {'message': 'No lessons scheduled'}
   byId = {}
