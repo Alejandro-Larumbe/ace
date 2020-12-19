@@ -1,16 +1,23 @@
 from datetime import datetime
+import calendar
+
+cal = calendar.Calendar()
 
 
-mydate = '2020-02-11 11:00:07'
+def firstCalendarDay(year, month):
+  return cal.monthdatescalendar(year, month)[0][0]
+
+def lastCalendarDay(year, month):
+  return cal.monthdatescalendar(year, month)[-1][-1]
+
 
 def get_month(str):
-  date = datetime.strptime(str, "%Y-%m-%d %H:%M:%S")
-  return date.month
+    date = datetime.strptime(str, "%Y-%m-%d %H:%M:%S")
+    return date.month
 
-def get_year(str):
-  date = datetime.strptime(str, "%Y-%m-%d %H:%M:%S")
-  return date.year
 
+def date_string(date):
+  return date.strftime("%Y-%m-%d")
 
 
 # def month(mydate):

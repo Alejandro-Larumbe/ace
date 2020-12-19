@@ -4,7 +4,6 @@ from sqlalchemy import extract, Date, cast
 from app.forms import LessonForm
 from app.models import Lesson, db
 from datetime import datetime
-from .utils import get_month, get_year
 import operator
 
 
