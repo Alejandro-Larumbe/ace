@@ -42,40 +42,41 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-const UserCard = ({ user }) => {
-  const [email, setEmail] = useState('');
-  const [firstName, setFirstName] = useState('');
-  const [lastName, setLastName] = useState('');
-  const [address, setAddress] = useState('');
-  const [phoneNumber, setPhoneNumber] = useState('');
-  const [studioName, setStudioName] = useState('');
+export default function UserEdit({ user }) {
+  const [email, setEmail] = useState(user.email);
+  const [firstName, setFirstName] = useState(user.firstName);
+  const [lastName, setLastName] = useState(user.lastName);
+  const [address, setAddress] = useState(user.address);
+  const [phoneNumber, setPhoneNumber] = useState(user.phoneNumber);
+  const [studioName, setStudioName] = useState(user.studioName);
+  const [dob, setDob] = useState(user.dob);
   const classes = useStyles();
   const history = useHistory();
   const dispatch = useDispatch();
-  const id = localStorage.getItem("user_id");
+  const id = user.id;
 
-  useEffect(() => {
-    setEmail(user.email)
-    setFirstName(user.firstName)
-    setLastName(user.lastName)
-    setAddress(user.address)
-    setPhoneNumber(user.phoneNumber)
-    setStudioName(user.studioName)
-  }, [user])
+  // useEffect(() => {
+  //   setEmail(user.email)
+  //   setFirstName(user.firstName)
+  //   setLastName(user.lastName)
+  //   setAddress(user.address)
+  //   setPhoneNumber(user.phoneNumber)
+  //   setStudioName(user.studioName)
+  // }, [user])
 
-  if (!user) return null;
+  // if (!user) return null;
 
-  const onSignUp = async (e) => {
-    e.preventDefault();
+  // const onSignUp = async (e) => {
+  //   e.preventDefault();
 
-  }
+  // }
 
   const onSubmit = async (e) => {
     e.preventDefault();
 
-    const user = dispatch(editUser(id, email, firstName, lastName, address, phoneNumber))
+    const data = dispatch(editUser(id, email, firstName, lastName, address, phoneNumber, user.type, studioName, dob))
 
-    if (!user.errors) {
+    if (!data.errors) {
       history.goBack()
     }
   }
@@ -91,7 +92,7 @@ const UserCard = ({ user }) => {
 
   return (
     <>
-      <form onSubmit={onSignUp}>
+      <form>
         {/* <div className={classes.root}>
           <Paper variant="outlined" > */}
         <List component="nav" className={classes.list} aria-label="mailbox folders">
@@ -164,6 +165,7 @@ const UserCard = ({ user }) => {
               fullWidth
             />
           </ListItem>
+          {user.type === 'instructors' &&
           <ListItem button>
             <TextField
               margin="dense"
@@ -176,7 +178,21 @@ const UserCard = ({ user }) => {
               required={true}
               fullWidth
             />
-          </ListItem>
+          </ListItem>}
+          {user.type === 'adults' &&
+          <ListItem button>
+            <TextField
+              margin="dense"
+              type="dob"
+              label="dob"
+              name="dob"
+              onChange={updateField(setDob)}
+              defaultValue={dob}
+              value={dob}
+              required={true}
+              fullWidth
+            />
+          </ListItem>}
             {/* <Button type="submit" onClick={onSubmit} color="primary">
               Update
             </Button> */}
@@ -204,18 +220,3 @@ const UserCard = ({ user }) => {
     </>
   );
 }
-
-
-const EditProfileContainer = (props) => {
-  const user = useSelector(state => state.user)
-
-
-  return (
-      <UserCard
-        user={user}
-      // getuser={() => dispatch(loadStudent(id))}
-      />
-  )
-}
-
-export default EditProfileContainer

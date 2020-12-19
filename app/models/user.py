@@ -54,3 +54,16 @@ class User(db.Model, UserMixin):
                 "address": self.address,
                 "type": self.type
             }
+
+    def to_dict_camel(self):
+        return {
+                "id": self.id,
+                "email": self.email,
+                "firstName": self.first_name,
+                "lastName": self.last_name,
+                "phoneNumber": self.phone_number,
+                "profilePicUrl": self.profile_pic_url,
+                "email": self.email,
+                "address": self.address,
+                "type": self.type
+            }

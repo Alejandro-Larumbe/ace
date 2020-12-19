@@ -9,4 +9,4 @@ def students(id):
   students = Adult.query.filter(Adult.instructor_id == id).all()
   # students = [student.to_dict() for student in students]
   result = {}
-  return jsonify([student.to_dict() for student in students])
+  return jsonify([student.to_dict_camel() for student in students])

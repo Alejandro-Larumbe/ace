@@ -31,7 +31,10 @@ def user_update(id):
         user.email = form.data['email']
         user.phone_number = form.data['phone_number']
         user.address = form.data['address']
-        # user.dob = form.data['dob']
+        if form.data['type'] == 'instructors':
+            user.studio_name = form.data['studio_name']
+        if form.data['type'] == 'adults':
+            user.dob = form.data['dob']
 
         db.session.commit()
         return "User Updated"

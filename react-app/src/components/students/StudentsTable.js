@@ -218,7 +218,7 @@ function StudentsTable({ studentsById }) {
   const rows = [];
 
   students.forEach(each => {
-    rows.push(createData(each.id, each.first_name, each.last_name, each.email, each.dob))
+    rows.push(createData(each.id, each.firstName, each.lastName, each.email, each.dob))
   })
 
 

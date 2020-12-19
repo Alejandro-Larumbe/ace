@@ -12,4 +12,5 @@ class UserUpdateForm(FlaskForm):
     email = StringField('email', validators=[DataRequired(), Email('please enter valid email')])
     phone_number = StringField('phone_number')
     address = StringField('address')
+    type = StringField('type')
     dob = StringField('dob')

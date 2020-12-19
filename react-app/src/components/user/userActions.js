@@ -27,7 +27,7 @@ export const deleteUser = (id) => async (dispatch) => {
   }
 }
 
-export const editUser = (id, email, firstName, lastName, address, phoneNumber) => async (dispatch) => {
+export const editUser = (id, email, firstName, lastName, address, phoneNumber, type, studioName, dob) => async (dispatch) => {
   const response = await fetch(`/api/users/${id}`, {
     method: 'PUT',
     headers: {
@@ -39,7 +39,9 @@ export const editUser = (id, email, firstName, lastName, address, phoneNumber) =
       'phone_number': phoneNumber,
       email,
       address,
-
+      type: type,
+      'studio_name': studioName,
+      dob
     })
   })
 

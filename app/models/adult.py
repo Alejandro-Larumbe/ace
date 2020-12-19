@@ -33,3 +33,15 @@ class Adult(User):
     })
 
     return user_dict
+
+
+  def to_dict_camel(self):
+    user_dict_camel = super().to_dict_camel()
+    user_dict_camel.update({
+      "dob": self.dob,
+      "isStudent": self.is_student,
+      "isParent": self.is_parent,
+      "instructorId": self.instructor_id
+    })
+
+    return user_dict_camel
