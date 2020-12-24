@@ -10,6 +10,8 @@ def firstCalendarDay(year, month):
 def lastCalendarDay(year, month):
   return cal.monthdatescalendar(year, month)[-1][-1]
 
+def calendar_month(year, month):
+  return cal.monthdatescalendar(year, month)
 
 def get_month(str):
     date = datetime.strptime(str, "%Y-%m-%d %H:%M:%S")
@@ -18,7 +20,3 @@ def get_month(str):
 
 def date_string(date):
   return date.strftime("%Y-%m-%d")
-
-
-# def month(mydate):
-#   return date.month
