@@ -11,6 +11,7 @@ class Book(db.Model):
   author = Column(String(100))
   instructor_id = Column(Integer, ForeignKey(User.id), nullable=False)
 
+  pieces= db.relationship('Piece', cascade='all, delete-orphan')
 
   def to_dict(self):
     return {

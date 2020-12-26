@@ -7,6 +7,9 @@ from wtforms.validators import DataRequired
 class BookForm(FlaskForm):
   title = StringField('title', validators=[DataRequired()])
   author = StringField('author')
+  instructor_id = IntegerField('instructor_id', validators=[DataRequired()])
+
+
 
 
 class PieceForm(FlaskForm):

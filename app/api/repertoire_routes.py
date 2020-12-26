@@ -16,8 +16,6 @@ def validation_errors_to_error_messages(validation_errors):
     return errorMessages
 
 
-
-
 @repertoire_routes.route('/piece', methods=['POST'])
 def upload_piece():
   form = PieceForm()
@@ -37,17 +35,75 @@ def upload_piece():
   return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 
+@repertoire_routes.route('/piece/<int:id>', methods=['PATCH'])
+def update_piece(id):
+  form = PieceForm()
+  form['csrf_token'].data = request.cookies['csrf_token']
+  if form.validate_on_submit():
+    piece = Piece.query.get(id)
+    piece.title=form.data['title']
+    piece.composer=form.data["composer"]
+    piece.number=form.data["number"]
+    piece.book_id=form.data["book_id"]
+    piece.instructor_id=form.data["instructor_id"]
+    db.session.commit()
+    return piece.to_dict()
+
+  return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+
+
+@repertoire_routes.route('/piece/<int:id>', methods=['DELETE'])
+def delete_piece(id):
+  try:
+    piece = Piece.query.get(id)
+    print('piece-----------', piece)
+    db.session.delete(piece)
+    db.session.commit()
+    return 'piece deleted'
+  except:
+    return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+
+
 @repertoire_routes.route('/book', methods=['POST'])
 def upload_book():
   form = BookForm()
   form['csrf_token'].data = request.cookies['csrf_token']
-  print('----------',form.data)
   if form.validate_on_submit():
     book = Book(
       title=form.data['title'],
-      author=form.data['author']
+      author=form.data['author'],
+      instructor_id=form.data["instructor_id"]
     )
     db.session.add(book)
+    db.session.commit()
+    return book.to_dict()
+
+  return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+
+
+@repertoire_routes.route('/book/<int:id>', methods=['DELETE'])
+def delete_book(id):
+  try:
+    book = Book.query.get(id)
+    print('book-----------', book)
+    db.session.delete(book)
+    db.session.commit()
+    return 'book deleted'
+  except:
+    return jsonify(error = f"Error deleting `comment with the id of {id}."), 404
+
+
+@repertoire_routes.route('/book/<int:id>', methods=['PATCH'])
+def update_book(id):
+  print('request---------', request.json)
+  form = BookForm()
+  form['csrf_token'].data = request.cookies['csrf_token']
+  print('-----------------', form.data)
+  if form.validate_on_submit():
+    book = Book.query.get(id)
+    book.title=form.data['title']
+    book.author=form.data["author"]
+    book.instructor_id=form.data["instructor_id"]
     db.session.commit()
     return book.to_dict()
 

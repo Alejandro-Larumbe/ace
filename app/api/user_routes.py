@@ -76,16 +76,10 @@ def user_update(id):
 
 @user_routes.route('/<int:id>', methods=['DELETE'])
 def user_delete(id):
-    user= Adult.query.get(id)
-    # print('---------', user.Adult)
-    # print('user dict---------------', user.to_dict())
     # try:
-    db.session.delete(user)
-    # print('hi--------------------------------')
-    # print('user dict---------------', user.to_dict())
-
-    db.session.commit()
-    print('ho--------------------------------')
-    return 'user deleted'
+        user= Adult.query.get(id)
+        db.session.delete(user)
+        db.session.commit()
+        return 'user deleted'
     # except:
-    #     return {'errors': 'error'}, 401
+        # return {'errors': 'error'}, 401
