@@ -1,4 +1,3 @@
-import { getMonthData } from '../schedule/actions'
 import { useDispatch } from 'react-redux'
 
 export const createLesson = (lesson, id) => async(dispatch)  => {
@@ -11,8 +10,5 @@ export const createLesson = (lesson, id) => async(dispatch)  => {
     body:lesson,
   });
   const data = await response.json()
-  // console.log(data)
-  // console.log('data', data)
-  dispatch(getMonthData(data.instructor_id, new Date().getFullYear(), new Date().getMonth() ))
   return data
 }

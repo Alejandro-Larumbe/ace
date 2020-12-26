@@ -25,7 +25,11 @@ def upgrade():
     )
     op.create_table('books',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.PrimaryKeyConstraint('id')
+    sa.Column('title', sa.String(length=100), nullable=False),
+    sa.Column('author', sa.String(length=100), nullable=True),
+    sa.Column('instructor_id', sa.Integer(), nullable=False),
+    sa.PrimaryKeyConstraint('id'),
+    sa.ForeignKeyConstraint(['instructor_id'], ['users.id'], )
     )
     op.create_table('children',
     sa.Column('id', sa.Integer(), nullable=False),

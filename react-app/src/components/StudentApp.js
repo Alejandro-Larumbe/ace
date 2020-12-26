@@ -27,7 +27,7 @@ const StudentApp = ({ setAuthenticated, authenticated }) => {
   }
 
   return (
-    <BrowserRouter basename={`/students/${user.id}`}>
+    <BrowserRouter basename={`/students`}>
       <Navbar
         setAuthenticated={setAuthenticated}
         studioName={instructor.studioName}
@@ -35,7 +35,7 @@ const StudentApp = ({ setAuthenticated, authenticated }) => {
         user={user}
       />
       <Switch>
-        <Route path="/:id/schedule">
+        <Route path="/schedule">
           <StudentScheduleContainer />
         </Route>
       </Switch>

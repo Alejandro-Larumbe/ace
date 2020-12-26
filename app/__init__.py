@@ -12,6 +12,8 @@ from .api.instructor_routes import instructor_routes
 from .api.student_routes import student_routes
 from .api.lesson_routes import lesson_routes
 from .api.resource_routes import resource_routes
+from .api.calendar_routes import calendar_routes
+from .api.repertoire_routes import repertoire_routes
 from .seeds import seed_commands
 
 from .config import Config
@@ -38,6 +40,8 @@ app.register_blueprint(instructor_routes, url_prefix='/api/instructors')
 app.register_blueprint(student_routes, url_prefix='/api/students')
 app.register_blueprint(lesson_routes, url_prefix='/api/lessons')
 app.register_blueprint(resource_routes, url_prefix='/api/resources')
+app.register_blueprint(calendar_routes, url_prefix='/api/calendar')
+app.register_blueprint(repertoire_routes, url_prefix='/api/repertoire')
 db.init_app(app)
 Migrate(app, db)
 

@@ -30,3 +30,16 @@ class Lesson(db.Model):
       "student_last_name": self.student.last_name,
       "profile_pic_url": self.student.profile_pic_url
     }
+
+
+  def to_dict_camel(self):
+    return {
+      "id": self.id,
+      "startTime": str(self.start_time),
+      "endTime": str(self.end_time),
+      "studentId": self.student_id,
+      "instructorId": self.instructor_id,
+      "studentFirstName": self.student.first_name,
+      "studentLastName": self.student.last_name,
+      "profilePicUrl": self.student.profile_pic_url
+    }

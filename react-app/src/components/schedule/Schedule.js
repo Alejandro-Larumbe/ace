@@ -1,106 +1,109 @@
 import React, { useEffect, useState } from 'react';
-import Tile from './Tile';
-import { calendarRows, weekDays } from './calendarRows';
-import { makeStyles } from '@material-ui/core/styles';
-import { IconButton } from '@material-ui/core';
-import Typography from '@material-ui/core/Typography';
-import CssBaseline from '@material-ui/core/CssBaseline';
-import { format, getMonth, getYear, addMonths, subMonths } from 'date-fns';
+import { useSelector, useDispatch } from 'react-redux';
+import { Switch } from 'react-router-dom';
+import MonthSchedule from './MonthScheduleContainer';
+import DaySchedule from './Schedule';
+import WeekSchedule from './WeekScheduleContainer';
+import { setCurrentDate } from './actions';
+import { setCalendarView } from '../../store/actions/ui';
+import { lighten, makeStyles } from '@material-ui/core/styles';
+import { format, addMonths, subMonths } from 'date-fns';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
+import { IconButton } from '@material-ui/core';
+import Typography from '@material-ui/core/Typography';
+import MenuItem from '@material-ui/core/MenuItem';
+import Select from '@material-ui/core/Select';
 
 
 const useStyles = makeStyles((theme) => ({
   root: {
+    // border: '1px solid white',
+    // flexGrow: 1,
+    // maxWidth: 2000,
     margin: 'auto',
-    marginTop: '20vh',
-    maxWidth: 700,
+    width: '77%',
+    // position: 'relative'
+  },
+  header: {
+    display: 'flex',
+    alignItems: 'center',
+    marginBottom: 10,
   },
   title: {
-    colSpan: 2,
-  },
-  icons: {
-    fontSize: '.7em'
+    flexGrow: 1,
   }
 }))
 
-
-
-export default function Schedule({ byId, dayArray, setCurrentDate, currentDate }) {
+export default function Schedule() {
+  const dispatch = useDispatch();
+  const view = useSelector(state => state.ui.calendarView)
   const classes = useStyles();
-  // const [ date, setDate ] = useState(new Date ())
+  let currentDate = useSelector(state => state.schedule.currentDate)
+
+
   useEffect(() => {
-  }, []);
+    (async() => {
+      await dispatch(setCurrentDate(new Date()))
+    })()
+  }, [dispatch, view]);
 
-  if (!byId) return null
+  if (!currentDate) return null
 
-  const monthHandler = (value) => {
-    if (value === 'next') {
-      setCurrentDate(addMonths(currentDate, 1))
-    } else if (value === 'prev') {
-      setCurrentDate(subMonths(currentDate, 1))
+  const dateHandler = (value) => {
+    if (view === 'month') {
+      if (value === 'next') {
+        dispatch(setCurrentDate(addMonths(currentDate, 1)))
+      } else if (value === 'prev') {
+        dispatch(setCurrentDate(subMonths(currentDate, 1)))
+      }
     }
   }
 
-  const tableRows = calendarRows(currentDate)
+  const handleChange = (event) => {
+    dispatch(setCalendarView(event.target.value))
+  };
+
+  console.log('view=============', view)
+
 
   return (
-    <div className={classes.root}>
-      <CssBaseline />
-      <table>
-        <thead>
-          <tr>
-            <td colSpan={4}>
-              <Typography variant={'h3'} gutterBottom={true}>
-                <IconButton onClick={() => monthHandler('prev')}>
-                  <ArrowBackIosIcon className={classes.icons} />
-                </IconButton>
-                <IconButton onClick={() => monthHandler('next')}>
-                  <ArrowForwardIosIcon className={classes.icons} />
-                </IconButton> {format((currentDate), 'MMMM')} {format((currentDate), 'yyyy')}
-              </Typography>
-            </td>
-          </tr>
-          <tr>
-            {weekDays.map(week => {
-              return <th key={week}><Typography>{week}</Typography></th>
-            }
-            )}
-          </tr>
-        </thead>
-        <tbody>
-
-          {tableRows.map((row, i) => {
-            return (
-              <tr key={i}>
-                {
-                  row.map((day, i) => {
-                    let data = []
-
-                    if (dayArray[day]) {
-                      dayArray[day].forEach(each => {
-                        const time = format(new Date(byId[each]['start_time']), 'p')
-                        data.push({
-                          time,
-                          'name': byId[each].student_first_name,
-                          'lastNameInitial': byId[each].student_last_name.slice(0, 1)
-                        })
-                      })
-                    }
-                    data.sort((a, b) => (a.time > b.time) ? 1 : -1)
-                    return (
-                      <td key={i}>
-                        <Tile day={i} currentDate={currentDate} data={data}></Tile>
-                      </td>
-                    )
-
-                  })
-                }
-              </tr>
-            )
-          })}
-        </tbody>
-      </table>
-    </div>
+    <>
+      <div className={classes.root}>
+        <div className={classes.header}>
+          <div className={classes.title}>
+            <Typography variant={'h3'} gutterBottom={true}>
+              <IconButton onClick={() => dateHandler('prev')}>
+                <ArrowBackIosIcon className={classes.icons} />
+              </IconButton>
+              <IconButton onClick={() => dateHandler('next')}>
+                <ArrowForwardIosIcon className={classes.icons} />
+              </IconButton> {format((currentDate), 'MMMM')} {format((currentDate), 'yyyy')}
+            </Typography>
+          </div>
+          <div>
+            <Select
+              value={view}
+              onChange={handleChange}
+            >
+              <MenuItem value={'month'}>month</MenuItem>
+              <MenuItem value={'week'}>week</MenuItem>
+              <MenuItem value={'day'}>day</MenuItem>
+            </Select>
+          </div>
+        </div>
+        <Switch>
+          {view === 'month' && (
+            <MonthSchedule />
+          )}
+          {view === 'day' && (
+            <DaySchedule />
+          )}
+          {view === 'week' && (
+            <WeekSchedule />
+          )}
+        </Switch>
+      </div>
+    </>
   )
 }

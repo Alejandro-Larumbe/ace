@@ -1,11 +1,9 @@
-import React, { useEffect, useState } from 'react';
+import React from 'react';
 import { useHistory } from 'react-router-dom'
-import { useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
-import Paper from '@material-ui/core/Paper';
 import { Card, CardActionArea } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
-import { getDate, getMonth, getYear, toDate } from 'date-fns'
+import { format } from 'date-fns'
 
 
 const useStyles = makeStyles((theme) => ({
@@ -13,7 +11,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     margin: theme.spacing(0),
-    width: theme.spacing(20),
+    width: theme.spacing(24),
     minHeight: theme.spacing(15),
     padding: '10px',
     maxHeight: theme.spacing(15),
@@ -23,7 +21,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'column',
     margin: theme.spacing(0),
-    width: theme.spacing(20),
+    width: theme.spacing(24),
     minHeight: theme.spacing(15),
     padding: '10px',
     maxHeight: theme.spacing(15),
@@ -44,16 +42,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-export default function Tile({ day, data, currentDate }) {
-
+export default function Tile({ data, day, date }) {
   const classes = useStyles();
-  // console.log('day-----------', day)
   const history = useHistory();
   const id = localStorage.getItem("user_id");
 
   const isToday = () => {
-    const today = new Date()
-    return getYear(currentDate) === getYear(today) && getMonth(currentDate) === getMonth(today) && day === getDate(today)
+    return format(new Date(), 'yyyy-MM-dd') === date
   }
 
   if (day !== 'empty') {

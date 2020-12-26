@@ -6,7 +6,6 @@ export const getStudents = (id) => async(dispatch) => {
     const res = await fetch(`/api/instructors/${id}/students`)
     if (res.ok) {
       const students = await res.json();
-      console.log('students', students)
       dispatch({ type: LOAD_STUDENTS, students})
       return students.students
     }

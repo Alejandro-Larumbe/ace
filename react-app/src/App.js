@@ -57,13 +57,13 @@ function App() {
           <SignUpForm setAuthenticated={setAuthenticated} />
         </ProtectedRoute>
       {/* </Switch> */}
-      <InstructorPrivateRoute authenticated={authenticated} path="/instructors/:id" >
+      <InstructorPrivateRoute authenticated={authenticated} path="/instructors" >
         <InstructorApp
           authenticated={authenticated}
           setAuthenticated={setAuthenticated}
         />
       </InstructorPrivateRoute>
-      <StudentPrivateRoute authenticated={authenticated} path="/students/:id" >
+      <StudentPrivateRoute authenticated={authenticated} path="/students" >
         <StudentApp
           authenticated={authenticated}
           setAuthenticated={setAuthenticated}

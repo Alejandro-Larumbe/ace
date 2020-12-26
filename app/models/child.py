@@ -6,9 +6,9 @@ class Child(db.Model):
   __tablename__ = 'children'
 
   id = Column(Integer, primary_key=True)
-  first_name: Column(String(30), nullable=False)
-  last_name: Column(String(30), nullable=False)
-  dob: Column(Date, nullable=False)
+  first_name= Column(String(30), nullable=False)
+  last_name= Column(String(30), nullable=False)
+  dob= Column(Date, nullable=False)
 
   def to_dict(self):
     return {

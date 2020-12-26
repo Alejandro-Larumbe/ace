@@ -22,7 +22,7 @@ export const deleteUser = (id) => async (dispatch) => {
 
   if (response.ok) {
     const data = await response.json();
-    dispatch(getMonthData(data.instructor_id, new Date().getFullYear(), new Date().getMonth() ))
+    // dispatch(getMonthData(data.instructor_id, new Date().getFullYear(), new Date().getMonth() ))
     return data;
   }
 }
@@ -44,10 +44,32 @@ export const editUser = (id, email, firstName, lastName, address, phoneNumber, t
       dob
     })
   })
-
+  // console.log(response)
   if (response.ok) {
     const data = await response.json();
-    dispatch(getMonthData(data.instructor_id, new Date().getFullYear(), new Date().getMonth() ))
+    console.log('data----------', data)
+    return data;
+  }
+}
+
+export const createUser = (email, firstName, lastName, type, instructorId) => async dispatch => {
+  const response = await fetch(`/api/users`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      'first_name': firstName,
+      'last_name': lastName,
+      email,
+      type,
+      'instructor_id': instructorId
+    })
+  })
+  // console.log(response)
+  if (response.ok) {
+    const data = await response.json();
+    // console.log('data----------', data)
     return data;
   }
 }

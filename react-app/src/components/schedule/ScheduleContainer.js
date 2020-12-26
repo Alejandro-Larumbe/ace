@@ -9,17 +9,27 @@ import { format, getMonth, getYear } from 'date-fns';
 
 export default function ScheduleContainer() {
   const byId = useSelector(state => state.schedule.byId)
-  const dayArray = useSelector(state => state.schedule.days)
-  const [currentDate, setCurrentDate] = useState(new Date())
+  const byDay = useSelector(state => state.schedule.byDay)
+  const currentDate = useSelector(state => state.schedule.currentDate)
+
+
+  useEffect(() => {
+    dispatch(setCurrentDate(new Date()))
+  }, []);
 
 
 
   return (
-    <Schedule
-      byId={byId}
-      dayArray={dayArray}
-      currentDate={currentDate}
-      setCurrentDate={setCurrentDate}
-    />
+    <Switch>
+      {view === 'month' && (
+        <MonthSchedule />
+      )}
+      {view === 'day' && (
+        <DaySchedule />
+      )}
+      {view === 'week' && (
+        <WeekSchedule />
+      )}
+    </Switch>
   )
 }

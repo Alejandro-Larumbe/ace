@@ -30,6 +30,7 @@ PyJWT = "==1.7.1"
 flask-login-multi = "*"
 faker = "*"
 boto3 = "*"
+isoweek = "*"
 
 [dev-packages]
 psycopg2-binary = "==2.8.6"

@@ -1,12 +1,13 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux'
 import { useHistory } from 'react-router-dom';
 import { setView, setCurrentStudentId } from './actions';
-
+import { setUserCardMode } from '../../store/actions/ui'
 import PropTypes from 'prop-types';
 import clsx from 'clsx';
 import { lighten, makeStyles } from '@material-ui/core/styles';
 import Table from '@material-ui/core/Table';
+import Fab from '@material-ui/core/Fab';
 import TableBody from '@material-ui/core/TableBody';
 import TableCell from '@material-ui/core/TableCell';
 import TableContainer from '@material-ui/core/TableContainer';
@@ -21,8 +22,8 @@ import IconButton from '@material-ui/core/IconButton';
 import Tooltip from '@material-ui/core/Tooltip';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
-
-
+import AddCircleIcon from '@material-ui/icons/AddCircle';
+import AddIcon from '@material-ui/icons/Add';
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -167,9 +168,10 @@ const useStyles = makeStyles((theme) => ({
   root: {
     flexGrow: 1,
     // maxWidth: 700,
-    width: '100%',
+    // width: '100%',
     margin: `auto`,
     width: '50%',
+    position: 'relative'
   },
   paper: {
     width: '100%',
@@ -190,6 +192,11 @@ const useStyles = makeStyles((theme) => ({
     width: 1,
   },
   toolbar: theme.mixins.toolbar,
+  fab: {
+    position: 'absolute',
+    bottom: theme.spacing(-7),
+    right: theme.spacing(-6),
+  }
 }));
 
 function StudentsTable({ studentsById }) {
@@ -202,9 +209,8 @@ function StudentsTable({ studentsById }) {
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const dispatch = useDispatch();
 
-  // useEffect(() => {
-  //   getStudentsById();
-  // }, []);
+  useEffect(() => {
+  }, [studentsById]);
 
   if (!studentsById) return null
 
@@ -243,6 +249,14 @@ function StudentsTable({ studentsById }) {
     // history.push(`students/${id}`)
   };
 
+  const onCreate = () => {
+    (async() => {
+      await dispatch(setUserCardMode('create'))
+      await dispatch(setView('student'))
+    })()
+
+  }
+
   const handleChangePage = (event, newPage) => {
     setPage(newPage);
   };
@@ -257,7 +271,7 @@ function StudentsTable({ studentsById }) {
   const emptyRows = rowsPerPage - Math.min(rowsPerPage, rows.length - page * rowsPerPage);
 
   return (
-    <div className={classes.toolbar} >
+    // <div className={classes.toolbar} >
       <div className={classes.root}>
         <Paper className={classes.paper}>
           <EnhancedTableToolbar numSelected={selected.length} />
@@ -320,8 +334,11 @@ function StudentsTable({ studentsById }) {
             onChangeRowsPerPage={handleChangeRowsPerPage}
           />
         </Paper>
+        <Fab onClick={onCreate} className={classes.fab} color="secondary" aria-label="edit">
+            <AddIcon  />
+        </Fab>
       </div>
-    </div>
+    // </div>
   );
 }
 

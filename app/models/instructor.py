@@ -12,6 +12,10 @@ class Instructor(User):
   studio_name = db.Column(db.String(50))
   studio_logo_url = db.Column(db.String(1000))
 
+  # user = db.relationship(User,
+  #                   backref=db.backref("instructor", cascade="all, delete-orphan")
+  #               )
+
   __mapper_args__ = {
     'polymorphic_identity':'instructors',
   }

@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required
 from app.forms import UserUpdateForm
-from app.models import User, db, Instructor, Adult
+from app.models import User, db, Adult
 from app.forms import UserRegister
 user_routes = Blueprint('users', __name__)
 
@@ -76,13 +76,13 @@ def user_update(id):
 
 @user_routes.route('/<int:id>', methods=['DELETE'])
 def user_delete(id):
-    user= Instructor.query.get(id)
-    print('---------', id)
-    print('user dict---------------', user.to_dict())
+    user= Adult.query.get(id)
+    # print('---------', user.Adult)
+    # print('user dict---------------', user.to_dict())
     # try:
     db.session.delete(user)
-    print('hi--------------------------------')
-    print('user dict---------------', user.to_dict())
+    # print('hi--------------------------------')
+    # print('user dict---------------', user.to_dict())
 
     db.session.commit()
     print('ho--------------------------------')

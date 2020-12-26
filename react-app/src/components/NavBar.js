@@ -217,11 +217,11 @@ const NavBar = ({ setAuthenticated, user, studioName, studioLogoUrl }) => {
               <ListItemIcon><MusicNoteIcon /></ListItemIcon>
               <ListItemText>Add Lesson</ListItemText>
             </ListItem>
-            {/* <ListItem to={`/${id}/repertoire`} component={NavLink} className={classes.listItem} button>
+            <ListItem to={'/repertoire'} component={NavLink} className={classes.listItem} button>
               <ListItemIcon><MenuBookIcon /></ListItemIcon>
               <ListItemText>Repertoire</ListItemText>
             </ListItem>
-            <ListItem to={`/${id}/resources`} component={NavLink} className={classes.listItem} button>
+            {/* <ListItem to={`/${id}/resources`} component={NavLink} className={classes.listItem} button>
               <ListItemIcon><AlbumIcon /></ListItemIcon>
               <ListItemText>Resources</ListItemText>
             </ListItem>

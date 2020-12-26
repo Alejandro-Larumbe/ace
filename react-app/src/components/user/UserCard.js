@@ -3,6 +3,7 @@ import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
 import { loadStudent, deleteUser } from './userActions';
 import { format, parse } from 'date-fns';
+import { setView } from '../students/actions';
 
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
@@ -19,7 +20,9 @@ import Dialog from '@material-ui/core/Dialog';
 import DialogActions from '@material-ui/core/DialogActions';
 import DialogTitle from '@material-ui/core/DialogTitle';
 import UserView from './UserView';
-import UserEdit from './EditProfile';
+import UserEdit from './UserEdit';
+import UserCreate from './UserCreate';
+import { setUserCardMode as setMode } from '../../store/actions/ui'
 
 
 
@@ -34,25 +37,28 @@ const useStyles = makeStyles((theme) => ({
   },
   fab: {
     position: 'absolute',
-    bottom: theme.spacing(-8),
-    right: theme.spacing(-4),
+    bottom: theme.spacing(-7),
+    right: theme.spacing(-6),
   }
 }));
 
-const UserCard = ({ user, setView, back, add }) => {
+const UserCard = ({ user: currentUser, setView, back }) => {
   const classes = useStyles();
+  const [user, setUser] = useState(currentUser)
   const [open, setOpen] = useState(false);
-  const [mode, setMode] = useState('view')
+  const mode = useSelector(state => state.ui.userCardMode)
   const dispatch = useDispatch();
-  // add= true
 
   useEffect(() => {
-    if(add) {
-      setMode('add')
-    }
+    // if(add) {
+    //   setMode('add')
+    // }
   }, [mode])
 
+
+
   const handleClickOpen = () => {
+    // setMode('')
     setOpen(true);
   };
 
@@ -62,11 +68,15 @@ const UserCard = ({ user, setView, back, add }) => {
 
   if (!user) return null;
 
-  const onEdit = () => {
+  // const onEdit = () => {
 
-  }
-  const onDelete = () => {
-    dispatch(deleteUser(user.id))
+  // }
+  const onDelete = async (e) => {
+    const data = await dispatch(deleteUser(user.id))
+    // if (!data.errors) {
+    //   setOpen(false);
+    //   dispatch(setMode('view'))
+    // }
 
   }
 
@@ -85,6 +95,7 @@ const UserCard = ({ user, setView, back, add }) => {
               <Button onClick={handleClose} color="primary">
                 Cancel
           </Button>
+              {/* <Button onClick={() => dispatch(deleteUser(user.id))} color="primary" autoFocus> */}
               <Button onClick={onDelete} color="primary" autoFocus>
                 Delete
           </Button>
@@ -92,35 +103,51 @@ const UserCard = ({ user, setView, back, add }) => {
           </Dialog>
         </div>
         <Paper variant="outlined" >
-          {mode === 'view' && <UserView user={user} />}
-          {mode === 'edit' && <UserEdit user={user} setMode={setMode}/>}
+          {mode === 'view' && <UserView user={user} setView={setView}/>}
+          {mode === 'edit' && <UserEdit user={user} setUser={setUser}/>}
+          {mode === 'create' && <UserCreate instructorId={user.instructorId}/>}
         </Paper>
-        {mode === "view" &&
-        <Button
-          type="button"
-          fullWidth
-          variant="contained"
-          color="secondary"
-          onClick={() => back()}
-        >
-          Go Back
+        {mode === 'view' &&
+          <Button
+            type="button"
+            fullWidth
+            variant="contained"
+            color="secondary"
+            onClick={() => dispatch(setView(back))}
+          >
+            Go Back
         </Button>}
-        {mode === "edit" &&
-        <Button
-          type="button"
-          fullWidth
-          variant="contained"
-          color="secondary"
-          onClick={() => setMode('view')}
-        >
-          Cancel
+        {mode === 'edit' &&
+          <Button
+            type="button"
+            fullWidth
+            variant="contained"
+            color="secondary"
+            onClick={() => dispatch(setMode('view'))}
+          >
+            Cancel
         </Button>}
-        <Fab className={classes.fab} color="secondary" aria-label="edit">
-          {mode === "view" &&
-            <EditIcon onClick={() => setMode('edit')} />}
-          {mode === "edit" &&
-            <DeleteIcon onClick={() => handleClickOpen()} />}
-        </Fab>
+        {mode === 'create' &&
+          <Button
+            type="button"
+            fullWidth
+            variant="contained"
+            color="secondary"
+            onClick={() => dispatch(setMode('view'))}
+          >
+            Cancel
+        </Button>}
+        {mode === 'view' &&
+          <Fab className={classes.fab} color="secondary" aria-label="edit" onClick={() => dispatch(setMode('edit'))}>
+            <EditIcon  />
+          </Fab>
+        }
+        {mode === 'edit' &&
+          <Fab onClick={() => setOpen(true)} className={classes.fab} color="secondary" aria-label="edit">
+            <DeleteIcon  />
+          </Fab>
+        }
+
 
         {/* </div> */}
       </div>

@@ -22,14 +22,8 @@ def get_month(id, year, month):
   byDay = {}
 
   for lesson in lessons:
-    # print('--------------------', lesson.to_dict())
     byId[lesson.id] = lesson.to_dict_camel()
-    # week_no = lesson.start_time.isocalendar()[1]
     dateKey = date_string(lesson.start_time)
-    # print(week_no)
-    # if week_no not in weeks:
-    #   weeks[week_no] = []
-    # weeks[week_no].append(lesson.id)
     if dateKey not in byDay:
       byDay[dateKey] = []
 
@@ -44,10 +38,6 @@ def get_week(id, year, month, day):
   iso_week = week_dates(year, month, day)
   first_day = iso_week[0]
   last_day = iso_week[-1]
-
-  print('-------------------', iso_week)
-  print('-------------------', first_day)
-  print('-------------------', last_day)
 
   lessons = Lesson.query.filter(cast(Lesson.start_time, Date) <= last_day, cast(Lesson.start_time, Date) >= first_day, id == Lesson.instructor_id).all()
   by_id = {}
@@ -64,16 +54,3 @@ def get_week(id, year, month, day):
 
 
   return jsonify({"byId": by_id, 'byDay': by_day, 'calendarWeek': calendar_week})
-
-
-    # week_no = lesson.start_time.isocalendar()[1]
-    # print(week_no)
-    # if week_no not in weeks:
-    #   weeks[week_no] = []
-    # weeks[week_no].append(lesson.id)
-    # if dateKey not in byDay:
-    #   byDay[dateKey] = []
-
-    # byDay[dateKey].append(lesson.id)
-
-  # return jsonify({"byId": byId, 'byDay': byDay, 'calendarMonth': calendarMonth})

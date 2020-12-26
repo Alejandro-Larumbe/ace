@@ -18,7 +18,6 @@ const UserCardContainer = (props) => {
 
   if(!student) return null
 
-  console.log('-------', student)
 
   return (
     <UserCard

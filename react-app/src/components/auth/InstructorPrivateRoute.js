@@ -7,7 +7,7 @@ const InstructorPrivateRoute = props => {
   const user = useSelector(state => state.user)
 
   if (props.authenticated && user.type === "adults") {
-    return <Redirect to={`/students/${user.id}/schedule`} />
+    return <Redirect to={`/students/${user.id}`} />
   } else if (!props.authenticated) return <Redirect to={'/'} />
 
 

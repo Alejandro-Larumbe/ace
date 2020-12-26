@@ -23,7 +23,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 
 
 
-export default function UserView({ user, setView, back }) {
+export default function UserView({ user }) {
 
 
   return (

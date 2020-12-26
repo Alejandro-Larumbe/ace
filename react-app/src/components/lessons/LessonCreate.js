@@ -16,9 +16,7 @@ import removeTimeZone from '../../services/dateUtil'
 import { fetchNames } from './services'
 import { ListItemText } from '@material-ui/core';
 import InputLabel from '@material-ui/core/InputLabel';
-
 import { createLesson } from './actions'
-
 import { format } from 'date-fns';
 
 
