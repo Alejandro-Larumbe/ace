@@ -3,7 +3,7 @@ import { useHistory } from "react-router-dom";
 import { useSelector, useDispatch } from "react-redux";
 import Paper from '@material-ui/core/Paper';
 import { Select } from "@material-ui/core";
-import { Button } from "react-scroll";
+import Button from '@material-ui/core/Button';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import TextField from '@material-ui/core/TextField';
@@ -29,6 +29,7 @@ export default function UploadResource() {
   const [resourceType, setResourceType] = useState(1)
   const instructorId = localStorage.getItem("user_id");
   const classes = useStyles();
+  const dispatch = useDispatch()
 
 
   const handleType = e => {
@@ -37,6 +38,12 @@ export default function UploadResource() {
 
   const onSubmit = async e => {
     e.preventDefault()
+    console.log('------------', title, url, resourceType)
+  }
+
+  const onSelectFile = e => {
+    console.log(e.target)
+    setUrl(e.target.files[0]);
   }
 
   const updateField = (callback) => (e) => {
@@ -76,12 +83,12 @@ export default function UploadResource() {
               </Select>
               <label htmlFor="contained-button-file">
                 <input
-                  accept={resourceType===1 ?
+                  accept={resourceType === 1 ?
                     ".pdf" :
-                    resourceType===2 ?
-                    "image/*" :
-                    resourceType===3 ?
-                    "video/*" : null
+                    resourceType === 2 ?
+                      "image/*" :
+                      resourceType === 3 ?
+                        "video/*" : null
                   }
                   className={classes.input}
                   id="contained-button-file"
@@ -94,10 +101,18 @@ export default function UploadResource() {
                   aria-label="add"
                   variant="extended"
                 >
-                  <AddIcon /> Upload
+                  <AddIcon /> Select File
                 </Fab>
               </label>
             </ListItem>
+            <Button
+              type="submit"
+              fullWidth
+              variant="contained"
+              color="primary"
+            >
+              Upload
+            </Button>
           </List>
         </form>
 
