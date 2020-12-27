@@ -9,6 +9,7 @@ resource_routes = Blueprint('resource_routes', __name__)
 
 @resource_routes.route('/', methods=['POST'])
 def upload_resource():
+  pass
   form = UploadTrackForm()
   # form['csrf_token'].data = request.cookies['csrf_token']
 

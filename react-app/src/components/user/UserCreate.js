@@ -50,7 +50,7 @@ export default function UserCreate() {
       <>
         <form>
           <List component="nav" aria-label="mailbox folders">
-            <ListItem button>
+            <ListItem >
               <TextField
                 margin="dense"
                 type="text"

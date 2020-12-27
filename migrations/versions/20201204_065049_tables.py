@@ -92,7 +92,7 @@ def upgrade():
     )
     op.create_table('resources',
     sa.Column('id', sa.Integer(), nullable=False),
-    sa.Column('name', sa.String(length=100), nullable=False),
+    sa.Column('title', sa.String(length=100), nullable=False),
     sa.Column('url', sa.String(length=1000), nullable=False),
     sa.Column('instructor_id', sa.Integer(), nullable=False),
     sa.Column('resource_type_id', sa.Integer(), nullable=False),

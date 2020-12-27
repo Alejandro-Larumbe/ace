@@ -221,14 +221,14 @@ const NavBar = ({ setAuthenticated, user, studioName, studioLogoUrl }) => {
               <ListItemIcon><MenuBookIcon /></ListItemIcon>
               <ListItemText>Repertoire</ListItemText>
             </ListItem>
-            {/* <ListItem to={`/${id}/resources`} component={NavLink} className={classes.listItem} button>
+            <ListItem to={`/resources`} component={NavLink} className={classes.listItem} button>
               <ListItemIcon><AlbumIcon /></ListItemIcon>
               <ListItemText>Resources</ListItemText>
             </ListItem>
             <ListItem component={NavLink} to={`/${id}/billing`} className={classes.listItem} button>
               <ListItemIcon><AttachMoneyIcon /></ListItemIcon>
               <ListItemText>Billing</ListItemText>
-            </ListItem> */}
+            </ListItem>
           </List>
         </div>
       </Drawer>

@@ -4,7 +4,7 @@ import { BrowserRouter, Redirect, Route, Switch, useParams } from 'react-router-
 import Navbar from './NavBar';
 import Students from './students/StudentsContainer';
 import Schedule from './schedule/Schedule';
-
+import UploadResource from './resources/UploadResource';
 
 const style = {
   marginTop: '22vh',
@@ -31,6 +31,9 @@ export default function InstructorApp({ setAuthenticated }) {
           </Route>
           <Route path="/schedule">
             <Schedule />
+          </Route>
+          <Route path="/resources">
+            <UploadResource />
           </Route>
           {/* <Route path="/:id" >
             <Profile />
