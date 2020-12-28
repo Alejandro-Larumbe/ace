@@ -15,8 +15,8 @@ class Resource(db.Model):
   def to_dict(self):
     return {
       "id": self.id,
-      "resource_type": self.type,
-      "title": self.name,
+      "resource_type_id": self.resource_type_id,
+      "title": self.title,
       "url": self.url,
       "instructor_id": self.instructor_id
     }

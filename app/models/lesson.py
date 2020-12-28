@@ -17,6 +17,7 @@ class Lesson(db.Model):
 
   instructor = db.relationship('User', foreign_keys=[instructor_id])
   student = db.relationship('User', foreign_keys=[student_id])
+  tasks = db.relationship('LessonTask', cascade='all, delete-orphan')
 
 
   def to_dict(self):
@@ -28,7 +29,8 @@ class Lesson(db.Model):
       "instructor_id": self.instructor_id,
       "student_first_name": self.student.first_name,
       "student_last_name": self.student.last_name,
-      "profile_pic_url": self.student.profile_pic_url
+      "profile_pic_url": self.student.profile_pic_url,
+      "tasks": [task.to_dict() for task in self.tasks]
     }
 
 

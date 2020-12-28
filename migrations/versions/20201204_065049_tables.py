@@ -23,6 +23,11 @@ def upgrade():
     sa.Column('type', sa.String(length=50), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
+    op.create_table('task_types',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('type', sa.String(length=50), nullable=False),
+    sa.PrimaryKeyConstraint('id')
+    )
     op.create_table('books',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('title', sa.String(length=100), nullable=False),
@@ -121,14 +126,14 @@ def upgrade():
     sa.Column('duration', sa.Integer(), nullable=True),
     sa.Column('frequency', sa.Integer(), nullable=True),
     sa.Column('instructions', sa.Text(), nullable=True),
-    sa.Column('type', sa.String(length=50), nullable=True),
-    sa.Column('badge', sa.Boolean(), nullable=True),
+    sa.Column('type_id', sa.Integer(), nullable=True),
     sa.Column('lesson_id', sa.Integer(), nullable=True),
     sa.Column('piece_id', sa.Integer(), nullable=True),
     sa.Column('book_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['book_id'], ['books.id'], ),
     sa.ForeignKeyConstraint(['lesson_id'], ['lessons.id'], ),
     sa.ForeignKeyConstraint(['piece_id'], ['pieces.id'], ),
+    sa.ForeignKeyConstraint(['type_id'], ['task_types.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     # ### end Alembic commands ###

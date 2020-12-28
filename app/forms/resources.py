@@ -5,7 +5,7 @@ from wtforms.validators import DataRequired, Email, ValidationError
 
 
 class UploadResource(FlaskForm):
-    name = StringField('name', validators=[DataRequired()])
+    title = StringField('title', validators=[DataRequired()])
     url = FileField('url', validators=[DataRequired()])
     instructor_id = IntegerField('instructor_id', validators=[DataRequired()])
     resource_type_id = IntegerField('resource_type_id', validators=[DataRequired()])

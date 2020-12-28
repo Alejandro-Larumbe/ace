@@ -10,6 +10,8 @@ import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
+import { uploadResource } from './actions';
+import { FormatBoldTwoTone } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -38,11 +40,17 @@ export default function UploadResource() {
 
   const onSubmit = async e => {
     e.preventDefault()
-    console.log('------------', title, url, resourceType)
+    console.log((instructorId, title, url, resourceType))
+    let data = new FormData();
+    data.append('instructor_id', instructorId)
+    data.append('title', title)
+    data.append('url', url)
+    data.append('resource_type_id', resourceType)
+    await dispatch(uploadResource(data))
   }
 
   const onSelectFile = e => {
-    console.log(e.target)
+    console.log(e.target.files)
     setUrl(e.target.files[0]);
   }
 
@@ -92,6 +100,8 @@ export default function UploadResource() {
                   }
                   className={classes.input}
                   id="contained-button-file"
+                  name="contained-button-file"
+                  onChange={onSelectFile}
                   type="file"
                 />
                 <Fab

@@ -14,7 +14,6 @@ calendar_routes = Blueprint('calendar_routes', __name__)
 def get_month(id, year, month):
   month += 1
   calendarMonth = calendar_month(year, month)
-  print('-------------------')
   firstDay = firstCalendarDay(year, month)
   lastDay = lastCalendarDay(year, month)
   lessons = Lesson.query.filter(cast(Lesson.start_time, Date) <= lastDay, cast(Lesson.start_time, Date) >= firstDay, id == Lesson.instructor_id).all()

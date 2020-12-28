@@ -14,3 +14,4 @@ from .lesson import Lesson
 from .piece import Piece
 from .resource_type import ResourceType
 from .resource import Resource
+from .task_type import TaskType

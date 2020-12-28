@@ -47,8 +47,6 @@ def validation_errors_to_error_messages(validation_errors):
 def create_lesson(id):
   form = LessonForm()
   form['csrf_token'].data = request.cookies['csrf_token']
-  # print('form data---------------', form.data['start_time'])
-  # print('Type: ',type(form.data['start_time']))
   if form.validate_on_submit():
     lesson = Lesson(
       start_time = form.data['start_time'],
