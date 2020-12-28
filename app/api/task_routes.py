@@ -21,18 +21,21 @@ def create_task():
   form = TaskForm()
   # print('---------------------', form.data)
   # print('------', request.cookies['csrf_token'])
-  # form['csrf_token'].data = request.cookies['csrf_token']
-  # if form.validate_on_submit():
-  task = LessonTask(
-    duration = form.data['duration'],
-    frequency = form.data['frequency'],
-    instructions = form.data['instructions'],
-    type_id = form.data['type_id'],
-    lesson_id = form.data['lesson_id'],
-    piece_id = form.data['piece_id'],
-    book_id =  form.data['book_id']
-  )
-  db.session.add(task)
-  db.session.commit()
-  return jsonify(task.to_dict())
-  # return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+  form['csrf_token'].data = request.cookies['csrf_token']
+  if form.validate_on_submit():
+    task = LessonTask(
+      duration = form.data['duration'],
+      frequency = form.data['frequency'],
+      instructions = form.data['instructions'],
+      type_id = form.data['type_id'],
+      lesson_id = form.data['lesson_id'],
+      piece_id = form.data['piece_id'],
+      book_id =  form.data['book_id']
+    )
+    db.session.add(task)
+    db.session.commit()
+    return jsonify(task.to_dict())
+  return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+
+# @task_routes.route('', methods=['POST'])
+# def create_task():
