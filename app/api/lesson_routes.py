@@ -66,8 +66,6 @@ def lessons(id):
 
 @lesson_routes.route('/<int:id>/schedule/<int:year>/<int:month>')
 def get_schedule(id, year, month):
-  print('---------year', int(year), type(year))
-  print('---------momth', month, type(month))
   month = month + 1
   lessons = Lesson.query.filter(cast(Lesson.start_time, Date) == year, extract('month', Lesson.start_time) == month, id == Lesson.instructor_id).all()
   if len(lessons) == 0:

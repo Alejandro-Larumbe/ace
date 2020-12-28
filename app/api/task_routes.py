@@ -1,6 +1,9 @@
 from flask import Blueprint, jsonify, request
 from app.models import LessonTask, Lesson, db
+from sqlalchemy import extract, Date, cast
+
 from app.forms.tasks import TaskForm
+import datetime
 
 task_routes = Blueprint('task_routes', __name__)
 
@@ -37,5 +40,15 @@ def create_task():
     return jsonify(task.to_dict())
   return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
-# @task_routes.route('', methods=['POST'])
-# def create_task():
+
+@task_routes.route('instructor/<int:id>/date/<int:year>/<int:month>/<int:day>/')
+def get_lesson_tasks_instructor(id, year, month, day):
+  month = month + 1
+  date = datetime.date(year, month, day)
+  lessons = Lesson.query.filter(cast(Lesson.start_time, Date) == date, Lesson.instructor_id == id).all()
+  by_id = {}
+  for lesson in lessons:
+    by_id[lesson.id] = lesson.to_dict_camel_tasks()
+  return jsonify(by_id)
+
+  # return 'hi'

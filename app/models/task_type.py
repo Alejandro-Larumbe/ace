@@ -8,7 +8,6 @@ class TaskType(db.Model):
   id = Column(Integer, primary_key=True)
   type = Column(String(30), nullable=False)
 
-
   def to_dict(self):
     return {
       "id": self.id,

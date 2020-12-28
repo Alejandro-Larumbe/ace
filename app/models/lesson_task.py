@@ -1,6 +1,7 @@
 from .db import db
 from sqlalchemy.schema import Column, ForeignKey
 from sqlalchemy.types import Integer, String, Date, Boolean, Text
+from .piece import Piece
 
 class LessonTask(db.Model):
   __tablename__ = 'lesson_tasks'
@@ -14,7 +15,8 @@ class LessonTask(db.Model):
   piece_id = Column(Integer, ForeignKey("pieces.id"))
   book_id = Column(Integer, ForeignKey("books.id"))
 
-
+  book = db.relationship('Book')
+  piece = db.relationship('Piece')
 
   def to_dict(self):
     return {
@@ -26,4 +28,18 @@ class LessonTask(db.Model):
       "lesson_id": self.lesson_id,
       "piece_id": self.piece_id,
       "book_id": self.book_id,
+      "piece_title": self.piece
+    }
+
+  def to_dict_camel(self):
+    return {
+      "id": self.id,
+      "duration": self.duration,
+      "frequency": self.frequency,
+      "instructions": self.instructions,
+      "typeId": self.type_id,
+      "lessonId": self.lesson_id,
+      "pieceId": self.piece_id,
+      "bookId": self.book_id,
+      "pieceTitle": self.piece.title
     }
