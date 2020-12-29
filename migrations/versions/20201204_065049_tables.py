@@ -127,6 +127,7 @@ def upgrade():
     sa.Column('frequency', sa.Integer(), nullable=True),
     sa.Column('instructions', sa.Text(), nullable=True),
     sa.Column('type_id', sa.Integer(), nullable=True),
+    sa.Column('is_completed', sa.Boolean(), nullable=True),
     sa.Column('lesson_id', sa.Integer(), nullable=True),
     sa.Column('piece_id', sa.Integer(), nullable=True),
     sa.Column('book_id', sa.Integer(), nullable=True),

@@ -213,7 +213,7 @@ const NavBar = ({ setAuthenticated, user, studioName, studioLogoUrl }) => {
               <ListItemIcon><CalendarTodayIcon /></ListItemIcon>
               <ListItemText>Schedule</ListItemText>
             </ListItem>
-            <ListItem component={NavLink} to={`/${id}/lesson-create`} className={classes.listItem} button>
+            <ListItem component={NavLink} to={`/lessons`} className={classes.listItem} button>
               <ListItemIcon><MusicNoteIcon /></ListItemIcon>
               <ListItemText>Add Lesson</ListItemText>
             </ListItem>
@@ -225,10 +225,10 @@ const NavBar = ({ setAuthenticated, user, studioName, studioLogoUrl }) => {
               <ListItemIcon><AlbumIcon /></ListItemIcon>
               <ListItemText>Resources</ListItemText>
             </ListItem>
-            <ListItem component={NavLink} to={`/${id}/billing`} className={classes.listItem} button>
+            {/* <ListItem component={NavLink} to={`/billing`} className={classes.listItem} button>
               <ListItemIcon><AttachMoneyIcon /></ListItemIcon>
               <ListItemText>Billing</ListItemText>
-            </ListItem>
+            </ListItem> */}
           </List>
         </div>
       </Drawer>

@@ -14,7 +14,7 @@ class Instructor(User):
 
   # user = db.relationship(User,
   #                   backref=db.backref("instructor", cascade="all, delete-orphan")
-  #               )
+  #              Tes )
 
   __mapper_args__ = {
     'polymorphic_identity':'instructors',

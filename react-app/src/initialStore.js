@@ -8,6 +8,9 @@ const initialStore = {
   ui: {
     userCardMode: 'view',
     calendarView: 'month'
+  },
+  tasks: {
+    byId: {}
   }
 }
 

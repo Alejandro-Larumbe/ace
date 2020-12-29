@@ -50,8 +50,8 @@ class Lesson(db.Model):
   def to_dict_camel_tasks(self):
     return {
       "id": self.id,
-      # "startTime": str(self.start_time),
-      # "endTime": str(self.end_time),
+      "startTime": str(self.start_time),
+      "endTime": str(self.end_time),
       "studentId": self.student_id,
       # "instructorId": self.instructor_id,
       "studentFirstName": self.student.first_name,

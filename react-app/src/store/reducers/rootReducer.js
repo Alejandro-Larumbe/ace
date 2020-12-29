@@ -5,8 +5,10 @@ import students from '../../components/students/reducer';
 import student from '../../components/user/userReducer';
 import schedule from '../../components/schedule/reducer'
 import ui from '../reducers/ui';
+import tasks from '../../components/tasks/reducer';
 
 const rootReducer = combineReducers({
+  tasks,
   ui,
   student,
   students,

@@ -1,6 +1,6 @@
-import React, { useEffect, useState } from "react";
+import React, { useState } from "react";
 import { useDispatch, useSelector } from 'react-redux';
-import { Redirect, useParams, useHistory } from "react-router-dom";
+import { useHistory } from "react-router-dom";
 import { login } from "../../store/actions/authActions";
 
 import Button from '@material-ui/core/Button';
@@ -10,14 +10,11 @@ import Link from '@material-ui/core/Link';
 import Paper from '@material-ui/core/Paper';
 import Tabs from '@material-ui/core/Tabs';
 import Tab from '@material-ui/core/Tab';
-import Avatar from '@material-ui/core/Avatar';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
-import PropTypes from 'prop-types';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
-import { useSpring, animated } from 'react-spring/web.cjs';
+import Fade from '../../Fade';
 
 const useStyles = makeStyles((theme) => ({
   modal: {
@@ -50,38 +47,6 @@ const useStyles = makeStyles((theme) => ({
     margin: theme.spacing(1, 0, 2),
   },
 }));
-
-const Fade = React.forwardRef(function Fade(props, ref) {
-  const { in: open, children, onEnter, onExited, ...other } = props;
-  const style = useSpring({
-    from: { opacity: 0 },
-    to: { opacity: open ? 1 : 0 },
-    onStart: () => {
-      if (open && onEnter) {
-        onEnter();
-      }
-    },
-    onRest: () => {
-      if (!open && onExited) {
-        onExited();
-      }
-    },
-  });
-
-  return (
-    <animated.div ref={ref} style={style} {...other}>
-      {children}
-    </animated.div>
-  );
-});
-
-Fade.propTypes = {
-  children: PropTypes.element,
-  in: PropTypes.bool.isRequired,
-  onEnter: PropTypes.func,
-  onExited: PropTypes.func,
-};
-
 
 
 const LoginForm = ({ authenticated, setAuthenticated, open, handleOpen, handleClose }) => {
@@ -144,13 +109,6 @@ const LoginForm = ({ authenticated, setAuthenticated, open, handleOpen, handleCl
     setPassword(e.target.value);
   };
 
-  // if (authenticated && type === "adults") {
-  //   return <Redirect to={`/students/${id}/schedule`} />
-  // } else if (authenticated && type === "instructors") {
-  //   return <Redirect to={`/${type}/${id}/schedule`} />
-  // }
-
-
   return (
     <>
       <Modal
@@ -170,7 +128,7 @@ const LoginForm = ({ authenticated, setAuthenticated, open, handleOpen, handleCl
             <CssBaseline />
             <Typography component="h1" variant="h5">
               Sign in
-      </Typography>
+            </Typography>
             <Tabs
               value={value}
               indicatorColor="primary"

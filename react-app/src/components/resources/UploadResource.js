@@ -11,7 +11,6 @@ import { makeStyles } from '@material-ui/core/styles';
 import Fab from '@material-ui/core/Fab';
 import AddIcon from '@material-ui/icons/Add';
 import { uploadResource } from './actions';
-import { FormatBoldTwoTone } from "@material-ui/icons";
 
 const useStyles = makeStyles((theme) => ({
   root: {

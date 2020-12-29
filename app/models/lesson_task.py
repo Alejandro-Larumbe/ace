@@ -3,6 +3,7 @@ from sqlalchemy.schema import Column, ForeignKey
 from sqlalchemy.types import Integer, String, Date, Boolean, Text
 from .piece import Piece
 
+
 class LessonTask(db.Model):
   __tablename__ = 'lesson_tasks'
 
@@ -10,13 +11,16 @@ class LessonTask(db.Model):
   duration = Column(Integer)
   frequency = Column(Integer)
   instructions = Column(Text)
-  type_id = Column(Integer, ForeignKey("resource_types.id"))
+  is_completed = Column(Boolean)
   lesson_id = Column(Integer, ForeignKey("lessons.id"))
+  type_id = Column(Integer, ForeignKey("task_types.id"))
   piece_id = Column(Integer, ForeignKey("pieces.id"))
   book_id = Column(Integer, ForeignKey("books.id"))
 
+  lesson = db.relationship('Lesson')
   book = db.relationship('Book')
   piece = db.relationship('Piece')
+  type = db.relationship('TaskType')
 
   def to_dict(self):
     return {
@@ -24,6 +28,7 @@ class LessonTask(db.Model):
       "duration": self.duration,
       "frequency": self.frequency,
       "instructions": self.instructions,
+      "is_completed": self.is_completed,
       "type_id": self.type_id,
       "lesson_id": self.lesson_id,
       "piece_id": self.piece_id,
@@ -32,7 +37,7 @@ class LessonTask(db.Model):
     }
 
   def to_dict_camel(self):
-    return {
+    result = {
       "id": self.id,
       "duration": self.duration,
       "frequency": self.frequency,
@@ -41,5 +46,21 @@ class LessonTask(db.Model):
       "lessonId": self.lesson_id,
       "pieceId": self.piece_id,
       "bookId": self.book_id,
-      "pieceTitle": self.piece.title
+      "isCompleted": self.is_completed,
     }
+    if self.piece_id:
+      piece = self.piece.to_dict()
+      result['pieceTitle'] = piece['title']
+      # result['piece_title'] = piece.title
+
+    if self.book_id:
+      book = self.book.to_dict()
+      result['bookTitle'] = book['title']
+
+    if self.type_id:
+      type = self.type.to_dict()
+      result['type'] = type['type']
+
+    return result
+    # if self.piece_id:
+    #   result["lesson.piece.title"] = self.piece.title

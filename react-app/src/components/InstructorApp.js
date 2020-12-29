@@ -5,7 +5,7 @@ import Navbar from './NavBar';
 import Students from './students/StudentsContainer';
 import Schedule from './schedule/Schedule';
 import UploadResource from './resources/UploadResource';
-
+import Lesson from './tasks/TasksContainer';
 const style = {
   marginTop: '22vh',
   marginLeft: 200
@@ -34,6 +34,9 @@ export default function InstructorApp({ setAuthenticated }) {
           </Route>
           <Route path="/resources">
             <UploadResource />
+          </Route>
+          <Route path="/lessons">
+            <Lesson />
           </Route>
           {/* <Route path="/:id" >
             <Profile />

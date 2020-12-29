@@ -1,6 +1,7 @@
 from flask import Blueprint, jsonify, request
 from app.models import LessonTask, Lesson, db
 from sqlalchemy import extract, Date, cast
+from operator import itemgetter
 
 from app.forms.tasks import TaskForm
 import datetime
@@ -33,7 +34,8 @@ def create_task():
       type_id = form.data['type_id'],
       lesson_id = form.data['lesson_id'],
       piece_id = form.data['piece_id'],
-      book_id =  form.data['book_id']
+      book_id =  form.data['book_id'],
+      is_completed =  form.data['is_completed']
     )
     db.session.add(task)
     db.session.commit()
@@ -45,10 +47,13 @@ def create_task():
 def get_lesson_tasks_instructor(id, year, month, day):
   month = month + 1
   date = datetime.date(year, month, day)
-  lessons = Lesson.query.filter(cast(Lesson.start_time, Date) == date, Lesson.instructor_id == id).all()
+  # lessons = Lesson.query.filter(cast(Lesson.start_time, Date) == date, Lesson.instructor_id == id).all()
+  lessons = Lesson.query.filter(cast(Lesson.start_time, Date) == date, Lesson.instructor_id == id).order_by(cast(Lesson.start_time, Date)).all()
+
   by_id = {}
   for lesson in lessons:
     by_id[lesson.id] = lesson.to_dict_camel_tasks()
-  return jsonify(by_id)
+  print('----------', by_id )
+  return jsonify({'byId': by_id})
 
   # return 'hi'
