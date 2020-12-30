@@ -1,4 +1,5 @@
 import React, { useEffect, useState } from 'react';
+import { Route } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
 import StudentsTable from './StudentsTable';
 import { getStudents } from './actions';
@@ -26,13 +27,13 @@ export default function StudentsRouter({ view, currentStudentId, studentsById, g
         />
       )}
       {(view === 'student') && (
-        <UserCard
-          user={studentsById[currentStudentId]}
-          setView={setView}
-          // setMode={setMode}
-          // mode={mode}
-          back={'table'}
-        />
+          <UserCard
+            user={studentsById[currentStudentId]}
+            setView={setView}
+            // setMode={setMode}
+            // mode={mode}
+            back={'table'}
+          />
       )}
       {/* {(view === 'edit') && (
         <UserEdit

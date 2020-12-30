@@ -14,7 +14,10 @@ class Adult(User):
   is_parent = db.Column(db.Boolean)
   instructor_id = db.Column(db.Integer, ForeignKey("instructors.id"), nullable = False)
 
+  # lessons = db.relationship('Lesson', foreign_keys=[in_id], cascade='all, delete')
+
   # user = db.relationship('User', cascade='all, delete')
+  lessons = db.relationship('Lesson', cascade='all, delete')
 
   # lessons = db.relationship('Lesson')
 

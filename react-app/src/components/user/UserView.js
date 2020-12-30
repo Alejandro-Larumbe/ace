@@ -2,7 +2,7 @@ import React, { useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import { useParams, useHistory } from 'react-router-dom';
 import { loadStudent, deleteUser } from './userActions';
-import { format, parse } from 'date-fns';
+import { format } from 'date-fns';
 
 import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
@@ -37,7 +37,7 @@ export default function UserView({ user }) {
           <>
             <Divider />
             <ListItem >
-              <ListItemText primary="date of birth" secondary={user.dob} />
+              <ListItemText primary="date of birth" secondary={format(new Date(user.dob), 'PP')} />
             </ListItem>
           </>
           : null

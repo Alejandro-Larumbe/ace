@@ -93,7 +93,7 @@ export default function UploadResource() {
                   accept={resourceType === 1 ?
                     ".pdf" :
                     resourceType === 2 ?
-                      "image/*" :
+                      "audio/*" :
                       resourceType === 3 ?
                         "video/*" : null
                   }

@@ -1,7 +1,7 @@
 from .db import db
 from werkzeug.security import generate_password_hash, check_password_hash
 from flask_login import UserMixin
-
+# from .lesson import Lesson
 
 class User(db.Model, UserMixin):
     __tablename__ = 'users'
@@ -16,15 +16,6 @@ class User(db.Model, UserMixin):
     hashed_password = db.Column(db.String(255), nullable=False)
     type = db.Column(db.String(50))
 
-    # instructor = db.relationship('Instructor', cascade='all, delete-orphan')
-    adult = db.relationship('Adult', cascade='all, delete-orphan')
-
-
-    # studio_name = db.relationship('Instructor', cascade='all, delete')
-    # studio_logo_url = db.relationship('Instructor', cascade='all, delete')
-    # is_student = db.relationship('Adult', cascade='all, delete')
-    # is_parent = db.relationship('Adult', cascade='all, delete')
-    # instructor_id = db.relationship('Adult', cascade='all, delete')
 
     __mapper_args__ = {
         'polymorphic_on': type,

@@ -9,7 +9,7 @@ const Fade = React.forwardRef(function Fade(props, ref) {
     to: { opacity: open ? 1 : 0 },
     onStart: () => {
       if (open && onEnter) {
-        onEnter();
+        // onEnter();
       }
     },
     onRest: () => {

@@ -34,6 +34,21 @@ def upload_piece():
 
   return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
+@repertoire_routes.route('/<int:id>')
+def get_rep_instructor(id):
+  pieces = Piece.query.filter(Piece.instructor_id == id).all()
+  books = Book.query.filter(Piece.instructor_id == id).all()
+
+
+  books_by_id = {}
+  for book in books:
+    books_by_id[book.id] = book.to_dict()
+
+  pieces_by_id = {}
+  for piece in pieces:
+    pieces_by_id[piece.id] = piece.to_dict()
+  return jsonify({  'piecesById': pieces_by_id, "booksById": books_by_id })
+
 
 @repertoire_routes.route('/piece/<int:id>', methods=['PATCH'])
 def update_piece(id):

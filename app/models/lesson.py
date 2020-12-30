@@ -12,11 +12,11 @@ class Lesson(db.Model):
   id = Column(Integer, primary_key=True)
   start_time = Column(db.DateTime, nullable=False)
   end_time = Column(db.DateTime, nullable=False)
-  student_id = Column(Integer, ForeignKey(User.id), nullable=False)
-  instructor_id = Column(Integer, ForeignKey(User.id), nullable=False)
+  student_id = Column(Integer, ForeignKey(Adult.id), nullable=False)
+  instructor_id = Column(Integer, ForeignKey(Instructor.id), nullable=False)
 
-  instructor = db.relationship('User', foreign_keys=[instructor_id])
-  student = db.relationship('User', foreign_keys=[student_id])
+  instructor = db.relationship('Instructor', foreign_keys=[instructor_id])
+  student = db.relationship('Adult', foreign_keys=[student_id])
   tasks = db.relationship('LessonTask', cascade='all, delete-orphan')
 
 

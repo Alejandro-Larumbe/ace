@@ -11,6 +11,7 @@ import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import { loadStudent, editUser } from './userActions';
 import {setUserCardMode as setMode } from '../../store/actions/ui'
+import { format } from 'date-fns';
 
 
 
@@ -43,7 +44,7 @@ export default function UserEdit({ user, setUser }) {
   const [address, setAddress] = useState(user.address);
   const [phoneNumber, setPhoneNumber] = useState(user.phoneNumber);
   const [studioName, setStudioName] = useState(user.studioName);
-  const [dob, setDob] = useState(user.dob);
+  const [dob, setDob] = useState(format(new Date(user.dob), 'P'));
   const dispatch = useDispatch();
   const id = user.id;
 

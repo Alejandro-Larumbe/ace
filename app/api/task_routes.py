@@ -23,8 +23,6 @@ def validation_errors_to_error_messages(validation_errors):
 @task_routes.route('', methods=['POST'])
 def create_task():
   form = TaskForm()
-  # print('---------------------', form.data)
-  # print('------', request.cookies['csrf_token'])
   form['csrf_token'].data = request.cookies['csrf_token']
   if form.validate_on_submit():
     task = LessonTask(
@@ -39,7 +37,7 @@ def create_task():
     )
     db.session.add(task)
     db.session.commit()
-    return jsonify(task.to_dict())
+    return jsonify(task.to_dict_camel())
   return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 

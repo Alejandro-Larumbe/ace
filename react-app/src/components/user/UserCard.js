@@ -22,6 +22,7 @@ import DialogTitle from '@material-ui/core/DialogTitle';
 import UserView from './UserView';
 import UserEdit from './UserEdit';
 import UserCreate from './UserCreate';
+import { setView as studentsView } from '../students/actions'
 import { setUserCardMode as setMode } from '../../store/actions/ui'
 
 
@@ -48,6 +49,7 @@ const UserCard = ({ user: currentUser, setView, back }) => {
   const [open, setOpen] = useState(false);
   const mode = useSelector(state => state.ui.userCardMode)
   const dispatch = useDispatch();
+  const instructorId  = localStorage.getItem('user_id')
 
   useEffect(() => {
     // if(add) {
@@ -58,7 +60,6 @@ const UserCard = ({ user: currentUser, setView, back }) => {
 
 
   const handleClickOpen = () => {
-    // setMode('')
     setOpen(true);
   };
 
@@ -66,7 +67,7 @@ const UserCard = ({ user: currentUser, setView, back }) => {
     setOpen(false);
   };
 
-  if (!user) return null;
+  // if (!user) return null;
 
   // const onEdit = () => {
 
@@ -105,7 +106,7 @@ const UserCard = ({ user: currentUser, setView, back }) => {
         <Paper variant="outlined" >
           {mode === 'view' && <UserView user={user} setView={setView}/>}
           {mode === 'edit' && <UserEdit user={user} setUser={setUser}/>}
-          {mode === 'create' && <UserCreate instructorId={user.instructorId}/>}
+          {mode === 'create' && <UserCreate instructorId={instructorId}/>}
         </Paper>
         {mode === 'view' &&
           <Button
@@ -133,7 +134,7 @@ const UserCard = ({ user: currentUser, setView, back }) => {
             fullWidth
             variant="contained"
             color="secondary"
-            onClick={() => dispatch(setMode('view'))}
+            onClick={() => dispatch(studentsView('table'))}
           >
             Cancel
         </Button>}

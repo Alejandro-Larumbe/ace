@@ -1,6 +1,9 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
 import { Provider } from 'react-redux';
+import history from "./history";
+
+import { Router } from 'react-router';
 import DateFnsUtils from '@date-io/date-fns';
 import { MuiPickersUtilsProvider } from "@material-ui/pickers";
 import configureStore from './store/store';
@@ -19,14 +22,16 @@ let store = configureStore(initialStore);
 
 
 ReactDOM.render(
-  <React.StrictMode>
+  // <React.StrictMode>
     <Provider store={store}>
       <ThemeProvider theme={theme}>
         <MuiPickersUtilsProvider utils={DateFnsUtils}>
-          <App />
+          <Router history={history}>
+            <App />
+          </Router>
         </MuiPickersUtilsProvider>
       </ThemeProvider>
-    </Provider>
-  </React.StrictMode>,
+    </Provider>,
+  // </React.StrictMode>,
   document.getElementById('root')
-  );
+);

@@ -37,7 +37,7 @@ const useStyles = makeStyles((theme) => ({
     backgroundColor: theme.palette.secondary.main,
   },
   form: {
-    width: '100%', // Fix IE 11 issue.
+    width: '80%', // Fix IE 11 issue.
     marginTop: theme.spacing(1),
   },
   button: {
@@ -60,7 +60,6 @@ const LoginForm = ({ authenticated, setAuthenticated, open, handleOpen, handleCl
   const type = types[value]
   let history = useHistory();
   const classes = useStyles();
-
 
 
   const onDemoInstructor = async (e) => {

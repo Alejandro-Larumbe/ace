@@ -23,3 +23,14 @@ class Piece(db.Model):
       "book_id": self.book_id,
       "instructor_id": self.instructor_id
     }
+
+
+  def to_dict_camel(self):
+    return {
+      "id": self.id,
+      "title": self.title,
+      "composer": self.composer,
+      "number": self.number,
+      "bookId": self.book_id,
+      "instructorId": self.instructor_id
+    }

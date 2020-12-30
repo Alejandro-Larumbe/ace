@@ -17,5 +17,15 @@ class Book(db.Model):
     return {
       "id": self.id,
       "title": self.title,
-      "author": self.author
+      "author": self.author,
+      "instructor_id": self.instructor_id,
+    }
+
+
+  def to_dict_camel(self):
+    return {
+      "id": self.id,
+      "title": self.title,
+      "author": self.author,
+      "instructorId": self.instructor_id,
     }

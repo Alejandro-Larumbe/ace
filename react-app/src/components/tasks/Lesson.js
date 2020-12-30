@@ -32,10 +32,19 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 export default function Lesson(props) {
-  const { profilePicUrl, startTime, endTime, studentFirstName, studentLastName, tasks } = props.lesson
+  const { setLessonId } = props
+  const { id, profilePicUrl, startTime, endTime, studentFirstName, studentLastName, tasks } = props.lesson
   const { handleOpen } = props
   const classes = useStyles();
   const dispatch = useDispatch();
+
+  console.log('BeforeLESOSNID', id)
+  const handleClick = (e) => {
+
+    console.log('LESOSNID', e.target.id)
+    setLessonId(id)
+    handleOpen()
+  }
 
   return (
     <Card className={classes.root}>
@@ -52,7 +61,8 @@ export default function Lesson(props) {
           component="span"
           aria-label="add"
           variant="extended"
-          onClick={handleOpen}
+          id={id}
+          onClick={handleClick}
         >
           <AddIcon /> Task
         </Fab>

@@ -15,13 +15,13 @@ const useStyles = makeStyles((theme) => ({
     backgroundImage: `url("https://ace-management.s3.us-east-2.amazonaws.com/HNashPhoto-4117cropped.jpg")`,
     backgroundSize: 'cover',
     backgroundRepeat: "no-repeat",
-    colorText:'',
+    colorText: '',
     zIndex: 10,
     left: '50px'
   },
 }))
 
-const Splash = ({ authenticated, setAuthenticated}) => {
+const Splash = ({ authenticated, setAuthenticated }) => {
   let history = useHistory();
   const classes = useStyles();
   const [open, setOpen] = useState(false);
@@ -49,21 +49,22 @@ const Splash = ({ authenticated, setAuthenticated}) => {
   };
 
 
-return (
+  return (
 
-<div className={classes.root}>
-  <CssBaseline />
-  <Header handleOpen={handleOpen}/>
-  <LoginForm
-      className={classes.login}
-      open={open}
-      handleOpen={handleOpen}
-      handleClose={handleClose}
-      authenticated={authenticated}
-      setAuthenticated={setAuthenticated}
-  />
-  <Description />
-</div >
-)}
+    <div className={classes.root}>
+      <CssBaseline />
+      <Header handleOpen={handleOpen} />
+      <LoginForm
+        className={classes.login}
+        open={open}
+        handleOpen={handleOpen}
+        handleClose={handleClose}
+        authenticated={authenticated}
+        setAuthenticated={setAuthenticated}
+      />
+      <Description />
+    </div >
+  )
+}
 
 export default Splash

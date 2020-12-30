@@ -24,6 +24,8 @@ import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import AddCircleIcon from '@material-ui/icons/AddCircle';
 import AddIcon from '@material-ui/icons/Add';
+import { format } from 'date-fns';
+
 
 function descendingComparator(a, b, orderBy) {
   if (b[orderBy] < a[orderBy]) {
@@ -224,7 +226,8 @@ function StudentsTable({ studentsById }) {
   const rows = [];
 
   students.forEach(each => {
-    rows.push(createData(each.id, each.firstName, each.lastName, each.email, each.dob))
+    const dob = format(new Date(each.dob), 'PP')
+    rows.push(createData(each.id, each.firstName, each.lastName, each.email, dob))
   })
 
 
