@@ -38,14 +38,16 @@ const useStyles = makeStyles((theme) => ({
 }))
 
 export default function Lesson(props) {
-  const { setLessonId } = props
+  const { setLessonId, setCurrentId } = props
   const { id, profilePicUrl, startTime, endTime, studentFirstName, studentLastName, tasks } = props.lesson
   const { handleOpen } = props
   const classes = useStyles();
   const dispatch = useDispatch();
 
   const handleClick = (e) => {
+
     setLessonId(id)
+    console.log(id)
     handleOpen()
   }
 
@@ -101,7 +103,8 @@ export default function Lesson(props) {
           {tasks.map(each => {
             return (
               <>
-                <ListItem button>
+                <ListItem onClick={handleClick}  button/>
+                <ListItem  button>
                   <ListItemText
                     primary={
                       <>

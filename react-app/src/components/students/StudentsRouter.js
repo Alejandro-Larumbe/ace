@@ -11,12 +11,13 @@ import{setTitleView} from '../../store/actions/ui';
 
 
 export default function StudentsRouter({ view, setTitle, currentStudentId, studentsById, getStudents }) {
+  const firstName = useSelector(store => store.user.firstName)
   const dispatch = useDispatch();
   // const [mode, setMode] = useState(true)
 
   useEffect(() => {
     getStudents()
-    setTitleView("students")
+    dispatch(setTitleView('students'))
   }, [view, dispatch]);
 
   return (

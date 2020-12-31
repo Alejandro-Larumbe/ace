@@ -63,11 +63,14 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-export default function EditTaskForm({ open, handleClose, booksById, piecesById, lesson, i=1 }) {
+export default function EditTaskForm({ open, handleClose, booksById, piecesById, tasks, lesson, i }) {
   const date = useSelector(state => state.tasks.date)
+  // console.log('i', i)
+  // console.log('---------------', lesson.tasks)
+  // console.log('---------------', lesson.tasks[i])
   const instructorId = localStorage.getItem('user_id')
   const { id, duration: oldDuration, frequency: oldFrequency, instructions: oldInstructions, typeId : oldTypeid,
-    pieceId: oldPieceId, bookId : oldBookId,  } = lesson.tasks[i]
+    pieceId: oldPieceId, bookId : oldBookId,  } = tasks[0]
 
   const [duration, setDuration] = useState(oldDuration ? oldDuration : '');
   const [frequency, setFrequency] = React.useState(oldFrequency.toString());
@@ -100,19 +103,19 @@ export default function EditTaskForm({ open, handleClose, booksById, piecesById,
   }
 
   return (
-    // <Modal
-    //   aria-labelledby="spring-modal-title"
-    //   aria-describedby="spring-modal-description"
-    //   className={classes.modal}
-    //   open={open}
-    //   onClose={handleClose}
-    //   closeAfterTransition
-    //   BackdropComponent={Backdrop}
-    //   BackdropProps={{
-    //     timeout: 500,
-    //   }}
-    // >
-    //   <Fade in={open}>
+    <Modal
+      aria-labelledby="spring-modal-title"
+      aria-describedby="spring-modal-description"
+      className={classes.modal}
+      open={open}
+      onClose={handleClose}
+      closeAfterTransition
+      BackdropComponent={Backdrop}
+      BackdropProps={{
+        timeout: 500,
+      }}
+    >
+      <Fade in={open}>
         <Paper className={classes.paper}>
           <CssBaseline />
           <Typography component="h1" variant="h5">
@@ -217,8 +220,8 @@ export default function EditTaskForm({ open, handleClose, booksById, piecesById,
             </Grid>
           </form>
         </Paper>
-    //   </Fade>
-    // </Modal>
+      </Fade>
+     </Modal>
   )
 
 }

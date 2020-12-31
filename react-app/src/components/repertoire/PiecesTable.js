@@ -282,7 +282,7 @@ function PiecesTable({ piecesById, booksById }) {
   return (
     // <div className={classes.toolbar} >
       <div className={classes.root}>
-        <PiecesUpdate open={open} handleClose={handleClose} />
+        {/* <PiecesUpdate open={open} handleClose={handleClose} piece={piece}/> */}
         <Paper className={classes.paper}>
           <EnhancedTableToolbar numSelected={selected.length} />
           <TableContainer>

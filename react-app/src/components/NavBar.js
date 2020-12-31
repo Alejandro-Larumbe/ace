@@ -117,8 +117,8 @@ const NavBar = ({ setAuthenticated, user, studioName, studioLogoUrl }) => {
   const history = useHistory();
   const open = Boolean(anchorEl);
   const route = type === "instuctors" ? "instructors" : "students"
-
-
+  const titleView = useSelector(state => state.ui.titleView)
+  const dispatch = useDispatch();
 
 
 
@@ -189,7 +189,31 @@ const NavBar = ({ setAuthenticated, user, studioName, studioLogoUrl }) => {
         </Toolbar>
       </AppBar>
       <AppBar className={classes.bar2} elevation={0} color="transparent">
-        <h1>{`Welcome ${firstName}`}</h1><Avatar className={classes.avatar2} src={profilePicUrl}></Avatar>
+        {
+        titleView === 'students' &&
+
+          <h1>{`Welcome ${firstName}`}</h1>
+        }
+         {
+          titleView === 'schedule' &&
+          <h1>schedule</h1>
+        }
+         {
+          titleView === 'lessonTasks' &&
+          <h1>today's lessons</h1>
+        } {
+
+          titleView === 'repertoire' &&
+
+          <h1>repertoire</h1>
+        }
+        {
+          titleView === 'resources' &&
+
+          <h1>resources</h1>
+        }
+
+        <Avatar className={classes.avatar2} src={profilePicUrl}></Avatar>
       </AppBar>
       <Drawer
         className={classes.drawer}
@@ -207,28 +231,23 @@ const NavBar = ({ setAuthenticated, user, studioName, studioLogoUrl }) => {
           </div>
           {/* <Divider /> */}
           <List >
-
-            {type === 'instructors'
-              ?
-              <ListItem component={NavLink} to={`/students`} className={classes.listItem} button>
+              <ListItem component={NavLink} onClick={() => dispatch(setTitleView('students'))} to={`/students`} className={classes.listItem} button>
                 <ListItemIcon><FaceIcon /></ListItemIcon>
                 <ListItemText>Students</ListItemText>
               </ListItem>
-              : null
-            }
-            <ListItem component={NavLink} to={`/schedule`} className={classes.listItem} button>
+            <ListItem onClick={() => dispatch(setTitleView('schedule'))} component={NavLink} to={`/schedule`} className={classes.listItem} button>
               <ListItemIcon><CalendarTodayIcon /></ListItemIcon>
               <ListItemText>Schedule</ListItemText>
             </ListItem>
-            <ListItem component={NavLink} to={`/lessons`} className={classes.listItem} button>
+            <ListItem component={NavLink} onClick={() => dispatch(setTitleView('lessonTasks'))} to={`/lessons`} className={classes.listItem} button>
               <ListItemIcon><MusicNoteIcon /></ListItemIcon>
               <ListItemText>Lesson Tasks</ListItemText>
             </ListItem>
-            <ListItem to={'/repertoire'} component={NavLink} className={classes.listItem} button>
+            <ListItem to={'/repertoire'} onClick={() => dispatch(setTitleView('repertoire'))} component={NavLink} className={classes.listItem} button>
               <ListItemIcon><MenuBookIcon /></ListItemIcon>
               <ListItemText>Repertoire</ListItemText>
             </ListItem>
-            <ListItem to={`/resources`} component={NavLink} className={classes.listItem} button>
+            <ListItem to={`/resources`} onClick={() => dispatch(setTitleView('resources'))} component={NavLink} className={classes.listItem} button>
               <ListItemIcon><AlbumIcon /></ListItemIcon>
               <ListItemText>Resources</ListItemText>
             </ListItem>

@@ -10,8 +10,9 @@ export default function Tasks() {
   const booksById = useSelector(state => state.tasks.booksById)
   const piecesById = useSelector(state => state.tasks.piecesById)
   const [lessonId, setLessonId] = useState('')
-  // const [lessons] = useState(Object.values(byId))
-
+  const [lessons] = useState(Object.values(byId))
+  const [currentId, setCurrentId] = useState()
+  const [i, setI] = useState('')
   const handleOpen = () => {
     setOpen(true);
   };
@@ -19,7 +20,7 @@ export default function Tasks() {
   const handleClose = () => {
     setOpen(false);
   };
-
+  console.log('--I---I-----', byId[16]['tasks'])
   return (
     <>
       <EditTaskForm
@@ -27,7 +28,9 @@ export default function Tasks() {
         handleClose={handleClose}
         booksById={booksById}
         piecesById={piecesById}
-        lesson={byId[17]}
+        tasks={byId[16]['tasks']}
+        // i ={i}
+
       />
       <AddTaskForm
         open={open}
@@ -38,7 +41,8 @@ export default function Tasks() {
       />
       {
         Object.values(byId).map((each, i) => {
-          return <Lesson key={each.id} lesson={each} setLessonId={setLessonId} handleOpen={handleOpen}/>
+          // setI(i)
+          return <Lesson setCurrentId={setCurrentId} key={each.id} lesson={each} setLessonId={setLessonId} setCurrentId={setCurrentId} handleOpen={handleOpen}/>
         })
       }
     </>

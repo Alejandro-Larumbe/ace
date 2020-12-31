@@ -5,7 +5,7 @@ import { getLessonsTasks, getRepertoire } from './actions';
 import { LOAD_TASK_DATE } from './reducer';
 
 export default function TasksContainer() {
-  const [date, setDate] = useState(new Date(2021, 0, 2))
+  const [date, setDate] = useState(new Date())
   const [loaded, setLoaded] = useState(false)
   const dispatch = useDispatch();
   const [instructorId] = useState(localStorage.getItem('user_id'))
@@ -18,7 +18,7 @@ export default function TasksContainer() {
       await dispatch({ type: LOAD_TASK_DATE, date })
       setLoaded(true)
     })()
-  }, [])
+  },[])
 
   if (!loaded) return null
 
