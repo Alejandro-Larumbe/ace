@@ -34,21 +34,6 @@ const Splash = ({ authenticated, setAuthenticated }) => {
     setOpen(false);
   };
 
-
-  const handleSignUpStudent = () => {
-    history.push('/signup/students')
-  };
-  const handleSignUpInstructor = () => {
-    history.push('/signup/instructors')
-  };
-  const handleLoginStudent = () => {
-    history.push('/login/students')
-  };
-  const handleLoginInstructor = () => {
-    history.push('/login/instructors')
-  };
-
-
   return (
 
     <div className={classes.root}>

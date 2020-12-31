@@ -4,8 +4,8 @@ from wtforms.validators import DataRequired, Email, ValidationError
 
 
 class TaskForm(FlaskForm):
-    duration = StringField('title', validators=[DataRequired()])
-    frequency = FileField('frequency')
+    duration = IntegerField('duration')
+    frequency = IntegerField('frequency')
     instructions = TextField('instructions')
     type_id = IntegerField('type_id')
     lesson_id = IntegerField('lesson_id')

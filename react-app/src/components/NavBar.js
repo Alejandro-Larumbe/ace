@@ -3,7 +3,6 @@ import { useDispatch } from 'react-redux';
 import { NavLink, useHistory, Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { logout } from "../services/auth";
-import { setView } from './students/actions';
 import CssBaseline from '@material-ui/core/CssBaseline';
 
 import Avatar from '@material-ui/core/Avatar';
@@ -12,23 +11,19 @@ import AppBar from '@material-ui/core/AppBar';
 import Typography from '@material-ui/core/Typography';
 import MenuItem from '@material-ui/core/MenuItem';
 import Menu from '@material-ui/core/Menu';
-import Grid from '@material-ui/core/Grid';
 import MenuIcon from '@material-ui/icons/Menu';
 import Drawer from '@material-ui/core/Drawer';
 import Toolbar from '@material-ui/core/Toolbar';
 import List from '@material-ui/core/List';
-import Divider from '@material-ui/core/Divider';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
-import InboxIcon from '@material-ui/icons/MoveToInbox';
-import MailIcon from '@material-ui/icons/Mail';
 import FaceIcon from '@material-ui/icons/Face';
 import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import MusicNoteIcon from '@material-ui/icons/MusicNote';
-import AlbumIcon from '@material-ui/icons/Album'; import AttachMoneyIcon from '@material-ui/icons/AttachMoney';
+import AlbumIcon from '@material-ui/icons/Album';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
-import Link from '@material-ui/core/Link';
+
 
 
 const drawerWidth = 200;
@@ -60,7 +55,7 @@ const useStyles = makeStyles((theme) => ({
     display: 'flex',
     flexDirection: 'row',
     justifyContent: 'flex-end',
-    alignItems:'center',
+    alignItems: 'center',
     width: `calc(100% - ${drawerWidth}px)`,
     marginTop: '9vh',
     marginRight: '15px',
@@ -106,8 +101,12 @@ const useStyles = makeStyles((theme) => ({
     justifyContent: "space-around",
     marginLeft: '100px'
 
+  },
+  logo: {
+    position: "absolute",
+    bottom: 30,
+    left: 30,
   }
-
 }));
 
 
@@ -183,7 +182,7 @@ const NavBar = ({ setAuthenticated, user, studioName, studioLogoUrl }) => {
         </Toolbar>
       </AppBar>
       <AppBar className={classes.bar2} elevation={0} color="transparent">
-          <h1>Welcome {firstName}</h1><Avatar className={classes.avatar2} src={profilePicUrl}></Avatar>
+        <h1>Welcome {firstName}</h1><Avatar className={classes.avatar2} src={profilePicUrl}></Avatar>
       </AppBar>
       <Drawer
         className={classes.drawer}
@@ -215,7 +214,7 @@ const NavBar = ({ setAuthenticated, user, studioName, studioLogoUrl }) => {
             </ListItem>
             <ListItem component={NavLink} to={`/lessons`} className={classes.listItem} button>
               <ListItemIcon><MusicNoteIcon /></ListItemIcon>
-              <ListItemText>Add Lesson</ListItemText>
+              <ListItemText>Lesson Tasks</ListItemText>
             </ListItem>
             <ListItem to={'/repertoire'} component={NavLink} className={classes.listItem} button>
               <ListItemIcon><MenuBookIcon /></ListItemIcon>
@@ -232,7 +231,9 @@ const NavBar = ({ setAuthenticated, user, studioName, studioLogoUrl }) => {
           </List>
         </div>
       </Drawer>
-
+      <div className={classes.logo}>
+        <img src={'https://ace-management.s3.us-east-2.amazonaws.com/yellow.png'} height={"80px"} />
+      </div>
     </div >
   );
 }

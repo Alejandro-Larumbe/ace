@@ -17,15 +17,15 @@ branch_labels = None
 depends_on = None
 
 task_types_seed= [
-    {"type": "repertoire"},
-    {"type": "etudes"},
-    {"type": "technique"},
-    {"type": "scales"},
-    {"type": "tonalization"},
-    {"type": "ear training"},
-    {"type": "theory"},
-    {"type": "rythm practice"},
-    {"type": "metronome practice"},
+    {"type": "Repertoire"},
+    {"type": "Etudes"},
+    {"type": "Technique"},
+    {"type": "Scales"},
+    {"type": "Tonalization"},
+    {"type": "Ear Rraining"},
+    {"type": "Theory"},
+    {"type": "Rythm practice"},
+    {"type": "Metronome practice"},
 ]
 
 resource_types_seed= [

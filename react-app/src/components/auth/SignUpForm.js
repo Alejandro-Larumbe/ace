@@ -51,7 +51,7 @@ const useStyles = makeStyles((theme) => ({
     marginTop: theme.spacing(1),
   },
   submit: {
-    margin: theme.spacing(3, 0, 2),
+    margin: theme.spacing(0, 0, 0),
   },
   title: {
     marginTop: '2vh',
@@ -60,7 +60,7 @@ const useStyles = makeStyles((theme) => ({
   logo: {
     position: "absolute",
     bottom: 30,
-    left: 30,
+    right: 30,
   }
 }));
 
@@ -213,18 +213,28 @@ const SignUpForm = ({ setAuthenticated }) => {
                   ></input>
                   : null
               }
-              <Grid container>
-              <Button
-                type="submit"
-                fullWidth
-                variant="contained"
-                color="secondary"
-                className={classes.submit}
-              >
-                Sign In
+                <Button
+                  type="submit"
+                  fullWidth
+                  variant="contained"
+                  color="secondary"
+                  // className={classes.submit}
+                >
+                  Sign In
               </Button>
+              <Button
+                  // type="submit"
+                  href="/"
+                  fullWidth
+                  variant="contained"
+                  color="primary"
+                  className={classes.submit}
+                >
+                  Cancel
+              </Button>
+              <Grid style={{marginTop: '15px'}} container>
                 <Grid item>
-                  <Link href="/signin" variant="body2">
+                  <Link  href="/login" variant="body2">
                     {"Already have an account? Log In"}
                   </Link>
                 </Grid>
@@ -234,7 +244,7 @@ const SignUpForm = ({ setAuthenticated }) => {
         </Grid>
       </Grid>
       <div className={classes.logo}>
-      <img  src={'https://ace-management.s3.us-east-2.amazonaws.com/yellow.png'} height={"80px"} />
+        <img src={'https://ace-management.s3.us-east-2.amazonaws.com/yellow.png'} height={"80px"} />
       </div>
     </>
 

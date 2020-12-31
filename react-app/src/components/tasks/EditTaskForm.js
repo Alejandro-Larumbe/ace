@@ -18,7 +18,7 @@ import Fade from '../../Fade';
 import { Select } from "@material-ui/core";
 import { Grid, } from '@material-ui/core';
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
-import { addTask, getLessonsTasks } from './actions';
+import { updateTask, getLessonsTasks } from './actions';
 
 const inputPropsTime = {
   type: "number",
@@ -63,15 +63,18 @@ const useStyles = makeStyles((theme) => ({
   },
 }))
 
-export default function AddTaskForm({ open, handleClose, id, booksById, piecesById, lessonId }) {
+export default function EditTaskForm({ open, handleClose, booksById, piecesById, lesson, i=1 }) {
   const date = useSelector(state => state.tasks.date)
   const instructorId = localStorage.getItem('user_id')
-  const [duration, setDuration] = useState(0);
-  const [frequency, setFrequency] = React.useState(1);
-  const [instructions, setInstructions] = useState();
-  const [typeId, setTypeId] = useState(2);
-  const [pieceId, setPieceId] = useState();
-  const [bookId, setBookId] = useState();
+  const { id, duration: oldDuration, frequency: oldFrequency, instructions: oldInstructions, typeId : oldTypeid,
+    pieceId: oldPieceId, bookId : oldBookId,  } = lesson.tasks[i]
+
+  const [duration, setDuration] = useState(oldDuration ? oldDuration : '');
+  const [frequency, setFrequency] = React.useState(oldFrequency.toString());
+  const [instructions, setInstructions] = useState(oldInstructions);
+  const [typeId, setTypeId] = useState(oldTypeid);
+  const [pieceId, setPieceId] = useState(oldBookId);
+  const [bookId, setBookId] = useState(oldBookId);
   const [isCompleted] = useState(false)
   const classes = useStyles();
   const books = Object.values(booksById)
@@ -85,31 +88,31 @@ export default function AddTaskForm({ open, handleClose, id, booksById, piecesBy
     cb(event.target.value);
   };
 
-  const onSubmit = (e) => {
+  const onSubmit = (e) => async(dispatch) => {
     e.preventDefault()
-    // console.log(duration, frequency, instructions, typeId, lessonId, pieceId, bookId, isCompleted)
-    const task = dispatch(addTask(duration, frequency, instructions, typeId, lessonId, pieceId, bookId, isCompleted))
+    console.log(parseInt(duration), parseInt(frequency), instructions, typeId, lesson.id, pieceId, bookId, isCompleted, id)
+    const task = await dispatch(duration, frequency , instructions, typeId, lesson.id, pieceId, bookId, isCompleted, id)
     if (!task.errors) {
       console.log(task)
-      dispatch(getLessonsTasks(instructorId, date.getFullYear(), date.getMonth(), date.getDate()))
+      await dispatch(getLessonsTasks(instructorId, date.getFullYear(), date.getMonth(), date.getDate()))
       handleClose()
     }
   }
 
   return (
-    <Modal
-      aria-labelledby="spring-modal-title"
-      aria-describedby="spring-modal-description"
-      className={classes.modal}
-      open={open}
-      onClose={handleClose}
-      closeAfterTransition
-      BackdropComponent={Backdrop}
-      BackdropProps={{
-        timeout: 500,
-      }}
-    >
-      <Fade in={open}>
+    // <Modal
+    //   aria-labelledby="spring-modal-title"
+    //   aria-describedby="spring-modal-description"
+    //   className={classes.modal}
+    //   open={open}
+    //   onClose={handleClose}
+    //   closeAfterTransition
+    //   BackdropComponent={Backdrop}
+    //   BackdropProps={{
+    //     timeout: 500,
+    //   }}
+    // >
+    //   <Fade in={open}>
         <Paper className={classes.paper}>
           <CssBaseline />
           <Typography component="h1" variant="h5">
@@ -137,9 +140,10 @@ export default function AddTaskForm({ open, handleClose, id, booksById, piecesBy
                   <option value={9}>Rhythm Practice</option>
                   <option value={10}>Metronome Practice</option>
                 </Select>
-                <TextField fullWidth id="time" inputProps={inputPropsTime} label="How long?" onChange={handleChange(setDuration)} />
+                <TextField value={duration} fullWidth id="time" inputProps={inputPropsTime} label="How long?" onChange={handleChange(setDuration)} />
                 <FormLabel component="legend">How many days a week?</FormLabel>
                 <RadioGroup row aria-label="frequency" name="frequency" value={frequency} onClick={handleChange(setFrequency)}>
+                  <FormControlLabel value={''} control={<Radio />} label="none" />
                   <FormControlLabel value={'1'} control={<Radio />} label="1" />
                   <FormControlLabel value={'2'} control={<Radio />} label="2" />
                   <FormControlLabel value={'3'} control={<Radio />} label="3" />
@@ -201,6 +205,7 @@ export default function AddTaskForm({ open, handleClose, id, booksById, piecesBy
                 <InputLabel htmlFor="instructions">Instructions</InputLabel>
                   <TextareaAutosize
                     id="instructions"
+                    value={instructions}
                     width="100hv"
                     rowsMin={10}
                     rowsMax={20}
@@ -212,8 +217,8 @@ export default function AddTaskForm({ open, handleClose, id, booksById, piecesBy
             </Grid>
           </form>
         </Paper>
-      </Fade>
-    </Modal>
+    //   </Fade>
+    // </Modal>
   )
 
 }

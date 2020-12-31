@@ -1,7 +1,6 @@
 import React, { useState, useEffect } from "react";
-import { BrowserRouter, Route, Switch, Redirect } from "react-router-dom";
+import { BrowserRouter } from "react-router-dom";
 import { useDispatch } from 'react-redux';
-import LoginForm from "./components/auth/LoginForm";
 import SignUpForm from "./components/auth/SignUpForm";
 import Splash from "./components/splash/Splash"
 import { authenticate } from "./services/auth";
@@ -45,17 +44,9 @@ function App() {
     return null;
   }
 
-  // if (authenticated && type === "adults") {
-  //   return <Redirect to={`/students`} />
-  // } else if (authenticated && type === "instructors") {
-  //   return <Redirect to={`/${type}`} />
-  // }
   return (
     <BrowserRouter>
       {/* <Switch> */}
-        <ProtectedRoute path="/signup" authenticated={authenticated} exact={true}>
-          <SignUpForm setAuthenticated={setAuthenticated} />
-        </ProtectedRoute>
       {/* </Switch> */}
       <InstructorPrivateRoute authenticated={authenticated} path="/instructors" >
         <InstructorApp
@@ -69,7 +60,10 @@ function App() {
           setAuthenticated={setAuthenticated}
         />
       </StudentPrivateRoute>
-        <ProtectedRoute path="/" authenticated={authenticated} exact={true}>
+      <ProtectedRoute path="/signup" authenticated={authenticated} exact={true}>
+          <SignUpForm setAuthenticated={setAuthenticated} />
+        </ProtectedRoute>
+        <ProtectedRoute path="/" authenticated={authenticated} >
           <Splash setAuthenticated={setAuthenticated} />
         </ProtectedRoute>
     </BrowserRouter>
