@@ -25,6 +25,7 @@ const Splash = ({ authenticated, setAuthenticated }) => {
   let history = useHistory();
   const classes = useStyles();
   const [open, setOpen] = useState(false);
+  const [editOpen, setEditOpen] = useState(false);
 
 
 
@@ -34,6 +35,13 @@ const Splash = ({ authenticated, setAuthenticated }) => {
 
   const handleClose = () => {
     setOpen(false);
+  };
+  const handleEditOpen = () => {
+    setEditOpen(true);
+  };
+
+  const handleEditClose = () => {
+    setEditOpen(false);
   };
 
   return (

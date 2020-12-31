@@ -14,6 +14,8 @@ class Piece(db.Model):
   book_id = Column(Integer, ForeignKey(Book.id))
   instructor_id = Column(Integer, ForeignKey(User.id), nullable=False)
 
+  # book = db.relationship('Book')
+
   def to_dict(self):
     return {
       "id": self.id,
@@ -21,7 +23,8 @@ class Piece(db.Model):
       "composer": self.composer,
       "number": self.number,
       "book_id": self.book_id,
-      "instructor_id": self.instructor_id
+      "instructor_id": self.instructor_id,
+      # "book": self.book.title
     }
 
 
@@ -32,5 +35,8 @@ class Piece(db.Model):
       "composer": self.composer,
       "number": self.number,
       "bookId": self.book_id,
-      "instructorId": self.instructor_id
+      "instructorId": self.instructor_id,
+      # "book": self.book.to_dict_camel()
+      # "book": self.book.to
+
     }

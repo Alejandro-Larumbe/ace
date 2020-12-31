@@ -1,10 +1,10 @@
-import React, { useState } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { NavLink, useHistory, Redirect } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import { logout } from "../services/auth";
 import CssBaseline from '@material-ui/core/CssBaseline';
-
+import { setTitleView } from '../store/actions/ui';
 import Avatar from '@material-ui/core/Avatar';
 import { makeStyles } from '@material-ui/core/styles';
 import AppBar from '@material-ui/core/AppBar';
@@ -23,7 +23,6 @@ import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import MusicNoteIcon from '@material-ui/icons/MusicNote';
 import AlbumIcon from '@material-ui/icons/Album';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
-
 
 
 const drawerWidth = 200;
@@ -48,7 +47,7 @@ const useStyles = makeStyles((theme) => ({
     width: `calc(100% - ${drawerWidth}px)`,
     minHeight: '8vh',
     marginLeft: drawerWidth,
-    zIndex: theme.zIndex.drawer + 1,
+    // zIndex: theme.zIndex.drawer + 1,
     // color: theme.palette.secondary
   },
   bar2: {
@@ -105,7 +104,8 @@ const useStyles = makeStyles((theme) => ({
   logo: {
     position: "absolute",
     bottom: 30,
-    left: 30,
+    right: 30,
+    zIndex: 1300,
   }
 }));
 
@@ -117,6 +117,13 @@ const NavBar = ({ setAuthenticated, user, studioName, studioLogoUrl }) => {
   const history = useHistory();
   const open = Boolean(anchorEl);
   const route = type === "instuctors" ? "instructors" : "students"
+
+
+
+
+
+
+
   const handleMenu = (event) => {
     setAnchorEl(event.currentTarget);
   };
@@ -182,7 +189,7 @@ const NavBar = ({ setAuthenticated, user, studioName, studioLogoUrl }) => {
         </Toolbar>
       </AppBar>
       <AppBar className={classes.bar2} elevation={0} color="transparent">
-        <h1>Welcome {firstName}</h1><Avatar className={classes.avatar2} src={profilePicUrl}></Avatar>
+        <h1>{`Welcome ${firstName}`}</h1><Avatar className={classes.avatar2} src={profilePicUrl}></Avatar>
       </AppBar>
       <Drawer
         className={classes.drawer}
@@ -200,6 +207,7 @@ const NavBar = ({ setAuthenticated, user, studioName, studioLogoUrl }) => {
           </div>
           {/* <Divider /> */}
           <List >
+
             {type === 'instructors'
               ?
               <ListItem component={NavLink} to={`/students`} className={classes.listItem} button>
@@ -232,7 +240,7 @@ const NavBar = ({ setAuthenticated, user, studioName, studioLogoUrl }) => {
         </div>
       </Drawer>
       <div className={classes.logo}>
-        <img src={'https://ace-management.s3.us-east-2.amazonaws.com/yellow.png'} height={"80px"} />
+        <img src={'https://ace-management.s3.us-east-2.amazonaws.com/yellow.png'} height={"30px"} />
       </div>
     </div >
   );

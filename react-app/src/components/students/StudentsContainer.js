@@ -19,6 +19,7 @@ const StudentsContainer = () => {
       currentStudentId={currentStudentId}
       studentsById={studentsById}
       getStudents={() => dispatch(getStudents(id))}
+
     />
   )
 

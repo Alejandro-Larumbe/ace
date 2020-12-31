@@ -139,7 +139,7 @@ const LoginForm = ({ authenticated, setAuthenticated, open, handleOpen, handleCl
               <Tab label="Student" />
             </Tabs>
             <form onSubmit={onLogin}>
-              <div>
+              <div style={{ color: '#ff00a9'}}>
                 {errors.map((error) => (
                   <div>{error}</div>
                 ))}

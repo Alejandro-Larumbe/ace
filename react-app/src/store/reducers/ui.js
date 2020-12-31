@@ -1,4 +1,4 @@
-import { SET_USERCARD_MODE , SET_CALENDAR_VIEW } from '../actions/ui';
+import { SET_USERCARD_MODE , SET_CALENDAR_VIEW, SET_TITLE } from '../actions/ui';
 
 export default function reducer(state = {}, action) {
   switch (action.type) {
@@ -11,6 +11,11 @@ export default function reducer(state = {}, action) {
       return {
         ...state,
         calendarView: action.value
+      }
+    case SET_TITLE:
+      return {
+        ...state,
+        titleView: action.value
       }
       default: return state
   }

@@ -10,6 +10,7 @@ import StudentApp from './components/StudentApp';
 import ProtectedRoute from './components/auth/ProtectedRoute'
 import InstructorPrivateRoute from './components/auth/InstructorPrivateRoute'
 import StudentPrivateRoute from './components/auth/StudentPrivateRoute'
+import { setTitleView } from './store/actions/ui'
 
 function App() {
   const [authenticated, setAuthenticated] = useState(false);
@@ -48,7 +49,7 @@ function App() {
     <BrowserRouter>
       {/* <Switch> */}
       {/* </Switch> */}
-      <InstructorPrivateRoute authenticated={authenticated} path="/instructors" >
+      <InstructorPrivateRoute  authenticated={authenticated} path="/instructors" >
         <InstructorApp
           authenticated={authenticated}
           setAuthenticated={setAuthenticated}

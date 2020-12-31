@@ -6,15 +6,17 @@ import { getStudents } from './actions';
 import UserCard from '../user/UserCard';
 import UserEdit from '../user/UserEdit2';
 import { setCurrentStudentId, setView } from './actions';
+import{setTitleView} from '../../store/actions/ui';
 
 
 
-export default function StudentsRouter({ view, currentStudentId, studentsById, getStudents }) {
+export default function StudentsRouter({ view, setTitle, currentStudentId, studentsById, getStudents }) {
   const dispatch = useDispatch();
   // const [mode, setMode] = useState(true)
 
   useEffect(() => {
     getStudents()
+    setTitleView("students")
   }, [view, dispatch]);
 
   return (

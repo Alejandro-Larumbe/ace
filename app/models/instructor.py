@@ -13,7 +13,7 @@ class Instructor(User):
   studio_logo_url = db.Column(db.String(1000))
 
   # lessons = db.relationship('Lesson', cascade='all, delete')
-  lessons = db.relationship('Lesson', cascade='all, delete')
+  # lessons = db.relationship('Lesson', cascade='all, delete')
 
   # user = db.relationship(User,
   #                   backref=db.backref("instructor", cascade="all, delete-orphan")

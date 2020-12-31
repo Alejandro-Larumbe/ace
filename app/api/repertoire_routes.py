@@ -42,11 +42,12 @@ def get_rep_instructor(id):
 
   books_by_id = {}
   for book in books:
-    books_by_id[book.id] = book.to_dict()
+    books_by_id[book.id] = book.to_dict_camel()
 
   pieces_by_id = {}
+
   for piece in pieces:
-    pieces_by_id[piece.id] = piece.to_dict()
+    pieces_by_id[piece.id] = piece.to_dict_camel()
   return jsonify({  'piecesById': pieces_by_id, "booksById": books_by_id })
 
 
