@@ -49,8 +49,8 @@ const useStyles = makeStyles(theme => ({
     flexDirection: 'column',
     height: "130vh",
     justifyContent: "space-around",
-    marginLeft: '100px'
-
+    marginLeft: '100px',
+    // position: 'fixed'
   }
 
 }))

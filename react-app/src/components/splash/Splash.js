@@ -12,13 +12,18 @@ const useStyles = makeStyles((theme) => ({
     // height: '130vh',
     height: '130vh',
     width: '100%',
-    backgroundImage: `url("https://ace-management.s3.us-east-2.amazonaws.com/HNashPhoto-4117cropped.jpg")`,
+    // backgroundImage: `url("https://ace-management.s3.us-east-2.amazonaws.com/HNashPhoto-4117cropped.jpg")`,
     backgroundSize: 'cover',
     backgroundRepeat: "no-repeat",
     colorText: '',
     zIndex: 10,
     left: '50px'
   },
+  background: {
+    width: '-webkit-fill-available',
+    position: "fixed"
+
+  }
 }))
 
 const Splash = ({ authenticated, setAuthenticated }) => {
@@ -37,6 +42,7 @@ const Splash = ({ authenticated, setAuthenticated }) => {
   return (
 
     <div className={classes.root}>
+      <img className={classes.background} src="https://ace-management.s3.us-east-2.amazonaws.com/HNashPhoto-4117cropped.jpg"></img>
       <CssBaseline />
       <Header handleOpen={handleOpen} />
       <LoginForm

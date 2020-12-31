@@ -82,4 +82,4 @@ def get_lesson_tasks_instructor(id, year, month, day):
     by_id[lesson.id] = lesson.to_dict_camel_tasks()
   return jsonify({'byId': by_id})
 
-  # return 'hi'
+  # return 'hi'\q
