@@ -81,7 +81,7 @@ export default function Schedule() {
               </IconButton> {format((currentDate), 'MMMM')} {format((currentDate), 'yyyy')}
             </Typography>
           </div>
-          <div>
+          {/* <div>
             <Select
               value={view}
               onChange={handleChange}
@@ -90,7 +90,7 @@ export default function Schedule() {
               <MenuItem value={'week'}>week</MenuItem>
               <MenuItem value={'day'}>day</MenuItem>
             </Select>
-          </div>
+          </div> */}
         </div>
         <Switch>
           {view === 'month' && (
