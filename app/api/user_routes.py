@@ -1,7 +1,7 @@
 from flask import Blueprint, jsonify, request
 from flask_login import login_required
 from app.forms import UserUpdateForm
-from app.models import User, db
+from app.models import User, db, Adult
 from app.forms import UserRegister
 user_routes = Blueprint('users', __name__)
 
@@ -43,6 +43,7 @@ def register_student():
         db.session.add(user)
         db.session.commit()
         return user.to_dict_camel()
+
     return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
 

@@ -69,9 +69,10 @@ const UserCard = ({ user: currentUser, setView, back }) => {
 
   // if (!user) return null;
 
-  // const onEdit = () => {
-
-  // }
+  const createCancel = () => {
+    dispatch(studentsView('table'))
+    dispatch(setMode('view'))
+  }
   const onDelete = async (e) => {
     const data = await dispatch(deleteUser(user.id))
     // if (!data.errors) {
@@ -116,7 +117,7 @@ const UserCard = ({ user: currentUser, setView, back }) => {
             color="secondary"
             onClick={() => dispatch(setView(back))}
           >
-            Go Back
+            See All Students
         </Button>}
         {mode === 'edit' &&
           <Button
@@ -134,7 +135,7 @@ const UserCard = ({ user: currentUser, setView, back }) => {
             fullWidth
             variant="contained"
             color="secondary"
-            onClick={() => dispatch(studentsView('table'))}
+            onClick={createCancel}
           >
             Cancel
         </Button>}

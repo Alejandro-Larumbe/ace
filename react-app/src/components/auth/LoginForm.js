@@ -67,7 +67,7 @@ const LoginForm = ({ authenticated, setAuthenticated, open, handleOpen, handleCl
     let user = await dispatch(login('demo@instructor.com', 'password', 'instructors'));
     if (!user.errors) {
       setAuthenticated(true);
-      history.push(`/instructors/${user.id}/schedule`)
+      history.push(`/instructors/students`)
     } else {
       setErrors(user.errors);
     }
@@ -78,7 +78,7 @@ const LoginForm = ({ authenticated, setAuthenticated, open, handleOpen, handleCl
     let user = await dispatch(login('demo@student.com', 'password', 'adults'));
     if (!user.errors) {
       setAuthenticated(true);
-      history.push(`/students`)
+      history.push(`/students/schedule`)
     } else {
       setErrors(user.errors);
     }

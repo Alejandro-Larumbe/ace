@@ -1,29 +1,16 @@
 import React, { useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
-import { useParams, useHistory } from 'react-router-dom';
-import { loadStudent, deleteUser } from './userActions';
+import { useSelector } from 'react-redux';
 import { format } from 'date-fns';
 
-import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemText from '@material-ui/core/ListItemText';
 import Divider from '@material-ui/core/Divider';
 import Avatar from '@material-ui/core/Avatar';
-import Fab from '@material-ui/core/Fab';
-import EditIcon from '@material-ui/icons/Edit';
-import DeleteIcon from '@material-ui/icons/Delete';
-import Paper from '@material-ui/core/Paper';
-import Button from '@material-ui/core/Button';
-import Dialog from '@material-ui/core/Dialog';
-import DialogActions from '@material-ui/core/DialogActions';
-import DialogTitle from '@material-ui/core/DialogTitle';
 
 
 
-
-
-export default function UserView({ user }) {
+function UserView({ user }) {
 
 
   return (
@@ -65,5 +52,13 @@ export default function UserView({ user }) {
         }
       </List>
     </>
+  )
+}
+
+export default function UserViewContainer(){
+  const user = useSelector(state => state.students.byId[state.students.currentStudentId])
+
+  return (
+    <UserView user={user} />
   )
 }

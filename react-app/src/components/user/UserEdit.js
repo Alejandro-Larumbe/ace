@@ -10,6 +10,7 @@ import Button from '@material-ui/core/Button';
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import { loadStudent, editUser } from './userActions';
+import { getStudents } from '../students/actions'
 import {setUserCardMode as setMode } from '../../store/actions/ui'
 import { format } from 'date-fns';
 
@@ -47,6 +48,7 @@ export default function UserEdit({ user, setUser }) {
   const [dob, setDob] = useState(format(new Date(user.dob), 'P'));
   const dispatch = useDispatch();
   const id = user.id;
+  const instructorId = localStorage.getItem('user_id')
 
   // useEffect(() => {
   //   setEmail(user.email)
@@ -71,8 +73,9 @@ export default function UserEdit({ user, setUser }) {
     // console.log(id, email, firstName, lastName, address, phoneNumber, user.type, studioName, dob)
     console.log('update-------', userUpdate)
     if (!userUpdate.errors) {
-        setUser(userUpdate)
-        dispatch(setMode('view'))
+      await dispatch(getStudents(instructorId))
+      await setUser(userUpdate)
+      await dispatch(setMode('view'))
     }
   }
 

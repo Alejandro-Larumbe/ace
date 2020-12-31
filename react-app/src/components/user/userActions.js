@@ -53,23 +53,28 @@ export const editUser = (id, email, firstName, lastName, address, phoneNumber, t
 }
 
 export const createUser = (email, firstName, lastName, type, instructorId) => async dispatch => {
-  const response = await fetch(`/api/users`, {
-    method: 'POST',
-    headers: {
-      'Content-Type': 'application/json'
-    },
-    body: JSON.stringify({
-      'first_name': firstName,
-      'last_name': lastName,
-      email,
-      type,
-      'instructor_id': instructorId
+  try {
+    const response = await fetch(`/api/users`, {
+      method: 'POST',
+      headers: {
+        'Content-Type': 'application/json'
+      },
+      body: JSON.stringify({
+        'first_name': firstName,
+        'last_name': lastName,
+        email,
+        type,
+        'instructor_id': instructorId
+      })
     })
-  })
-  // console.log(response)
-  if (response.ok) {
-    const data = await response.json();
-    // console.log('data----------', data)
-    return data;
+    // console.log('response,--------', await response.json())
+    console.log('responseOk', response.ok)
+    // if (response.ok) {
+      const data = await response.json();
+      console.log('data----------', data)
+      return data;
+    // }
+  } catch (e) {
+    console.log(e);
   }
 }
