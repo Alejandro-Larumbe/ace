@@ -4,7 +4,7 @@ import { BrowserRouter, Redirect, Route, Switch, useParams } from 'react-router-
 import Navbar from './NavBar';
 import Students from './students/StudentsContainer';
 import Schedule from './schedule/Schedule';
-import UploadResource from './resources/UploadResource';
+import Resources from './resources/ResourcesContainer';
 import Repertoire from './repertoire/Repertoire';
 import Lesson from './tasks/TasksContainer';
 const style = {
@@ -34,7 +34,7 @@ export default function InstructorApp({ setAuthenticated }) {
             <Schedule />
           </Route>
           <Route path="/resources">
-            <UploadResource />
+            <Resources />
           </Route>
           <Route path="/lessons">
             <Lesson />

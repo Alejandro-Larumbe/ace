@@ -22,10 +22,22 @@ task_types_seed= [
     {"type": "Technique"},
     {"type": "Scales"},
     {"type": "Tonalization"},
-    {"type": "Ear Rraining"},
+    {"type": "Ear Training"},
     {"type": "Theory"},
-    {"type": "Rythm practice"},
-    {"type": "Metronome practice"},
+    {"type": "Rythm Practice"},
+    {"type": "Metronome Practice"},
+]
+
+resource_categories_seed=[
+    {"category": "repertoire"},
+    {"category": "previous"},
+    {"category": "exercises"},
+    {"category": "theory"},
+]
+
+resource_collections_seed=[
+    {"collection": "book 1"},
+    {"collection": "book 2"},
 ]
 
 resource_types_seed= [
@@ -39,11 +51,19 @@ def upgrade():
   task_types = table('task_types',
   sa.Column('type', sa.String()),
   )
+  resource_collections = table('resource_collections',
+  sa.Column('collection', sa.String()),
+  )
+  resource_categories = table('resource_categories',
+  sa.Column('category', sa.String()),
+  )
   resource_types = table('resource_types',
   sa.Column('type', sa.String()),
   )
   op.bulk_insert(task_types, task_types_seed)
   op.bulk_insert(resource_types, resource_types_seed)
+  op.bulk_insert(resource_categories, resource_categories_seed)
+  op.bulk_insert(resource_collections, resource_collections_seed)
 
 
 def downgrade():

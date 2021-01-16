@@ -22,8 +22,7 @@ import FaceIcon from '@material-ui/icons/Face';
 import CalendarTodayIcon from '@material-ui/icons/CalendarToday';
 import MusicNoteIcon from '@material-ui/icons/MusicNote';
 import AlbumIcon from '@material-ui/icons/Album';
-import MenuBookIcon from '@material-ui/icons/MenuBook';
-
+import FormatListBulletedIcon from '@material-ui/icons/FormatListBulleted';
 
 const drawerWidth = 200;
 
@@ -240,11 +239,11 @@ const NavBar = ({ setAuthenticated, user, studioName, studioLogoUrl }) => {
               <ListItemText>Schedule</ListItemText>
             </ListItem>
             <ListItem component={NavLink} onClick={() => dispatch(setTitleView('lessonTasks'))} to={`/lessons`} className={classes.listItem} button>
-              <ListItemIcon><MusicNoteIcon /></ListItemIcon>
+              <ListItemIcon><FormatListBulletedIcon/></ListItemIcon>
               <ListItemText>Lesson Tasks</ListItemText>
             </ListItem>
             <ListItem to={'/repertoire'} onClick={() => dispatch(setTitleView('repertoire'))} component={NavLink} className={classes.listItem} button>
-              <ListItemIcon><MenuBookIcon /></ListItemIcon>
+              <ListItemIcon><MusicNoteIcon /></ListItemIcon>
               <ListItemText>Repertoire</ListItemText>
             </ListItem>
             <ListItem to={`/resources`} onClick={() => dispatch(setTitleView('resources'))} component={NavLink} className={classes.listItem} button>

@@ -66,6 +66,16 @@ def upgrade():
     sa.Column('type', sa.String(length=30), nullable=False),
     sa.PrimaryKeyConstraint('id')
     )
+    op.create_table('resource_categories',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('category', sa.String(length=30), nullable=False),
+    sa.PrimaryKeyConstraint('id')
+    )
+    op.create_table('resource_collections',
+    sa.Column('id', sa.Integer(), nullable=False),
+    sa.Column('collection', sa.String(length=30), nullable=False),
+    sa.PrimaryKeyConstraint('id')
+    )
     op.create_table('families',
     sa.Column('id', sa.Integer(), nullable=False),
     sa.Column('child_id', sa.Integer(), nullable=False),
@@ -101,8 +111,11 @@ def upgrade():
     sa.Column('url', sa.String(length=1000), nullable=False),
     sa.Column('instructor_id', sa.Integer(), nullable=False),
     sa.Column('resource_type_id', sa.Integer(), nullable=False),
+    sa.Column('resource_category_id', sa.Integer(), nullable=True),
+    sa.Column('resource_collection_id', sa.Integer(), nullable=True),
     sa.ForeignKeyConstraint(['resource_type_id'], ['resource_types.id'], ),
     sa.ForeignKeyConstraint(['instructor_id'], ['users.id'], ),
+    sa.ForeignKeyConstraint(['resource_category_id'], ['resource_categories.id'], ),
     sa.PrimaryKeyConstraint('id')
     )
     op.create_table('assignments',

@@ -11,7 +11,8 @@ const initialStore = {
   },
   tasks: {
     byId: {}
-  }
+  },
+  resources: {}
 }
 
 export default initialStore;

@@ -20,15 +20,15 @@ export default function Tasks() {
   const handleClose = () => {
     setOpen(false);
   };
-  console.log('--I---I-----', byId[16]['tasks'])
+  // console.log('--I---I-----', byId[16]['tasks'])
   return (
     <>
-      <EditTaskForm
+      {/* <EditTaskForm
         open={open}
         handleClose={handleClose}
         booksById={booksById}
         piecesById={piecesById}
-        tasks={byId[16]['tasks']}
+        // tasks={byId[16]['tasks']}
         // i ={i}
 
       />
@@ -38,7 +38,7 @@ export default function Tasks() {
         booksById={booksById}
         piecesById={piecesById}
         lessonId={lessonId}
-      />
+      /> */}
       {
         Object.values(byId).map((each, i) => {
           // setI(i)

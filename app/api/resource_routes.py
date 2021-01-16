@@ -1,6 +1,7 @@
 from flask import Blueprint, request, jsonify
 from app.models import Resource, db
 from app.forms import UploadResource
+from app.models import Resource
 
 from app.helpers import client
 from app.config import Config
@@ -44,3 +45,9 @@ def upload_resource():
   except Exception as error:
     print('error', error)
     return jsonify({'error':repr(error)})
+
+@resource_routes.route('/<int:id>')
+def get_resources(id):
+  resources = Resource.query.filter(Resource.instructor_id == id).all()
+  resources = [ resource.to_dict_camel() for resource in resources ]
+  return jsonify(resources)
