@@ -13,6 +13,7 @@ import IconButton from '@material-ui/core/IconButton';
 import PlayArrowIcon from '@material-ui/icons/PlayArrow';
 import VisibilityIcon from '@material-ui/icons/Visibility';
 import MenuBookIcon from '@material-ui/icons/MenuBook';
+import GetAppIcon from '@material-ui/icons/GetApp';
 import { Document, Page, pdfjs } from 'react-pdf';
 pdfjs.GlobalWorkerOptions.workerSrc = `//cdnjs.cloudflare.com/ajax/libs/pdf.js/${pdfjs.version}/pdf.worker.js`;
 
@@ -60,17 +61,23 @@ export default function ViewResources({ resources }) {
           {resources ? resources.map((resource, i) => {
             if (resource.resourceTypeId === type) {
               return (
-                <ListItem key={resource.id} role={undefined} button >
+                <ListItem key={resource.id} role={undefined} /*button*/
+                >
                   <ListItemText id={resource.id} primary={resource.title} />
-                  <ListItemSecondaryAction>
-                    <IconButton edge="end" aria-label="comments">
+                  {/* <IconButton edge="end" aria-label="comments">
+                  </IconButton> */}
+                  <IconButton edge="end" aria-label="comments">
+                    <a href={resource.url} target="_blank" rel="noopener noreferrer" download>
                       {type === 1 ?
-                        <MenuBookIcon />
+                        <MenuBookIcon style={{ color: 'white' }}/>
                         :
-                        <PlayArrowIcon />
+                        <>
+                          <PlayArrowIcon style={{ color: 'white' }} />
+                        </>
                       }
-                    </IconButton>
-                  </ListItemSecondaryAction>
+                      {/* <GetAppIcon style={{ color: 'white' }} /> */}
+                    </a>
+                  </IconButton>
                 </ListItem>
               );
             }
@@ -79,7 +86,7 @@ export default function ViewResources({ resources }) {
           }
         </List>
       </Paper>
-       <div>
+      {/* <div>
         <Document
           onLoadError={console.error}
           file={{ url: `https://cors-anywhere.herokuapp.com/https://ace-management.s3.us-east-2.amazonaws.com/resources/dlscrib.com-pdf-galamian-contemporary-violin-technique-scales-dl_89baf79ec922d8863966d3428c8ee2c3.pdf_76401ee4-9bac-4430-b701-7b53fffecb6a` }}
@@ -91,7 +98,7 @@ export default function ViewResources({ resources }) {
           <Page pageNumber={pageNumber} />
         </Document>
         <p>Page {pageNumber} of {numPages}</p>
-      </div>
+      </div> */}
     </>
   );
 }

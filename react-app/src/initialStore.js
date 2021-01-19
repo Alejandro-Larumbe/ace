@@ -10,9 +10,12 @@ const initialStore = {
     calendarView: 'month'
   },
   tasks: {
-    byId: {}
+    byId: {},
+    booksById:{},
+    booksById: {},
+    date:new Date()
   },
-  resources: {}
+  resources: {},
 }
 
 export default initialStore;

@@ -71,16 +71,17 @@ export default function Schedule() {
     <>
       <div className={classes.root}>
         <div className={classes.header}>
-          <div className={classes.title}>
-            <Typography variant={'h3'} gutterBottom={true}>
-              <IconButton onClick={() => dateHandler('prev')}>
-                <ArrowBackIosIcon className={classes.icons} />
-              </IconButton>
-              <IconButton onClick={() => dateHandler('next')}>
-                <ArrowForwardIosIcon className={classes.icons} />
-              </IconButton> {format((currentDate), 'MMMM')} {format((currentDate), 'yyyy')}
-            </Typography>
-          </div>
+            <div className={classes.title}>
+              <Typography variant={'h3'} gutterBottom={true}>
+                <IconButton onClick={() => dateHandler('prev')}>
+                  <ArrowBackIosIcon className={classes.icons} />
+                </IconButton>
+                <IconButton onClick={() => dateHandler('next')}>
+                  <ArrowForwardIosIcon className={classes.icons} />
+                </IconButton>
+                {format((currentDate), 'MMMM')} {format((currentDate), 'yyyy')}
+              </Typography>
+            </div>
           {/* <div>
             <Select
               value={view}

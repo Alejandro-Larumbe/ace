@@ -51,7 +51,7 @@ export default function MonthSchedule({ byId, byDay, currentDate, calendarMonth:
                   row.map((each, i) => {
                     const date = format(new Date(each), 'yyyy-MM-dd')
                     let data = []
-                    const day = `${format(new Date(each), 'd')}`
+                    const day = format(new Date(each), 'd')
                     // console.log('data day--------', byDay[date])
 
                     if (byDay[date]) {

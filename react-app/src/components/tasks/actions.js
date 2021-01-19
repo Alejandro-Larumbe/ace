@@ -1,5 +1,5 @@
 import { parse } from 'date-fns';
-import { LOAD_LESSONS_TASKS, LOAD_REPERTOIRE } from './reducer';
+import { LOAD_LESSONS_TASKS, LOAD_REPERTOIRE, LOAD_TASK_DATE } from './reducer';
 
 export const getLessonsTasks = (id, year, month, day) => async (dispatch) => {
   const response = await fetch(`/api/tasks/instructor/${id}/date/${year}/${month}/${day}`)
@@ -54,4 +54,9 @@ export const getRepertoire = (id) => async dispatch => {
       type: LOAD_REPERTOIRE, data
     })
   }
+}
+
+export const setTaskDate = (date) => async dispatch => {
+  // const newDate = new Date(date)
+  dispatch({ type: LOAD_TASK_DATE, date })
 }

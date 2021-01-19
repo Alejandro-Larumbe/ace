@@ -199,7 +199,7 @@ const NavBar = ({ setAuthenticated, user, studioName, studioLogoUrl }) => {
         }
          {
           titleView === 'lessonTasks' &&
-          <h1>today's lessons</h1>
+          <h1>lessons</h1>
         } {
 
           titleView === 'repertoire' &&
@@ -238,7 +238,7 @@ const NavBar = ({ setAuthenticated, user, studioName, studioLogoUrl }) => {
               <ListItemIcon><CalendarTodayIcon /></ListItemIcon>
               <ListItemText>Schedule</ListItemText>
             </ListItem>
-            <ListItem component={NavLink} onClick={() => dispatch(setTitleView('lessonTasks'))} to={`/lessons`} className={classes.listItem} button>
+            <ListItem component={NavLink} to={`/lessons`} className={classes.listItem} button>
               <ListItemIcon><FormatListBulletedIcon/></ListItemIcon>
               <ListItemText>Lesson Tasks</ListItemText>
             </ListItem>

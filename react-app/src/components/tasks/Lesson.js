@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useEffect } from 'react';
 import { useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -51,6 +51,10 @@ export default function Lesson(props) {
     handleOpen()
   }
 
+  useEffect(() => {
+
+  }, [dispatch])
+
   const taskHeader = (type, duration, frequency) => {
     const durationText =
       // returntype ? ' - ' : '' +
@@ -98,77 +102,79 @@ export default function Lesson(props) {
         // `${studentFirstName} ${studentLastName}`}
         subheader={`${format(new Date(startTime), "p")} - ${format(new Date(endTime), "p")}`}
       />
-      <CardContent>
-        <List>
-          {tasks.map(each => {
-            return (
-              <>
-                <ListItem onClick={handleClick}  button/>
-                <ListItem  button>
-                  <ListItemText
-                    primary={
-                      <>
-                        <Typography
-                          component="span"
-                          variant="h6"
-                          className={classes.inline}
-                          color="textPrimary"
-                        >
-                          {taskHeader(each.type, each.duration, each.frequency)}
-                        </Typography>
+      { tasks.length > 0 &&
+        <CardContent>
+          <List>
+            {tasks.map(each => {
+              return (
+                <>
+                  {/* <ListItem onClick={handleClick} button /> */}
+                  <ListItem onClick={handleClick} button>
+                    <ListItemText
+                      primary={
+                        <>
+                          <Typography
+                            component="span"
+                            variant="h6"
+                            className={classes.inline}
+                            color="textPrimary"
+                          >
+                            {taskHeader(each.type, each.duration, each.frequency)}
+                          </Typography>
 
-                      </>
-                    }
-                    secondary={
-                      <React.Fragment>
-                        {each.pieceTitle &&
-                          <>
-                            <Typography
-                              component="span"
-                              variant="body2"
-                              className={classes.inline}
-                              color="textPrimary"
-                            >
-                              {`piece: ${each.pieceTitle}`}
-                            </Typography>
-                            <br />
-                          </>
-                        }
-                        {each.bookTitle &&
-                          <>
-                            <Typography
-                              component="span"
-                              variant="body2"
-                              className={classes.inline}
-                              color="textPrimary"
-                            >
-                              {`book: ${each.bookTitle}`}
-                            </Typography>
-                            <br />
-                          </>
-                        }
-                        {each.instructions &&
-                          <>
-                            <Typography
-                              component="span"
-                              variant="body2"
-                              className={classes.inline}
-                              color="textPrimary"
-                            >
-                              {each.instructions && `instructions: ${each.instructions}`}
-                            </Typography>
-                          </>
-                        }
-                      </React.Fragment>
-                    }
-                  />
-                </ListItem>
-                <Divider variant="inset" component="li" />
-              </>
-            )
-          })}
-        </List>
-      </CardContent>
+                        </>
+                      }
+                      secondary={
+                        <React.Fragment>
+                          {each.pieceTitle &&
+                            <>
+                              <Typography
+                                component="span"
+                                variant="body2"
+                                className={classes.inline}
+                                color="textPrimary"
+                              >
+                                {`piece: ${each.pieceTitle}`}
+                              </Typography>
+                              <br />
+                            </>
+                          }
+                          {each.bookTitle &&
+                            <>
+                              <Typography
+                                component="span"
+                                variant="body2"
+                                className={classes.inline}
+                                color="textPrimary"
+                              >
+                                {`book: ${each.bookTitle}`}
+                              </Typography>
+                              <br />
+                            </>
+                          }
+                          {each.instructions &&
+                            <>
+                              <Typography
+                                component="span"
+                                variant="body2"
+                                className={classes.inline}
+                                color="textPrimary"
+                              >
+                                {each.instructions && `instructions: ${each.instructions}`}
+                              </Typography>
+                            </>
+                          }
+                        </React.Fragment>
+                      }
+                    />
+                  </ListItem>
+                  <Divider variant="inset" component="li" />
+                </>
+              )
+            })}
+          </List>
+        </CardContent>
+      }
     </Card >
   )
 }

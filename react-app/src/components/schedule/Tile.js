@@ -4,7 +4,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Card, CardActionArea } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import { format } from 'date-fns'
-
+import { setTaskDate } from '../tasks/actions';
+import { useDispatch } from 'react-redux';
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -46,15 +47,21 @@ export default function Tile({ data, day, date }) {
   const classes = useStyles();
   const history = useHistory();
   const id = localStorage.getItem("user_id");
+  const dispatch = useDispatch();
 
   const isToday = () => {
     return format(new Date(), 'yyyy-MM-dd') === date
   }
 
+  const clickHandler = async () => {
+    await dispatch(setTaskDate(new Date(date)))
+    history.push('/lessons')
+  }
+
   if (day !== 'empty') {
     return (
       <CardActionArea>
-        <Card onClick={() => history.push(`/${id}/day/${day}`)} className={isToday() ? classes.currentDay : classes.root} elevation={2} square>
+        <Card onClick={clickHandler} className={isToday() ? classes.currentDay : classes.root} elevation={2} square>
           <Typography className={classes.title} color="textSecondary" gutterBottom>
             {day}
           </Typography>
