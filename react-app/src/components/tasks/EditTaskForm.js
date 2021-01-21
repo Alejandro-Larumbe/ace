@@ -65,42 +65,38 @@ const useStyles = makeStyles((theme) => ({
 
 export default function EditTaskForm({ open, handleClose, booksById, piecesById, tasks, lesson, i }) {
   const date = useSelector(state => state.tasks.date)
-  // console.log('i', i)
-  // console.log('---------------', lesson.tasks)
-  // console.log('---------------', lesson.tasks[i])
-  const instructorId = localStorage.getItem('user_id')
-  const { id, duration: oldDuration, frequency: oldFrequency, instructions: oldInstructions, typeId : oldTypeid,
-    pieceId: oldPieceId, bookId : oldBookId,  } = tasks[0]
-
-  const [duration, setDuration] = useState(oldDuration ? oldDuration : '');
-  const [frequency, setFrequency] = React.useState(oldFrequency.toString());
-  const [instructions, setInstructions] = useState(oldInstructions);
-  const [typeId, setTypeId] = useState(oldTypeid);
-  const [pieceId, setPieceId] = useState(oldBookId);
-  const [bookId, setBookId] = useState(oldBookId);
-  const [isCompleted] = useState(false)
+  // const instructorId = localStorage.getItem('user_id')
+  // const { id, duration: oldDuration, frequency: oldFrequency, instructions: oldInstructions, typeId : oldTypeid,
+  //   pieceId: oldPieceId, bookId : oldBookId,  } = tasks[0]
+  // const [duration, setDuration] = useState(oldDuration ? oldDuration : '');
+  // const [frequency, setFrequency] = React.useState(oldFrequency.toString());
+  // const [instructions, setInstructions] = useState(oldInstructions);
+  // const [typeId, setTypeId] = useState(oldTypeid);
+  // const [pieceId, setPieceId] = useState(oldBookId);
+  // const [bookId, setBookId] = useState(oldBookId);
+  // const [isCompleted] = useState(false)
   const classes = useStyles();
-  const books = Object.values(booksById)
-  const pieces = Object.values(piecesById)
-  const dispatch = useDispatch()
-  const handleType = e => {
-    setTypeId(e.target.value);
-  }
+  // const books = Object.values(booksById)
+  // const pieces = Object.values(piecesById)
+  // const dispatch = useDispatch()
+  // const handleType = e => {
+  //   setTypeId(e.target.value);
+  // }
 
-  const handleChange = (cb) => (event) => {
-    cb(event.target.value);
-  };
+  // const handleChange = (cb) => (event) => {
+  //   cb(event.target.value);
+  // };
 
-  const onSubmit = (e) => async(dispatch) => {
-    e.preventDefault()
-    console.log(parseInt(duration), parseInt(frequency), instructions, typeId, lesson.id, pieceId, bookId, isCompleted, id)
-    const task = await dispatch(duration, frequency , instructions, typeId, lesson.id, pieceId, bookId, isCompleted, id)
-    if (!task.errors) {
-      console.log(task)
-      await dispatch(getLessonsTasks(instructorId, date.getFullYear(), date.getMonth(), date.getDate()))
-      handleClose()
-    }
-  }
+  // const onSubmit = (e) => async(dispatch) => {
+  //   e.preventDefault()
+  //   console.log(parseInt(duration), parseInt(frequency), instructions, typeId, lesson.id, pieceId, bookId, isCompleted, id)
+  //   const task = await dispatch(duration, frequency , instructions, typeId, lesson.id, pieceId, bookId, isCompleted, id)
+  //   if (!task.errors) {
+  //     console.log(task)
+  //     await dispatch(getLessonsTasks(instructorId, date.getFullYear(), date.getMonth(), date.getDate()))
+  //     handleClose()
+  //   }
+  // }
 
   return (
     <Modal
@@ -122,7 +118,7 @@ export default function EditTaskForm({ open, handleClose, booksById, piecesById,
             Add Task
             </Typography>
 
-          <form onSubmit={onSubmit}>
+          {/* <form onSubmit={onSubmit}>
             <Grid container>
               <Grid item xs={6}>
                 <InputLabel id="task-type">Task Type</InputLabel>
@@ -218,7 +214,7 @@ export default function EditTaskForm({ open, handleClose, booksById, piecesById,
                   />
               </Grid>
             </Grid>
-          </form>
+          </form> */}
         </Paper>
       </Fade>
      </Modal>

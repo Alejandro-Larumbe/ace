@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { useDispatch } from 'react-redux';
 import Tile from './Tile';
 import { weekDays } from './calendarRows';
@@ -10,6 +10,7 @@ import { format, addMonths, subMonths } from 'date-fns';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import { setCurrentDate } from './actions';
+import LessonCreate from '../lessons/LessonCreate';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -24,14 +25,28 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export default function MonthSchedule({ byId, byDay, currentDate, calendarMonth:tableRows }) {
+export default function MonthSchedule({ byId, byDay, currentDate, calendarMonth: tableRows }) {
+  const [open, setOpen] = useState(false);
+
   const classes = useStyles();
   const dispatch = useDispatch()
 
   if (!byId) return null
 
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
   return (
     <div>
+      <LessonCreate
+        open={open}
+        handleClose={handleClose}
+      />
       <CssBaseline />
       <table>
         <thead>
@@ -61,14 +76,15 @@ export default function MonthSchedule({ byId, byDay, currentDate, calendarMonth:
                         data.push({
                           time,
                           'name': byId[each].studentFirstName,
-                          'lastNameInitial': byId[each].studentLastName.slice(0, 1)
+                          'lastNameInitial': byId[each].studentLastName.slice(0, 1),
+                          'id': byId[each].id
                         })
                       })
                     }
                     data.sort((a, b) => (a.time > b.time) ? 1 : -1)
                     return (
                       <td key={i}>
-                        <Tile date={date} day={day} data={data}></Tile>
+                        <Tile handleOpen={handleOpen} date={date} day={day} data={data}></Tile>
                       </td>
                     )
                   })

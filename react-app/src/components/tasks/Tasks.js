@@ -45,13 +45,13 @@ const useStyles = makeStyles((theme) => ({
 export default function Tasks({ tasks, date }) {
   const { byId, booksById, piecesById } = tasks
   const [open, setOpen] = useState(false);
+  const [openEdit, setOpenEdit] = useState(false);
   const [lessonId, setLessonId] = useState('')
+  const [taskId, setTaskId] = useState('')
   // const [lessons] = useState(Object.values(byId))
   const [currentId, setCurrentId] = useState()
   const [i, setI] = useState('')
-  const handleOpen = () => {
-    setOpen(true);
-  };
+
   const classes = useStyles();
   const dispatch = useDispatch();
 
@@ -72,18 +72,31 @@ export default function Tasks({ tasks, date }) {
   const handleClose = () => {
     setOpen(false);
   };
+
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleOpenEdit = () => {
+    setOpenEdit(true);
+  };
+
+  const handleCloseEdit = () => {
+    setOpenEdit(false);
+  };
   // console.log('--I---I-----', byId[16]['tasks'])
   return (
     <>
-   {/* <EditTaskForm
-        open={open}
-        handleClose={handleClose}
-        booksById={booksById}
-        piecesById={piecesById}
+      <EditTaskForm
+        open={openEdit}
+        handleClose={handleCloseEdit}
+        lessonId={lessonId}
+        task={byId[taskId]}
+        // booksById={booksById}
+        // piecesById={piecesById}
         // tasks={byId[16]['tasks']}
-        // i ={i}
-
-      /> */}
+        // i={i}
+      />
       <AddTaskForm
         open={open}
         handleClose={handleClose}
@@ -114,7 +127,7 @@ export default function Tasks({ tasks, date }) {
         {Object.values(byId).length > 0 ?
           Object.values(byId).map((each, i) => {
             // setI(i)
-            return <Lesson setCurrentId={setCurrentId} key={each.id} lesson={each} setLessonId={setLessonId} setCurrentId={setCurrentId} handleOpen={handleOpen} />
+            return <Lesson setCurrentId={setCurrentId} key={each.id} lesson={each} setLessonId={setLessonId} setCurrentId={setCurrentId} handleOpen={handleOpen } handleOpenEdit={handleOpenEdit } />
           })
           :
           <Typography variant={'h5'} gutterBottom={true}>

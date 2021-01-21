@@ -24,6 +24,7 @@ import ListItemText from '@material-ui/core/ListItemText';
 import ListItemAvatar from '@material-ui/core/ListItemAvatar';
 import Typography from '@material-ui/core/Typography';
 import { format } from 'date-fns';
+import EditTaskForm from './EditTaskForm';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -40,14 +41,12 @@ const useStyles = makeStyles((theme) => ({
 export default function Lesson(props) {
   const { setLessonId, setCurrentId } = props
   const { id, profilePicUrl, startTime, endTime, studentFirstName, studentLastName, tasks } = props.lesson
-  const { handleOpen } = props
+  const { handleOpen, handleOpenEdit } = props
   const classes = useStyles();
   const dispatch = useDispatch();
 
   const handleClick = (e) => {
-
     setLessonId(id)
-    console.log(id)
     handleOpen()
   }
 
@@ -65,6 +64,10 @@ export default function Lesson(props) {
     return (type ? `${type}` : '') + (duration || frequency ? ' - ' : '') + durationText + frequencyText
   }
 
+  const onEdit = (id) => {
+    setLessonId(id)
+    handleOpenEdit()
+  }
 
   return (
     <Card className={classes.root}>
@@ -109,7 +112,8 @@ export default function Lesson(props) {
               return (
                 <>
                   {/* <ListItem onClick={handleClick} button /> */}
-                  <ListItem onClick={handleClick} button>
+                  <Divider  component="li" />
+                  <ListItem onClick={()=>onEdit(each.id)} button>
                     <ListItemText
                       primary={
                         <>
@@ -168,7 +172,6 @@ export default function Lesson(props) {
                       }
                     />
                   </ListItem>
-                  <Divider variant="inset" component="li" />
                 </>
               )
             })}
