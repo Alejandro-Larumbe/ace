@@ -10,7 +10,7 @@ import { format, addMonths, subMonths } from 'date-fns';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import { setCurrentDate } from './actions';
-import LessonCreate from '../lessons/LessonCreate';
+import Lesson from '../lessons/Lesson';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -43,7 +43,7 @@ export default function MonthSchedule({ byId, byDay, currentDate, calendarMonth:
 
   return (
     <div>
-      <LessonCreate
+      <Lesson
         open={open}
         handleClose={handleClose}
       />

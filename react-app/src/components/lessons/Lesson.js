@@ -21,6 +21,7 @@ import { createLesson } from './actions'
 import { format } from 'date-fns';
 import Modal from '@material-ui/core/Modal';
 import Fade from '../../Fade';
+import LessonCreate from './LessonCreate';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -43,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-const LessonCreate = ({open, handleClose}) => {
+const Lesson = ({ open, handleClose }) => {
   const [errors, setErrors] = useState([]);
   const [startTime, setStartTime] = useState(format(new Date(), 'yyyy-MM-dd HH:mm:ss'));
   const [endTime, setEndTime] = useState(format(new Date(), 'yyyy-MM-dd HH:mm:ss'));
@@ -52,7 +53,7 @@ const LessonCreate = ({open, handleClose}) => {
   const [openSelect, setOpenSelect] = React.useState(false);
   const dispatch = useDispatch();
 
-  const id  = localStorage.getItem('user_id')
+  const id = localStorage.getItem('user_id')
 
   const classes = useStyles();
 
@@ -78,32 +79,6 @@ const LessonCreate = ({open, handleClose}) => {
 
   }
 
-  const onSubmit = async (e) => {
-    e.preventDefault()
-    if (startTime > endTime) {
-      setErrors(['end time must be after starting time'])
-      // return errors;
-    } else if (startTime < format(new Date(), 'yyyy-MM-dd HH:mm:ss')) {
-      setErrors(['start time has passed'])
-    } else if (startTime === endTime) {
-      setErrors(['start time must be different to end time'])
-    } else {
-      let lesson = new FormData();
-      lesson.append('start_time', startTime);
-      lesson.append('end_time', endTime);
-      lesson.append('student_id', parseInt(studentId));
-      console.log(startTime, endTime)
-      lesson = await dispatch(createLesson(lesson, parseInt(id)))
-      // lesson = await dispatch(createLesson(startTime, endTime, studentId, rate, parseInt(id)))
-      if (!lesson.errors) {
-        // history.push(`/${id}/schedule`)
-        handleClose()
-      } else {
-        console.log(lesson.errors)
-        setErrors([lesson.errors])
-      }
-    }
-  }
 
   return (
     <>
@@ -121,93 +96,31 @@ const LessonCreate = ({open, handleClose}) => {
       >
         <Fade in={open}>
           <h1 className={classes.root} >lesson create</h1>
-          <form onSubmit={onSubmit}>
-            <div className={classes.root}>
-              <div className={errors}>
-                {errors && errors.map(error => {
-                  return <p>{error}</p>
-                })}
-              </div>
-              <Paper variant="outlined" >
-                <List component="nav" className={classes.list} aria-label="mailbox folders">
-                  <div className={classes.container}>
-                    <ListItem button>
-                      <InputLabel style={{ width: '75%' }} id="select-student">Select Student:</InputLabel>
-                      <Select
-                        labelId="select-student"
-                        label="Select Student"
-                        fullWidth
-                        id="select-student"
-                        open={openSelect}
-                        onClose={() => setOpenSelect(false)}
-                        onOpen={() => setOpenSelect(true)}
-                        value={studentId}
-                        onChange={handleChange}
-                      >
-                        {students.map(student => {
-                          return (
-                            <MenuItem key={student.id} value={student.id}>{student.full_name}</MenuItem>
-                          )
-                        })}
-                      </Select>
-                    </ListItem>
-                    <ListItem button>
-                      <KeyboardDatePicker
-                        disableToolbar
-                        variant="inline"
-                        // format="MM/dd/yyyy"
-                        margin="normal"
-                        id="date-picker-inline"
-                        label="Select Date"
-                        value={startTime}
-                        onChange={handleDate('date')}
-                        KeyboardButtonProps={{
-                          'aria-label': 'change date',
-                        }}
-                      />
-                      <KeyboardTimePicker
-                        margin="normal"
-                        id="time-picker"
-                        // format="MM/dd/yyyy"
-                        label="Select Start Time"
-                        value={startTime}
-                        minutesStep={5}
-                        onChange={handleDate('startTime')}
-                        KeyboardButtonProps={{
-                          'aria-label': 'change time',
-                        }}
-                      />
-                      <KeyboardTimePicker
-                        margin="normal"
-                        id="time-picker"
-                        // format="MM/dd/yyyy"
-                        label="Select End Time"
-                        value={endTime}
-                        minutesStep={5}
-                        onChange={handleDate("endTime")}
-                        KeyboardButtonProps={{
-                          'aria-label': 'change time',
-                        }}
-                      />
-                    </ListItem>
-                    <ListItem button>
-                    </ListItem>
-                  </div>
-                  <Divider light />
-                  <Button onClick={handleClose} color="primary">
-                    Cancel
-              </Button>
-                  <Button type="submit" color="primary">
-                    Create Lesson
-              </Button>
-                </List>
-              </Paper>
+          <div className={classes.root}>
+            <div className={errors}>
+              {errors && errors.map(error => {
+                return <p>{error}</p>
+              })}
             </div>
-          </form>
+            <Paper variant="outlined" >
+              <div className={classes.container}>
+                <LessonCreate
+                  setOpenSelect={setOpenSelect}
+                  studentId={studentId}
+                  handleChange={handleChange}
+                  students={students}
+                  startTime={startTime}
+                  endTime={endTime}
+                  handleClose={handleClose}
+                  handleDate={handleDate}
+                />
+              </div>
+            </Paper>
+          </div>
         </Fade>
       </Modal>
     </>
   );
 }
 
-export default LessonCreate;
+export default Lesson;
