@@ -28,7 +28,6 @@ const LessonCreate = (props) => {
   const dispatch = useDispatch();
   const id = localStorage.getItem('user_id')
 
-  const classes = useStyles();
 
 
 
@@ -60,7 +59,7 @@ const LessonCreate = (props) => {
   return (
     <>
       <form onSubmit={onSubmit}>
-        <List component="nav" className={classes.list} aria-label="mailbox folders">
+        <List component="nav" aria-label="mailbox folders">
           <ListItem button>
             <InputLabel style={{ width: '75%' }} id="select-student">Select Student:</InputLabel>
             <Select

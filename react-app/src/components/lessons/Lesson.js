@@ -22,6 +22,7 @@ import { format } from 'date-fns';
 import Modal from '@material-ui/core/Modal';
 import Fade from '../../Fade';
 import LessonCreate from './LessonCreate';
+import LessonEdit from './EditLessonContainer';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -44,14 +45,17 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-const Lesson = ({ open, handleClose }) => {
+const Lesson = ( props ) => {
   const [errors, setErrors] = useState([]);
-  const [startTime, setStartTime] = useState(format(new Date(), 'yyyy-MM-dd HH:mm:ss'));
-  const [endTime, setEndTime] = useState(format(new Date(), 'yyyy-MM-dd HH:mm:ss'));
+  const [startTime, setStartTime] = useState(props.lesson ? props.lesson.startTime : format(new Date(), 'yyyy-MM-dd HH:mm:ss'));
+  const [endTime, setEndTime] = useState(props.lesson ? props.lesson.endTime : format(new Date(), 'yyyy-MM-dd HH:mm:ss'));
   const [students, setStudents] = useState([]);
-  const [studentId, setStudentId] = useState('');
+  const [studentId, setStudentId] = useState(props.lesson ? props.lesson.studentId : '');
   const [openSelect, setOpenSelect] = React.useState(false);
-  const dispatch = useDispatch();
+
+  const {
+    open, handleClose, student
+  } = props
 
   const id = localStorage.getItem('user_id')
 
@@ -104,9 +108,19 @@ const Lesson = ({ open, handleClose }) => {
             </div>
             <Paper variant="outlined" >
               <div className={classes.container}>
-                <LessonCreate
+                {/* <LessonCreate
                   setOpenSelect={setOpenSelect}
                   studentId={studentId}
+                  handleChange={handleChange}
+                  students={students}
+                  startTime={startTime}
+                  endTime={endTime}
+                  handleClose={handleClose}
+                  handleDate={handleDate}
+                /> */}
+                <LessonEdit
+                  setOpenSelect={setOpenSelect}
+                  // studentId={studentId}
                   handleChange={handleChange}
                   students={students}
                   startTime={startTime}
@@ -123,4 +137,22 @@ const Lesson = ({ open, handleClose }) => {
   );
 }
 
-export default Lesson;
+
+const LessonContainer = (props) => {
+  const lesson = useSelector(state => (
+    props.mode === "edit"
+    ? state.schedule.byId[props.id]
+    : null
+  ))
+
+  return (
+    <Lesson
+      {...props}
+      lesson={lesson}
+    />
+  )
+
+}
+
+
+export default LessonContainer;
