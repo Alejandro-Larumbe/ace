@@ -59,6 +59,24 @@ def create_lesson(id):
     return jsonify(lesson.to_dict())
   return {'errors': validation_errors_to_error_messages(form.errors)}, 401
 
+
+@lesson_routes.route('/instructor/<int:id>', methods=['PATCH'])
+def edit_lesson(id):
+  form = LessonForm()
+  form['csrf_token'].data = request.cookies['csrf_token']
+  if form.validate_on_submit():
+    lesson = Lesson.query.get(form.data['lesson_id'])
+    lesson.start_time = form.data['start_time']
+    lesson.end_time = form.data['end_time']
+    lesson.student_id = int(form.data['student_id'])
+    lesson.instructor_id = id
+
+    db.session.commit()
+    return jsonify(lesson.to_dict())
+  return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+
+
+
 @lesson_routes.route('/instructor/<int:id>')
 def lessons(id):
   lessons = Lesson.query.filter(Lesson.instructor_id == id)

@@ -12,3 +12,16 @@ export const createLesson = (lesson, id) => async(dispatch)  => {
   const data = await response.json()
   return data
 }
+
+
+export const editLesson = (data) => async(dispatch)  => {
+  const response = await fetch(`/api/lessons/instructor/${data.instructorIid}`, {
+    method: "PATCH",
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify(data)
+  });
+  const data = await response.json()
+  return data
+}

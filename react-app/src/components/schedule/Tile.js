@@ -1,16 +1,18 @@
-import React from 'react';
+import React, { useState } from 'react';
+import { useDispatch } from 'react-redux';
 import { useHistory } from 'react-router-dom'
 import { makeStyles } from '@material-ui/core/styles';
 import { Card, CardActionArea } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import { format } from 'date-fns'
 import { setTaskDate } from '../tasks/actions';
-import { useDispatch } from 'react-redux';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import ListItemIcon from '@material-ui/core/ListItemIcon';
 import ListItemText from '@material-ui/core/ListItemText';
 import CssBaseline from '@material-ui/core/CssBaseline';
+import { setSelectedDate, setLessonId } from './actions';
+import { setLessonView } from '../../store/actions/ui';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -42,50 +44,58 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Tile({ data, day, date, handleOpen }) {
+export default function Tile({ data, day, date, handleOpen, setSelectedDate, setLessonId }) {
   const classes = useStyles();
   const history = useHistory();
-  const id = localStorage.getItem("user_id");
+  // const id = localStorage.getItem("user_id");
   const dispatch = useDispatch();
   const isToday = () => {
     return format(new Date(), 'yyyy-MM-dd') === date
   }
 
-  console.log(data)
+
+  const clickHandler = (mode, id) => {
+    // debugger
+    if(mode === 'view' || mode === 'edit') dispatch(setLessonId(id))
+    if(mode ==='create') {
+      console.log(new Date(date))
+      dispatch(setSelectedDate(new Date(date)))
+    }
+    dispatch(setLessonView(mode))
 
 
-  const clickHandler = (id) => {
-    console.log(id)
-    return 'hi'
+    handleOpen()
     // await dispatch(setTaskDate(new Date(date)))
     // history.push('/lessons')
   }
 
   if (day !== 'empty') {
     return (
-      <CardActionArea onClick={handleOpen}>
-        <>
-          <CssBaseline />
-          <Card className={`${isToday() && classes.currentDay} ${classes.root}`} elevation={2} square>
-            <List dense style={{ lineHeight: '0.5' }} component="nav" aria-label="main mailbox folders">
-              <ListItem color="textSecondary" className={classes.title} >
-                {day}
-              </ListItem>
-              {data &&
-                data.map((each, i) => {
-                  const id = each.id
-                  return (
-                    <ListItem style={{ marginBottom: '3px' }} onClick={() => clickHandler(id)} button>
-                      {each.time} - {each.name} {each.lastNameInitial}
-                    </ListItem>
-                  )
-                })
-              }
-            </List>
+      // <CardActionArea onClick={() => clickHandler('create')}>
+      <>
+        <CssBaseline />
+        {/* <Card onClick={() => clickHandler('create')} className={`${isToday() && classes.currentDay} ${classes.root}`} elevation={2}  square> */}
+        <Card className={`${isToday() && classes.currentDay} ${classes.root}`} elevation={2} square>
+          <List dense style={{ lineHeight: '0.5' }} aria-label="main mailbox folders">
+            <ListItem onClick={() => clickHandler('create', null)} button color="textSecondary" className={classes.title} >
+              {day}
+            </ListItem>
+            {data &&
+              data.map((each, i) => {
+                const id = each.id
+                // console.log(date)
+                return (
+                  <ListItem style={{ marginBottom: '3px' }} onClick={() => clickHandler('view', id)} button>
+                    {each.time} - {each.name} {each.lastNameInitial}
+                  </ListItem>
+                )
+              })
+            }
+          </List>
 
-          </ Card>
-        </>
-      </CardActionArea>
+        </ Card>
+      </>
+      // </CardActionArea>
 
     )
   } else {

@@ -18,7 +18,6 @@ function Repertoire({ piecesById, booksById }) {
     setOpen(false);
   };
 
-  console.log(piecesById)
 
   return (
     <>

@@ -45,12 +45,10 @@ const LessonCreate = (props) => {
       lesson.append('start_time', startTime);
       lesson.append('end_time', endTime);
       lesson.append('student_id', parseInt(studentId));
-      console.log(startTime, endTime)
       lesson = await dispatch(createLesson(lesson, parseInt(id)))
       if (!lesson.errors) {
         handleClose()
       } else {
-        console.log(lesson.errors)
         setErrors([lesson.errors])
       }
     }

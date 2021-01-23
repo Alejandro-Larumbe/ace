@@ -10,6 +10,7 @@ import Grid from '@material-ui/core/Grid';
 import Backdrop from '@material-ui/core/Backdrop';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
+import { Card, CardActionArea } from '@material-ui/core';
 import Paper from '@material-ui/core/Paper';
 import TextField from '@material-ui/core/TextField';
 import { MuiPickersUtilsProvider, KeyboardTimePicker, KeyboardDatePicker } from '@material-ui/pickers';
@@ -21,16 +22,31 @@ import { createLesson } from './actions'
 import { format } from 'date-fns';
 import Modal from '@material-ui/core/Modal';
 import Fade from '../../Fade';
-import LessonCreate from './LessonCreate';
-import LessonEdit from './EditLessonContainer';
+import LessonView from './LessonView';
+import LessonForm from './LessonForm';
+
+import Avatar from '@material-ui/core/Avatar';
+import schedule from '../schedule/reducer';
+import CardHeader from '@material-ui/core/CardHeader';
+import CardMedia from '@material-ui/core/CardMedia';
+import CardContent from '@material-ui/core/CardContent';
+import CardActions from '@material-ui/core/CardActions';
+import CloseIcon from '@material-ui/icons/Close';
+import IconButton from '@material-ui/core/IconButton';
+import EditIcon from '@material-ui/icons/Edit';
+import { setLessonView } from '../../store/actions/ui';
+
+
 
 
 const useStyles = makeStyles((theme) => ({
   root: {
-    // width: '100%',
+    height: '100%',
+    width: 600,
     margin: 'auto',
-    marginTop: 100,
+    // marginTop: 100,
     maxWidth: 700,
+    // overflow: 'auto'
   },
   dateContainer: {
     display: 'flex',
@@ -41,22 +57,31 @@ const useStyles = makeStyles((theme) => ({
     marginRight: theme.spacing(1),
     width: 200,
   },
+  modal: {
+    display: 'flex',
+    alignItems: 'center',
+    justifyContent: 'center',
+    // overflow: 'auto'
+
+  }
 }));
 
 
 
-const Lesson = ( props ) => {
-  const [errors, setErrors] = useState([]);
-  const [startTime, setStartTime] = useState(props.lesson ? props.lesson.startTime : format(new Date(), 'yyyy-MM-dd HH:mm:ss'));
-  const [endTime, setEndTime] = useState(props.lesson ? props.lesson.endTime : format(new Date(), 'yyyy-MM-dd HH:mm:ss'));
-  const [students, setStudents] = useState([]);
-  const [studentId, setStudentId] = useState(props.lesson ? props.lesson.studentId : '');
-  const [openSelect, setOpenSelect] = React.useState(false);
-
+const Lesson = (props) => {
   const {
-    open, handleClose, student
+    open, handleClose, mode, lesson, selectedDate, currentDate
   } = props
-
+  console.log('------------', selectedDate)
+  // const [ lesson, setLesson ] = useState()
+  const [errors, setErrors] = useState([]);
+  // const [selectedDate] = useState(new Date(date))
+  const [startTime, setStartTime] = useState()
+  const [endTime, setEndTime] = useState()
+  const [studentId, setStudentId] = useState()
+  const [students, setStudents] = useState([]);
+  const [openSelect, setOpenSelect] = React.useState(false);
+  const dispatch = useDispatch();
   const id = localStorage.getItem('user_id')
 
   const classes = useStyles();
@@ -66,7 +91,20 @@ const Lesson = ( props ) => {
       const names = await fetchNames(id);
       await setStudents(names)
     })();
-  }, [startTime, studentId, endTime])
+    if((mode === 'edit' || mode === 'view') && lesson) {
+      setStudentId(lesson.studentId)
+      setEndTime(lesson.endTime)
+      setStartTime(lesson.startTime)
+    }
+    if(mode === 'create') {
+      setEndTime(format(new Date(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate(), currentDate.getHours(), currentDate.getMinutes(), currentDate.getSeconds() ), 'yyyy-MM-dd HH:mm:ss'))
+      setStartTime(format(new Date(selectedDate.getFullYear(), selectedDate.getMonth(), selectedDate.getDate(), currentDate.getHours(), currentDate.getMinutes(), currentDate.getSeconds() ), 'yyyy-MM-dd HH:mm:ss'))
+      // setStudentId(null)
+    }
+
+  }, [studentId, startTime, selectedDate, endTime, mode])
+
+
 
   const handleChange = (event) => {
     setStudentId(event.target.value);
@@ -83,7 +121,6 @@ const Lesson = ( props ) => {
 
   }
 
-
   return (
     <>
       <Modal
@@ -99,16 +136,56 @@ const Lesson = ( props ) => {
         }}
       >
         <Fade in={open}>
-          <h1 className={classes.root} >lesson create</h1>
-          <div className={classes.root}>
+          {/* <h1 className={classes.root} >lesson create</h1> */}
+          {/* <div className={classes.root}> */}
+          <Card className={classes.root}  >
             <div className={errors}>
               {errors && errors.map(error => {
                 return <p>{error}</p>
               })}
             </div>
-            <Paper variant="outlined" >
-              <div className={classes.container}>
-                {/* <LessonCreate
+            <CardHeader
+
+              title={
+                mode === 'create'
+                  ? 'Schedule Lesson'
+                  : mode === 'edit'
+                    ? 'Update Lesson'
+                    // : null
+                    :
+                     lesson ? `${lesson.studentFirstName} ${lesson.studentLastName}`
+                       : null
+              }
+
+              //       avatar={
+              //   mode === 'view' &&
+              //   <Avatar src={lesson.profilePicUrl}>
+              //   </Avatar>
+              // }
+              action={
+                <>
+                  {mode === 'view' &&
+
+                    <IconButton onClick={() => dispatch(setLessonView('edit'))} >
+                      <EditIcon />
+                    </IconButton>
+                  }
+                  <IconButton onClick={handleClose} aria-label="add to favorites">
+                    <CloseIcon />
+                  </IconButton>
+                </>
+
+              }
+
+            />
+            <CardContent>
+              {mode === 'view' &&
+                <LessonView lesson={lesson} />
+              }
+            </CardContent>
+              {
+                (mode === 'edit' || mode === 'create') &&
+                <LessonForm
                   setOpenSelect={setOpenSelect}
                   studentId={studentId}
                   handleChange={handleChange}
@@ -117,20 +194,12 @@ const Lesson = ( props ) => {
                   endTime={endTime}
                   handleClose={handleClose}
                   handleDate={handleDate}
-                /> */}
-                <LessonEdit
-                  setOpenSelect={setOpenSelect}
-                  // studentId={studentId}
-                  handleChange={handleChange}
-                  students={students}
-                  startTime={startTime}
-                  endTime={endTime}
-                  handleClose={handleClose}
-                  handleDate={handleDate}
+                  mode={mode}
+                  studentId={studentId}
                 />
-              </div>
-            </Paper>
-          </div>
+              }
+
+          </Card>
         </Fade>
       </Modal>
     </>
@@ -139,16 +208,24 @@ const Lesson = ( props ) => {
 
 
 const LessonContainer = (props) => {
-  const lesson = useSelector(state => (
-    props.mode === "edit"
-    ? state.schedule.byId[props.id]
-    : null
-  ))
+  const lessonId = props.lessonId
+  const mode = useSelector(state => state.ui.calendarLessonView)
+  const lessons = useSelector(state => state.schedule.byId)
+  // const [ lesson, setLesson ] = useState({})
+  const [loaded, setLoaded] = useState(false)
+  const [ currentDate, setCurrentDate ] = useState(new Date())
 
+  useEffect(() => {}, )
+
+  if (!mode ) return null
+  // console.log('---------', props.selectedDate)
   return (
     <Lesson
       {...props}
-      lesson={lesson}
+      // lessonId={lessonId}
+      mode={mode}
+      lesson={lessons[lessonId]}
+      currentDate={currentDate}
     />
   )
 

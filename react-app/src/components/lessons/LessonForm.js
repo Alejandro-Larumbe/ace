@@ -10,9 +10,11 @@ import { KeyboardTimePicker, KeyboardDatePicker } from '@material-ui/pickers';
 import InputLabel from '@material-ui/core/InputLabel';
 import { createLesson } from './actions'
 import { format } from 'date-fns';
+import CardActions from '@material-ui/core/CardActions';
+import CardHeader from '@material-ui/core/CardHeader';
 
 
-const LessonEdit = (props) => {
+const LessonForm = (props) => {
   const [errors, setErrors] = useState([]);
   const {
     startTime,
@@ -23,11 +25,12 @@ const LessonEdit = (props) => {
     setOpenSelect,
     handleChange,
     handleClose,
-    handleDate } = props
+    handleDate,
+    mode
+  } = props
 
   const dispatch = useDispatch();
   const id = localStorage.getItem('user_id')
-
 
 
 
@@ -45,12 +48,10 @@ const LessonEdit = (props) => {
       lesson.append('start_time', startTime);
       lesson.append('end_time', endTime);
       lesson.append('student_id', parseInt(studentId));
-      console.log(startTime, endTime)
       lesson = await dispatch(createLesson(lesson, parseInt(id)))
       if (!lesson.errors) {
         handleClose()
       } else {
-        console.log(lesson.errors)
         setErrors([lesson.errors])
       }
     }
@@ -122,16 +123,15 @@ const LessonEdit = (props) => {
           <ListItem button>
           </ListItem>
         </List>
-        <Divider light />
-        <Button onClick={handleClose} color="primary">
-          Cancel
+        {/* <Divider light /> */}
+        <CardActions>
+          <Button type="submit" color="primary">
+            save
         </Button>
-        <Button type="submit" color="primary">
-          Create Lesson
-        </Button>
+        </CardActions>
       </form>
     </>
   );
 }
 
-export default LessonEdit;
+export default LessonForm;

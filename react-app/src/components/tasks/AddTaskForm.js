@@ -90,7 +90,6 @@ export default function AddTaskForm({ open, handleClose, id, booksById, piecesBy
     // console.log(duration, frequency, instructions, typeId, lessonId, pieceId, bookId, isCompleted)
     const task = dispatch(addTask(duration, frequency, instructions, typeId, lessonId, pieceId, bookId, isCompleted))
     if (!task.errors) {
-      console.log(task)
       dispatch(getLessonsTasks(instructorId, date.getFullYear(), date.getMonth(), date.getDate()))
       handleClose()
     }
