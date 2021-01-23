@@ -31,7 +31,7 @@ const schedule = (state = {}, action) => {
     case SET_CALENDAR_LESSON_ID:
       return {
         ...state,
-        lessonId: action.lessonId
+        lessonId: action.id
       }
 
 

@@ -7,7 +7,6 @@ from datetime import datetime
 import operator
 
 
-
 lesson_routes = Blueprint('lesson_routes', __name__)
 
 
@@ -49,10 +48,10 @@ def create_lesson(id):
   form['csrf_token'].data = request.cookies['csrf_token']
   if form.validate_on_submit():
     lesson = Lesson(
-      start_time = form.data['start_time'],
-      end_time = form.data['end_time'],
-      student_id = int(form.data['student_id']),
-      instructor_id = id
+      start_time=form.data['start_time'],
+      end_time=form.data['end_time'],
+      student_id=int(form.data['student_id']),
+      instructor_id=id
     )
     db.session.add(lesson)
     db.session.commit()
@@ -74,6 +73,19 @@ def edit_lesson(id):
     db.session.commit()
     return jsonify(lesson.to_dict())
   return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+
+
+@lesson_routes.route('/<int:id>', methods=['DELETE'])
+def delete_lesson(id):
+  lesson = Lesson.query.get(id)
+  # form = LessonForm()
+  # form['csrf_token'].data = request.cookies['csrf_token']
+  if lesson:
+    db.session.delete(lesson)
+    db.session.commit()
+    return 'user deleted'
+
+  return {'errors': 'lesson not deleted'}, 401
 
 
 

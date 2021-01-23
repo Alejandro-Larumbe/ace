@@ -21,9 +21,10 @@ export default function MonthScheduleContainer( props ){
     (async () => {
       await dispatch(getMonthData(id, getYear(currentDate), getMonth(currentDate)))
     })();
-  }, [currentDate]);
+  }, [currentDate, props.open]);
 
   if (view !== 'month') return null
+  // if (!byId) return null
 
   return (
     <MonthSchedule

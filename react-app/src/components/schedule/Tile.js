@@ -44,7 +44,7 @@ const useStyles = makeStyles((theme) => ({
   },
 }));
 
-export default function Tile({ data, day, date, handleOpen, setSelectedDate, setLessonId }) {
+export default function Tile({ data, day, date, handleOpen }) {
   const classes = useStyles();
   const history = useHistory();
   // const id = localStorage.getItem("user_id");
@@ -56,17 +56,14 @@ export default function Tile({ data, day, date, handleOpen, setSelectedDate, set
 
   const clickHandler = (mode, id) => {
     // debugger
-    if(mode === 'view' || mode === 'edit') dispatch(setLessonId(id))
+    dispatch(setLessonView(mode))
+    if(mode === 'view')  dispatch(setLessonId(id))
     if(mode ==='create') {
-      console.log(new Date(date))
       dispatch(setSelectedDate(new Date(date)))
     }
-    dispatch(setLessonView(mode))
-
 
     handleOpen()
-    // await dispatch(setTaskDate(new Date(date)))
-    // history.push('/lessons')
+
   }
 
   if (day !== 'empty') {

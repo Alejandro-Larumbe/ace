@@ -58,6 +58,7 @@ export default function MonthSchedule( props ) {
                 {
                   row.map((each, i) => {
                     const date = format(new Date(each), 'yyyy-MM-dd')
+                    // const date = new Date(each)
                     let data = []
                     const day = format(new Date(each), 'd')
                     // console.log('data day--------', byDay[date])
@@ -67,6 +68,7 @@ export default function MonthSchedule( props ) {
                         // console.log('byEd eacn-----------', byId[each]['startTime'])
                         const time = format(new Date(byId[each]['startTime']), 'p')
                         data.push({
+                          dateObject: byId[each]['startTime'],
                           time,
                           'name': byId[each].studentFirstName,
                           'lastNameInitial': byId[each].studentLastName.slice(0, 1),
@@ -74,7 +76,9 @@ export default function MonthSchedule( props ) {
                         })
                       })
                     }
-                    data.sort((a, b) => (a.time > b.time) ? 1 : -1)
+                    console.log('before',data)
+                    data.sort((a, b) => (a.dateObject) > (b.dateObject) ? 1 : -1)
+                    console.log('efter',data)
                     return (
                       <td key={i}>
                         <Tile setSelectedDate={setSelectedDate} handleOpen={handleOpen} date={date} day={day} setLessonId={setLessonId} data={data}></Tile>

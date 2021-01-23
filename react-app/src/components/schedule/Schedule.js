@@ -115,7 +115,7 @@ export default function Schedule() {
         </div>
         <Switch>
           {view === 'month' && (
-            <MonthSchedule setLessonId={setLessonId} setSelectedDate={setSelectedDate} handleOpen={handleOpen}/>
+            <MonthSchedule setLessonId={setLessonId} setSelectedDate={setSelectedDate} open={open} handleOpen={handleOpen}/>
           )}
           {view === 'day' && (
             <DaySchedule />
