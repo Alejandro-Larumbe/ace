@@ -1,5 +1,5 @@
 import React, { useState, useEffect } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useSelector } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 
 import Backdrop from '@material-ui/core/Backdrop';
@@ -35,7 +35,6 @@ const useStyles = makeStyles((theme) => ({
     alignItems: 'center',
     justifyContent: 'center',
     // overflow: 'auto'
-
   }
 }));
 
@@ -44,7 +43,6 @@ const useStyles = makeStyles((theme) => ({
 const Lesson = (props) => {
   const { mode } = props
   const [students, setStudents] = useState([]);
-  const dispatch = useDispatch();
   const id = localStorage.getItem('user_id')
 
   const classes = useStyles();
