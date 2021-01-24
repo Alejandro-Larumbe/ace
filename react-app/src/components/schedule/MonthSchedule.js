@@ -10,7 +10,6 @@ import { format, addMonths, subMonths } from 'date-fns';
 import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
 import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
 import { setCurrentDate } from './actions';
-import LessonCreate from '../lessons/LessonCreate';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -25,28 +24,22 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export default function MonthSchedule({ byId, byDay, currentDate, calendarMonth: tableRows }) {
-  const [open, setOpen] = useState(false);
+export default function MonthSchedule( props ) {
+  const { byId, byDay, currentDate, calendarMonth: tableRows, setSelectedDate, handleOpen, setLessonId } = props
+  // const [open, setOpen] = useState(false);
 
   const classes = useStyles();
   const dispatch = useDispatch()
 
   if (!byId) return null
 
-  const handleClose = () => {
-    setOpen(false);
-  };
-
-  const handleOpen = () => {
-    setOpen(true);
-  };
 
   return (
     <div>
-      <LessonCreate
+      {/* <Lesson
         open={open}
         handleClose={handleClose}
-      />
+      /> */}
       <CssBaseline />
       <table>
         <thead>
@@ -65,6 +58,7 @@ export default function MonthSchedule({ byId, byDay, currentDate, calendarMonth:
                 {
                   row.map((each, i) => {
                     const date = format(new Date(each), 'yyyy-MM-dd')
+                    // const date = new Date(each)
                     let data = []
                     const day = format(new Date(each), 'd')
                     // console.log('data day--------', byDay[date])
@@ -74,6 +68,7 @@ export default function MonthSchedule({ byId, byDay, currentDate, calendarMonth:
                         // console.log('byEd eacn-----------', byId[each]['startTime'])
                         const time = format(new Date(byId[each]['startTime']), 'p')
                         data.push({
+                          dateObject: byId[each]['startTime'],
                           time,
                           'name': byId[each].studentFirstName,
                           'lastNameInitial': byId[each].studentLastName.slice(0, 1),
@@ -81,10 +76,12 @@ export default function MonthSchedule({ byId, byDay, currentDate, calendarMonth:
                         })
                       })
                     }
-                    data.sort((a, b) => (a.time > b.time) ? 1 : -1)
+                    console.log('before',data)
+                    data.sort((a, b) => (a.dateObject) > (b.dateObject) ? 1 : -1)
+                    console.log('efter',data)
                     return (
                       <td key={i}>
-                        <Tile handleOpen={handleOpen} date={date} day={day} data={data}></Tile>
+                        <Tile setSelectedDate={setSelectedDate} handleOpen={handleOpen} date={date} day={day} setLessonId={setLessonId} data={data}></Tile>
                       </td>
                     )
                   })

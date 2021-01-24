@@ -14,6 +14,8 @@ import { IconButton } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import MenuItem from '@material-ui/core/MenuItem';
 import Select from '@material-ui/core/Select';
+import Lesson from '../lessons/Lesson';
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -38,15 +40,19 @@ const useStyles = makeStyles((theme) => ({
 export default function Schedule() {
   const dispatch = useDispatch();
   const view = useSelector(state => state.ui.calendarView)
+  const [open, setOpen] = useState(false);
+  const [ lessonId, setLessonId ] = useState('')
+  const [ selectedDate, setSelectedDate ] = useState()
   const classes = useStyles();
   let currentDate = useSelector(state => state.schedule.currentDate)
 
 
   useEffect(() => {
-    (async() => {
+    (async () => {
       await dispatch(setCurrentDate(new Date()))
     })()
-  }, [dispatch, view]);
+
+  }, [dispatch, selectedDate, view]);
 
   if (!currentDate) return null
 
@@ -64,24 +70,38 @@ export default function Schedule() {
     dispatch(setCalendarView(event.target.value))
   };
 
-  console.log('view=============', view)
+  const handleOpen = () => {
+    setOpen(true);
+  };
+
+  const handleClose = () => {
+    setOpen(false);
+  };
+
+
 
 
   return (
     <>
+      <Lesson
+        open={open}
+        handleClose={handleClose}
+        // lessonId={lessonId}
+        // selectedDate={selectedDate}
+      />
       <div className={classes.root}>
         <div className={classes.header}>
-            <div className={classes.title}>
-              <Typography variant={'h3'} gutterBottom={true}>
-                <IconButton onClick={() => dateHandler('prev')}>
-                  <ArrowBackIosIcon className={classes.icons} />
-                </IconButton>
-                <IconButton onClick={() => dateHandler('next')}>
-                  <ArrowForwardIosIcon className={classes.icons} />
-                </IconButton>
-                {format((currentDate), 'MMMM')} {format((currentDate), 'yyyy')}
-              </Typography>
-            </div>
+          <div className={classes.title}>
+            <Typography variant={'h3'} gutterBottom={true}>
+              <IconButton onClick={() => dateHandler('prev')}>
+                <ArrowBackIosIcon className={classes.icons} />
+              </IconButton>
+              <IconButton onClick={() => dateHandler('next')}>
+                <ArrowForwardIosIcon className={classes.icons} />
+              </IconButton>
+              {format((currentDate), 'MMMM')} {format((currentDate), 'yyyy')}
+            </Typography>
+          </div>
           {/* <div>
             <Select
               value={view}
@@ -95,7 +115,7 @@ export default function Schedule() {
         </div>
         <Switch>
           {view === 'month' && (
-            <MonthSchedule />
+            <MonthSchedule setLessonId={setLessonId} setSelectedDate={setSelectedDate} open={open} handleOpen={handleOpen}/>
           )}
           {view === 'day' && (
             <DaySchedule />

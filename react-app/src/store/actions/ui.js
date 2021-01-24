@@ -1,6 +1,7 @@
 export const SET_USERCARD_MODE = 'SET_USERCARD_MODE'
 export const SET_CALENDAR_VIEW = 'SET_CALENDAR_VIEW'
 export const SET_TITLE = 'SET_TITLE'
+export const SET_LESSON_VIEW = 'SET_LESSON_VIEW';
 
 // export const setUserCardMode = (boolean) => {
 //   return {
@@ -18,4 +19,8 @@ export const setCalendarView = (value) => dispatch => {
 
 export const setTitleView = (value) => dispatch => {
   dispatch({ type: SET_TITLE, value })
+}
+
+export const setLessonView = (view) => (dispatch) => {
+  dispatch({ type: SET_LESSON_VIEW, view })
 }

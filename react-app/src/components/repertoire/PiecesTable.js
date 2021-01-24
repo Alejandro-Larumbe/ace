@@ -238,7 +238,6 @@ function PiecesTable({ piecesById, booksById }) {
         title = booksById[each.bookId]['title']
       }
     }
-    console.log('book---', title)
     rows.push(createData(each.id, each.title || '', each.composer || '', title , each.number || ''))
   })
 

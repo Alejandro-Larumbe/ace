@@ -40,7 +40,6 @@ export default function ScheduleDay({ dayIds, byId }) {
   const data = dayIds.map(each => {
     return byId[each]
   })
-  console.log("dayIds--------", data)
 
 
   data.sort((a, b) => (a.start_time > b.start_time) ? 1 : -1)

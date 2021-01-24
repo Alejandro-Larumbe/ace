@@ -6,7 +6,7 @@ import { format, getMonth, getYear } from 'date-fns';
 
 
 
-export default function MonthScheduleContainer(){
+export default function MonthScheduleContainer( props ){
 
   const id = useSelector((state) => state.user.id)
   const byId = useSelector(state =>state.schedule.byId)
@@ -21,9 +21,10 @@ export default function MonthScheduleContainer(){
     (async () => {
       await dispatch(getMonthData(id, getYear(currentDate), getMonth(currentDate)))
     })();
-  }, [currentDate]);
+  }, [currentDate, props.open]);
 
   if (view !== 'month') return null
+  // if (!byId) return null
 
   return (
     <MonthSchedule
@@ -31,6 +32,9 @@ export default function MonthScheduleContainer(){
       byDay={byDay}
       currentDate={currentDate}
       calendarMonth={calendarMonth}
+      handleOpen={props.handleOpen}
+      setLessonId={props.setLessonId}
+      setSelectedDate={props.setSelectedDate}
     />
   )
 

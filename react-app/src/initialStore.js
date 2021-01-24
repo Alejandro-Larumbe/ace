@@ -7,7 +7,8 @@ const initialStore = {
   user: {},
   ui: {
     userCardMode: 'view',
-    calendarView: 'month'
+    calendarView: 'month',
+    calendarLessonView: "",
   },
   tasks: {
     byId: {},
@@ -16,6 +17,10 @@ const initialStore = {
     date:new Date()
   },
   resources: {},
+  schedule: {
+    lessonId: '',
+
+  }
 }
 
 export default initialStore;
