@@ -16,11 +16,11 @@ export default function ResourcesContainer() {
       setResources(data)
     }
     )()
-  }, []);
+  }, [ dispatch ]);
   return (
     <>
       {/* <UploadResource /> */}
-      <ViewResources resources={resources}/>
+      <ViewResources resources={resources} dispatch={dispatch} setResources={setResources}/>
 
     </>
   )
