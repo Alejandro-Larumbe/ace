@@ -21,8 +21,7 @@ function Repertoire({ piecesById, booksById }) {
 
   return (
     <>
-
-      <PiecesAdd open={open} handleClose={handleClose} ></PiecesAdd>
+      <PiecesAdd open={open} books={Object.values(booksById)} handleClose={handleClose} ></PiecesAdd>
       <PiecesTable piecesById={piecesById} booksById={booksById} handleOpen={handleOpen} />
     </>
   )

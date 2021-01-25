@@ -197,7 +197,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function PiecesTable({ piecesById, booksById }) {
+function PiecesTable({ piecesById, booksById, handleOpen }) {
   const classes = useStyles();
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('calories');
@@ -214,13 +214,13 @@ function PiecesTable({ piecesById, booksById }) {
 
   if (!piecesById ) return null
 
-  const handleOpen = () => {
-    setOpen(true);
-  };
+  // const handleOpen = () => {
+  //   setOpen(true);
+  // };
 
-  const handleClose = () => {
-    setOpen(false);
-  };
+  // const handleClose = () => {
+  //   setOpen(false);
+  // };
 
   let pieces = Object.values(piecesById)
   // console.log('pieces-------', pieces)

@@ -49,5 +49,35 @@ def upload_resource():
 @resource_routes.route('/<int:id>')
 def get_resources(id):
   resources = Resource.query.filter(Resource.instructor_id == id).all()
-  resources = [ resource.to_dict_camel() for resource in resources ]
-  return jsonify(resources)
+  byId = {}
+  for resource in resources:
+    byId[resource.id] = resource.to_dict_camel()
+  return jsonify({ 'byId': byId })
+
+
+@resource_routes.route('/<int:id>', methods=['PUT'])
+def update_resource(id):
+  try:
+    resource = Resource.query.get(id)
+    print('resource=======', resource)
+    # resource.url = request.json['url']
+    resource.title = request.json['title']
+    resource.instructor_id = request.json['instructor_id']
+    resource.resource_type_id = request.json['resource_type_id']
+
+    db.session.commit()
+    return 'resource updated'
+  except Exception as error:
+    return jsonify({'error':repr(error)})
+
+
+@resource_routes.route('/<int:id>', methods=['DELETE'])
+def delete_resource(id):
+  try:
+    resource = Resource.query.get(id)
+    db.session.delete(resource)
+    db.session.commit()
+    return resource.to_dict()
+  except Exception as error:
+    print('error', error)
+    return jsonify({'error':repr(error)})
