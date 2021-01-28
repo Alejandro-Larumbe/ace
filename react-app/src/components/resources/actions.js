@@ -34,3 +34,18 @@ export const getResources = (id) => async dispatch => {
     console.log(e)
   }
 }
+
+export const deleteResource = (id) => async dispatch => {
+  try {
+    const res = await fetch(`/api/resources/${id}`, {
+      method: 'DELETE'
+    })
+    if (res.ok) {
+      const data = await res.json()
+      // console.log('------', data)
+      return data
+    }
+  } catch (e) {
+    console.log(e)
+  }
+}

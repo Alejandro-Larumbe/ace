@@ -31,28 +31,28 @@ for i in range(2,22):
 
 
 def upgrade():
-    # pass
-    instructors = table('instructors',
-        sa.Column('id', sa.Integer()),
-        sa.Column('studio_name', sa.String()),
-        sa.Column('studio_logo_url', sa.String()),
-    )
+    pass
+    # instructors = table('instructors',
+    #     sa.Column('id', sa.Integer()),
+    #     sa.Column('studio_name', sa.String()),
+    #     sa.Column('studio_logo_url', sa.String()),
+    # )
 
-    op.bulk_insert(instructors, [{
-        'id': 1,
-        'studio_name': "Amelia's String Academy",
-        'studio_logo_url': 'https://ace-management.s3.us-east-2.amazonaws.com/Amelia+String+Academy+Logo+2.jpg'
-    }])
+    # op.bulk_insert(instructors, [{
+    #     'id': 1,
+    #     'studio_name': "Amelia's String Academy",
+    #     'studio_logo_url': 'https://ace-management.s3.us-east-2.amazonaws.com/Amelia+String+Academy+Logo+2.jpg'
+    # }])
 
-    adults = table('adults',
-        sa.Column('id', sa.Integer()),
-        sa.Column('dob', sa.Date()),
-        sa.Column('is_student', sa.Boolean()),
-        sa.Column('is_parent', sa.Boolean()),
-        sa.Column('instructor_id', sa.Integer()),
-    )
+    # adults = table('adults',
+    #     sa.Column('id', sa.Integer()),
+    #     sa.Column('dob', sa.Date()),
+    #     sa.Column('is_student', sa.Boolean()),
+    #     sa.Column('is_parent', sa.Boolean()),
+    #     sa.Column('instructor_id', sa.Integer()),
+    # )
 
-    op.bulk_insert(adults, adults_seed)
+    # op.bulk_insert(adults, adults_seed)
 
 
 

@@ -29,3 +29,20 @@ export const addPiece = (instructorId, title, composer, number) => async (dispat
     return data
   }
 }
+
+export const addBook = (instructorId, title, author) => async (dispatch) => {
+  const response = await fetch(`/api/repertoire/book`, {
+    method: 'POST',
+    headers: {
+      'Content-Type': 'application/json'
+    },
+    body: JSON.stringify({
+      "instructor_id": instructorId, title, author
+    })
+  })
+  if (response.ok) {
+    const data = await response.json();
+    // console.log(data.id)
+    return data
+  }
+}

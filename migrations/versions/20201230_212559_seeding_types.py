@@ -48,22 +48,23 @@ resource_types_seed= [
 
 
 def upgrade():
-  task_types = table('task_types',
-  sa.Column('type', sa.String()),
-  )
-  resource_collections = table('resource_collections',
-  sa.Column('collection', sa.String()),
-  )
-  resource_categories = table('resource_categories',
-  sa.Column('category', sa.String()),
-  )
-  resource_types = table('resource_types',
-  sa.Column('type', sa.String()),
-  )
-  op.bulk_insert(task_types, task_types_seed)
-  op.bulk_insert(resource_types, resource_types_seed)
-  op.bulk_insert(resource_categories, resource_categories_seed)
-  op.bulk_insert(resource_collections, resource_collections_seed)
+    pass
+#   task_types = table('task_types',
+#   sa.Column('type', sa.String()),
+#   )
+#   resource_collections = table('resource_collections',
+#   sa.Column('collection', sa.String()),
+#   )
+#   resource_categories = table('resource_categories',
+#   sa.Column('category', sa.String()),
+#   )
+#   resource_types = table('resource_types',
+#   sa.Column('type', sa.String()),
+#   )
+#   op.bulk_insert(task_types, task_types_seed)
+#   op.bulk_insert(resource_types, resource_types_seed)
+#   op.bulk_insert(resource_categories, resource_categories_seed)
+#   op.bulk_insert(resource_collections, resource_collections_seed)
 
 
 def downgrade():

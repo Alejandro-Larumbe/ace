@@ -6,9 +6,9 @@ import PiecesAdd from './PiecesAdd';
 import PiecesUpdate from './PiecesUpdate';
 
 
-function Repertoire({ piecesById, booksById }) {
+function Repertoire( props ) {
   const [open, setOpen] = useState(false);
-
+  const { piecesById, booksById } = props
 
   const handleOpen = () => {
     setOpen(true);
@@ -21,8 +21,7 @@ function Repertoire({ piecesById, booksById }) {
 
   return (
     <>
-
-      <PiecesAdd open={open} handleClose={handleClose} ></PiecesAdd>
+      <PiecesAdd open={open} books={Object.values(booksById)} handleClose={handleClose} ></PiecesAdd>
       <PiecesTable piecesById={piecesById} booksById={booksById} handleOpen={handleOpen} />
     </>
   )
@@ -35,9 +34,10 @@ export default function RepertoireContainer() {
   const booksById = useSelector(state => state.repertoire.booksById)
   const dispatch = useDispatch();
 
-  useEffect(() => {
-    dispatch(getRepertoire(id))
-  }, []);
+  // useEffect(() => {
+  //   dispatch(getRepertoire(id))
+  // }, [dispatch]);
+
 
 
   return (

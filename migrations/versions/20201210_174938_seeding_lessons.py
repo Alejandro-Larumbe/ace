@@ -55,16 +55,18 @@ def date_iterator(date, student_id):
 
 
 def upgrade():
-    lessons = table('lessons',
-        sa.Column('start_time', sa.DateTime()),
-        sa.Column('end_time', sa.DateTime()),
-        sa.Column('student_id', sa.Integer()),
-        sa.Column('instructor_id', sa.Integer()),
-    )
+  pass
+    # lessons = table('lessons',
+    #     sa.Column('start_time', sa.DateTime()),
+    #     sa.Column('end_time', sa.DateTime()),
+    #     sa.Column('student_id', sa.Integer()),
+    #     sa.Column('instructor_id', sa.Integer()),
+    # )
 
-    op.bulk_insert(lessons, date_iterator(date1, 2))
-    op.bulk_insert(lessons, date_iterator(date2, 7))
-    op.bulk_insert(lessons, date_iterator(date3, 12))
-    op.bulk_insert(lessons, date_iterator(date4, 17))
+    # op.bulk_insert(lessons, date_iterator(date1, 2))
+    # op.bulk_insert(lessons, date_iterator(date2, 7))
+    # op.bulk_insert(lessons, date_iterator(date3, 12))
+    # op.bulk_insert(lessons, date_iterator(date4, 17))
 def downgrade():
-    op.drop_table('lessons')
+  pass
+    # op.drop_table('lessons')

@@ -16,10 +16,16 @@ const initialStore = {
     booksById: {},
     date:new Date()
   },
-  resources: {},
+  resources: {
+    byId:{}
+  },
   schedule: {
     lessonId: '',
 
+  },
+  repertoire: {
+    piecesById: {},
+    booksById: {},
   }
 }
 

@@ -161,10 +161,13 @@ def downgrade():
     op.drop_table('pieces')
     op.drop_table('invoice_items')
     op.drop_table('families')
+    op.drop_table('resource_collections')
+    op.drop_table('resource_categories')
     op.drop_table('resource_types')
     op.drop_table('lessons')
     op.drop_table('invoices')
     op.drop_table('children')
     op.drop_table('books')
+    op.drop_table('task_types')
     op.drop_table('assignment_types')
     # ### end Alembic commands ###
