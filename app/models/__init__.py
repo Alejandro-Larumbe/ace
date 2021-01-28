@@ -13,5 +13,7 @@ from .lesson_task import LessonTask
 from .lesson import Lesson
 from .piece import Piece
 from .resource_type import ResourceType
+from .resource_category import ResourceCategory
+from .resource_collection import ResourceCollection
 from .resource import Resource
 from .task_type import TaskType

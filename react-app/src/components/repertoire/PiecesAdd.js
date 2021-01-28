@@ -1,4 +1,4 @@
-import React, { useState } from "react";
+import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import Button from '@material-ui/core/Button';
 import CssBaseline from '@material-ui/core/CssBaseline';
@@ -14,7 +14,12 @@ import Fade from '../../Fade';
 import { addPiece } from './actions';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
+import AddBook from './AddBook';
+import Autocomplete, { createFilterOptions } from '@material-ui/lab/Autocomplete';
+import { getRepertoire } from './actions';
 
+
+const filter = createFilterOptions();
 
 
 const useStyles = makeStyles((theme) => ({
@@ -44,12 +49,13 @@ const useStyles = makeStyles((theme) => ({
 }));
 
 
-const PiecesAdd = ({ open, handleClose, books }) => {
+const PiecesAdd = ( props ) => {
+
   const instructorId = localStorage.getItem('user_id')
   const [title, setTitle] = useState();
   const [composer, setComposer] = useState();
   const [number, setNumber] = useState();
-  const [bookId, setBookId] = useState();
+  const [bookId, setBookId] = useState('');
   const [errors, setErrors] = useState();
   const dispatch = useDispatch();
   // const types = ["instructors", "adults"]
@@ -57,7 +63,19 @@ const PiecesAdd = ({ open, handleClose, books }) => {
   // const type = types[value]
   // let history = useHistory();
   const classes = useStyles();
+  const [openBookDialog, toggleOpenBookDialog] = useState(false);
+  const [dialogValue, setDialogValue] = useState({
+    title: '',
+    author: '',
+  });
 
+  useEffect(() => {
+    dispatch(getRepertoire(instructorId))
+  }, [dispatch]);
+
+  if (!props.piecesById) return null
+
+  const { open, handleClose, books } = props
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -66,10 +84,14 @@ const PiecesAdd = ({ open, handleClose, books }) => {
 
     if (!data.errors) {
       handleClose()
-
-
     } else {
     }
+  };
+
+  const handleCloseBookDialog = () => {
+    // dispatch(getRepertoire(instructorId))
+
+    toggleOpenBookDialog(false);
   };
 
 
@@ -80,6 +102,15 @@ const PiecesAdd = ({ open, handleClose, books }) => {
 
   return (
     <>
+      <AddBook
+        open={openBookDialog}
+        toggleOpen={toggleOpenBookDialog}
+        handleClose={handleCloseBookDialog}
+        dialogValue={dialogValue}
+        setDialogValue={setDialogValue}
+        setBookId={setBookId}
+
+      />
       <Modal
         aria-labelledby="spring-modal-title"
         aria-describedby="spring-modal-description"
@@ -124,11 +155,11 @@ const PiecesAdd = ({ open, handleClose, books }) => {
                   value={title}
                   autoFocus
                   onChange={updateField(setTitle)}
-                  variant="outlined"
+                // variant="outlined"
 
                 />
                 <TextField
-                  variant="outlined"
+                  // variant="outlined"
                   margin="normal"
                   fullWidth
                   name="composer"
@@ -139,13 +170,81 @@ const PiecesAdd = ({ open, handleClose, books }) => {
                   value={composer}
                   onChange={updateField(setComposer)}
                 />
+
+
+                <Autocomplete
+                  value={dialogValue}
+                  fullWidth
+                  className={classes.input}
+                  onChange={(event, newValue) => {
+                    if (typeof newValue === 'string') {
+                      // timeout to avoid instant validation of the dialog's form.
+                      setTimeout(() => {
+                        toggleOpenBookDialog(true);
+                        setDialogValue({
+                          title: newValue,
+                          author: '',
+                        });
+                      });
+                    } else if (newValue && newValue.inputValue) {
+                      toggleOpenBookDialog(true);
+                      setDialogValue({
+                        title: newValue.inputValue,
+                        author: '',
+                      });
+                    }
+                    // else {
+                    //   setBookId(newValue);
+                    // }
+                  }}
+                  filterOptions={(options, params) => {
+                    const filtered = filter(options, params);
+
+                    if (params.inputValue !== '') {
+                      filtered.push({
+                        inputValue: params.inputValue,
+                        title: `Add "${params.inputValue}"`,
+                      });
+                    }
+
+                    return filtered;
+                  }}
+                  id="free-solo-dialog-demo"
+                  options={books}
+                  getOptionLabel={(option) => {
+                    // e.g value selected with enter, right from the input
+                    if (typeof option === 'string') {
+                      return option;
+                    }
+                    if (option.inputValue) {
+                      return option.inputValue;
+                    }
+                    return option.title;
+                  }}
+                  selectOnFocus
+                  // fullWidth
+                  clearOnBlur
+                  handleHomeEndKeys
+                  renderOption={(option) => option.title}
+                  // style={{ width: 300 }}
+                  fullWidth
+                  freeSolo
+                  renderInput={(params) => (
+                    <TextField {...params} label="book" />
+                  )}
+                />
+
+
+
+
+
                 <TextField
                   // variant="outlined"
                   margin="normal"
                   fullWidth
                   name="number"
                   label="Number"
-                  type="text"
+                  type="number"
                   id="number"
                   placeholder="Number"
                   value={number}

@@ -168,15 +168,15 @@ export default function AddTaskForm({ open: openModal, handleClose: handleCloseM
                   fullWidth
                   className={classes.input}
                 >
-                  <option value={2}>Repertoire</option>
-                  <option value={3}>Etudes</option>
-                  <option value={4}>Technique</option>
-                  <option value={5}>Scales</option>
-                  <option value={6}>Tonalization</option>
-                  <option value={7}>Ear Training</option>
-                  <option value={8}>Theory</option>
-                  <option value={9}>Rhythm Practice</option>
-                  <option value={10}>Metronome Practice</option>
+                  <option value={1}>Repertoire</option>
+                  <option value={2}>Etudes</option>
+                  <option value={3}>Technique</option>
+                  <option value={4}>Scales</option>
+                  <option value={5}>Tonalization</option>
+                  <option value={6}>Ear Training</option>
+                  <option value={7}>Theory</option>
+                  <option value={8}>Rhythm Practice</option>
+                  <option value={9}>Metronome Practice</option>
                 </Select>
 
 
