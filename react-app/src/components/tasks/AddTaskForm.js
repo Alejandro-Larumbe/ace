@@ -72,7 +72,7 @@ export default function AddTaskForm({ open: openModal, handleClose: handleCloseM
   const [instructions, setInstructions] = useState();
   const [typeId, setTypeId] = useState(2);
   const [pieceId, setPieceId] = useState();
-  const [bookId, setBookId] = useState('');
+  const [book, setBook] = useState('');
   const [isCompleted] = useState(false)
   const classes = useStyles();
   const books = Object.values(booksById)
@@ -81,6 +81,7 @@ export default function AddTaskForm({ open: openModal, handleClose: handleCloseM
   const [value, setValue] = React.useState(null);
   const [openBook, toggleOpenBook] = React.useState(false);
   const [errors, setErrors] = useState([])
+
   const [dialogValue, setDialogValue] = useState({
     title: '',
     author: '',
@@ -99,9 +100,9 @@ export default function AddTaskForm({ open: openModal, handleClose: handleCloseM
   const onSubmitForm = (e) => {
     e.preventDefault()
     console.log('dialogValue', dialogValue)
-    console.log('bookId', bookId)
-    // console.log(duration, frequency, instructions, typeId, lessonId, pieceId, bookId, isCompleted)
-    // const task = dispatch(addTask(duration, frequency, instructions, typeId, lessonId, pieceId, bookId, isCompleted))
+    console.log('book', book)
+    // console.log(duration, frequency, instructions, typeId, lessonId, pieceId, book, isCompleted)
+    // const task = dispatch(addTask(duration, frequency, instructions, typeId, lessonId, pieceId, book, isCompleted))
     // if (!task.errors) {
     //   dispatch(getLessonsTasks(instructorId, date.getFullYear(), date.getMonth(), date.getDate()))
     //   handleCloseModal()
@@ -111,7 +112,7 @@ export default function AddTaskForm({ open: openModal, handleClose: handleCloseM
   const handleCloseBook = () => {
     setDialogValue({
       title: '',
-      year: '',
+      author: '',
     });
 
     toggleOpenBook(false);
@@ -160,7 +161,11 @@ export default function AddTaskForm({ open: openModal, handleClose: handleCloseM
             />
             <form onSubmit={onSubmitForm}>
               <CardContent>
-                <FreeSoloCreateOptionDialog options={books}></FreeSoloCreateOptionDialog>
+                <FreeSoloCreateOptionDialog
+                options={books}
+                toggleOpen={toggleOpenBook}
+                setDialogValue={setDialogValue}
+                />
               {/* <InputLabel id="task-type">Task Type</InputLabel>
                 <Select
                   label='Task Type'
@@ -200,8 +205,8 @@ export default function AddTaskForm({ open: openModal, handleClose: handleCloseM
                 <Select
                   label='book'
                   id='book'
-                  value={bookId}
-                  onChange={handleChange(setBookId)}
+                  value={book}
+                  onChange={handleChange(setBook)}
                   fullWidth
                 >
                   {books.map(each => {
@@ -263,7 +268,7 @@ export default function AddTaskForm({ open: openModal, handleClose: handleCloseM
         handleClose={handleCloseBook}
         dialogValue={dialogValue}
         setDialogValue={setDialogValue}
-        setBookId={setBookId}
+        setBook={setBook}
       />
 
 

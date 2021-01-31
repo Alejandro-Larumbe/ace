@@ -2,14 +2,10 @@ import React, { useState } from "react";
 import { useDispatch, } from 'react-redux';
 import { Dialog, DialogTitle, DialogContent, DialogActions, TextField, Button } from '@material-ui/core';
 import { addBook } from './actions';
-import { getRepertoire } from './actions';
 
 
 export default function AddBook(props) {
-
-
   const [ instructorId ] = useState(localStorage.getItem('user_id'))
-
   const dispatch = useDispatch();
 
   const {
@@ -17,7 +13,7 @@ export default function AddBook(props) {
     handleClose,
     dialogValue,
     setDialogValue,
-    setBookId
+    setBook
   } = props
 
   const onCancel = () => {
@@ -37,14 +33,15 @@ export default function AddBook(props) {
     //   title: dialogValue.title,
     //   author: parseInt(dialogValue.author, 10),
     // });
+    // console.log(dialogValue.title, dialogValue.author)
 
     const newBook = await dispatch(addBook(instructorId, dialogValue.title, dialogValue.author))
-    // console.log('id====', newBook.id)
+    console.log(newBook)
 
-    if (!newBook.errors) {
-      setBookId(newBook.id)
-      handleClose();
-    }
+    // if (!newBook.errors) {
+    //   setBook(newBook.id)
+    //   handleClose();
+    // }
   };
 
 
