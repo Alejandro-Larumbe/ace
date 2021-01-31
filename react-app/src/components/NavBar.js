@@ -199,7 +199,7 @@ const NavBar = ({ setAuthenticated, user, studioName, studioLogoUrl }) => {
         }
          {
           titleView === 'lessonTasks' &&
-          <h1>lessons</h1>
+          <h1>tasks</h1>
         } {
 
           titleView === 'repertoire' &&

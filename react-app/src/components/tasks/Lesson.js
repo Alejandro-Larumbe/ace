@@ -9,7 +9,7 @@ import CardActions from '@material-ui/core/CardActions';
 import Collapse from '@material-ui/core/Collapse';
 import Avatar from '@material-ui/core/Avatar';
 import IconButton from '@material-ui/core/IconButton';
-import { red } from '@material-ui/core/colors';
+import { purple } from '@material-ui/core/colors';
 import FavoriteIcon from '@material-ui/icons/Favorite';
 import ShareIcon from '@material-ui/icons/Share';
 import ExpandMoreIcon from '@material-ui/icons/ExpandMore';
@@ -34,7 +34,6 @@ const useStyles = makeStyles((theme) => ({
     marginBottom: 20
   },
   avatar: {
-    backgroundColor: red[500],
   },
 }))
 
@@ -83,11 +82,19 @@ export default function Lesson(props) {
             size="small"
             component="span"
             aria-label="add"
-            variant="extended"
+            // variant="extended"
             id={id}
             onClick={handleClick}
           >
-            <AddIcon /> Task
+            <AddIcon
+            // color="secondary"
+            // size="small"
+            // component="span"
+            // aria-label="add"
+            // variant="extended"
+            // id={id}
+            // onClick={handleClick}
+            />
         </Fab>
         }
         title={

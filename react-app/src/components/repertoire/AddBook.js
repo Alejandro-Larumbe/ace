@@ -14,7 +14,6 @@ export default function AddBook(props) {
 
   const {
     open,
-    toggleOpen,
     handleClose,
     dialogValue,
     setDialogValue,

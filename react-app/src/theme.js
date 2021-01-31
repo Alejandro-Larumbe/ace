@@ -22,7 +22,6 @@ export const theme = createMuiTheme({
   typography: {
     default: lime[500],
   },
-
   // button: {
   //   // primary:"#ff00a9"
   // },

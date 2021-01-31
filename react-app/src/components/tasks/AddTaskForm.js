@@ -19,13 +19,10 @@ import { Select } from "@material-ui/core";
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
 import { addTask, getLessonsTasks } from './actions';
 import CloseIcon from '@material-ui/icons/Close';
-import Dialog from '@material-ui/core/Dialog';
-import DialogTitle from '@material-ui/core/DialogTitle';
-import DialogContent from '@material-ui/core/DialogContent';
-import DialogContentText from '@material-ui/core/DialogContentText';
-import DialogActions from '@material-ui/core/DialogActions';
 import Autocomplete, { createFilterOptions } from '@material-ui/lab/Autocomplete';
-
+import AddBook from '../repertoire/AddBook';
+import FreeSolo from './FreeSolo'
+import FreeSoloCreateOptionDialog from './FreeSoloCreateOptionDialog';
 
 const filter = createFilterOptions();
 
@@ -82,7 +79,13 @@ export default function AddTaskForm({ open: openModal, handleClose: handleCloseM
   const pieces = Object.values(piecesById)
   const dispatch = useDispatch()
   const [value, setValue] = React.useState(null);
-  const [open, toggleOpen] = React.useState(false);
+  const [openBook, toggleOpenBook] = React.useState(false);
+  const [errors, setErrors] = useState([])
+  const [dialogValue, setDialogValue] = useState({
+    title: '',
+    author: '',
+  });
+
 
 
   const handleType = e => {
@@ -95,39 +98,37 @@ export default function AddTaskForm({ open: openModal, handleClose: handleCloseM
 
   const onSubmitForm = (e) => {
     e.preventDefault()
+    console.log('dialogValue', dialogValue)
+    console.log('bookId', bookId)
     // console.log(duration, frequency, instructions, typeId, lessonId, pieceId, bookId, isCompleted)
-    const task = dispatch(addTask(duration, frequency, instructions, typeId, lessonId, pieceId, bookId, isCompleted))
-    if (!task.errors) {
-      dispatch(getLessonsTasks(instructorId, date.getFullYear(), date.getMonth(), date.getDate()))
-      handleCloseModal()
-    }
+    // const task = dispatch(addTask(duration, frequency, instructions, typeId, lessonId, pieceId, bookId, isCompleted))
+    // if (!task.errors) {
+    //   dispatch(getLessonsTasks(instructorId, date.getFullYear(), date.getMonth(), date.getDate()))
+    //   handleCloseModal()
+    // }
   }
 
-  const handleClose = () => {
+  const handleCloseBook = () => {
     setDialogValue({
       title: '',
       year: '',
     });
 
-    toggleOpen(false);
+    toggleOpenBook(false);
   };
 
-  const [dialogValue, setDialogValue] = React.useState({
-    title: '',
-    year: '',
-  });
 
-  const handleSubmit = (event) => {
+
+  const handleSubmitBook = (event) => {
     event.preventDefault();
     setValue({
       title: dialogValue.title,
       year: parseInt(dialogValue.year, 10),
     });
 
-    handleClose();
+    handleCloseBook();
   };
 
-  console.log('bookId', bookId)
 
 
   return (
@@ -159,7 +160,8 @@ export default function AddTaskForm({ open: openModal, handleClose: handleCloseM
             />
             <form onSubmit={onSubmitForm}>
               <CardContent>
-              <InputLabel id="task-type">Task Type</InputLabel>
+                <FreeSoloCreateOptionDialog options={books}></FreeSoloCreateOptionDialog>
+              {/* <InputLabel id="task-type">Task Type</InputLabel>
                 <Select
                   label='Task Type'
                   id='task-type'
@@ -177,70 +179,7 @@ export default function AddTaskForm({ open: openModal, handleClose: handleCloseM
                   <option value={7}>Theory</option>
                   <option value={8}>Rhythm Practice</option>
                   <option value={9}>Metronome Practice</option>
-                </Select>
-
-
-
-                <Autocomplete
-                  value={bookId}
-                  fullWidth
-                  className={classes.input}
-                  onChange={(event, newValue) => {
-                    if (typeof newValue === 'string') {
-                      // timeout to avoid instant validation of the dialog's form.
-                      setTimeout(() => {
-                        toggleOpen(true);
-                        setDialogValue({
-                          title: newValue,
-                          year: '',
-                        });
-                      });
-                    } else if (newValue && newValue.inputValue) {
-                      toggleOpen(true);
-                      setDialogValue({
-                        title: newValue.inputValue,
-                        year: '',
-                      });
-                    } else {
-                      setBookId(newValue);
-                    }
-                  }}
-                  filterOptions={(options, params) => {
-                    const filtered = filter(options, params);
-
-                    if (params.inputValue !== '') {
-                      filtered.push({
-                        inputValue: params.inputValue,
-                        title: `Add "${params.inputValue}"`,
-                      });
-                    }
-
-                    return filtered;
-                  }}
-                  id="free-solo-dialog-demo"
-                  options={books}
-                  getOptionLabel={(option) => {
-                    // e.g value selected with enter, right from the input
-                    if (typeof option === 'string') {
-                      return option;
-                    }
-                    if (option.inputValue) {
-                      return option.inputValue;
-                    }
-                    return option.title;
-                  }}
-                  selectOnFocus
-                  // fullWidth
-                  clearOnBlur
-                  handleHomeEndKeys
-                  renderOption={(option) => option.title}
-                  // style={{ width: 300 }}
-                  fullWidth
-                  freeSolo
-                  renderInput={(params) => (
-                    <TextField {...params} label="book"  />
-                  )}
-                />
+                </Select> */}
 
 
 
@@ -250,7 +189,14 @@ export default function AddTaskForm({ open: openModal, handleClose: handleCloseM
 
 
 
-                <InputLabel className={classes.input} id="book">Choose a Book</InputLabel>
+
+
+
+
+
+
+
+                {/* <InputLabel className={classes.input} id="book">Choose a Book</InputLabel>
                 <Select
                   label='book'
                   id='book'
@@ -277,9 +223,9 @@ export default function AddTaskForm({ open: openModal, handleClose: handleCloseM
                       <option key={each.id} value={each.id}>{each.title}</option>
                     )
                   })}
-                </Select>
+                </Select> */}
                 <CssBaseline />
-                <TextField className={classes.input} fullWidth id="time" inputProps={inputPropsTime} label="How long?" onChange={handleChange(setDuration)} />
+                {/* <TextField className={classes.input} fullWidth id="time" inputProps={inputPropsTime} label="How long?" onChange={handleChange(setDuration)} />
                 <FormLabel className={classes.input} component="legend">How many days a week?</FormLabel>
                 <RadioGroup row aria-label="frequency" name="frequency" value={frequency} onClick={handleChange(setFrequency)}>
                   <FormControlLabel value={'1'} control={<Radio />} label="1" />
@@ -289,10 +235,9 @@ export default function AddTaskForm({ open: openModal, handleClose: handleCloseM
                   <FormControlLabel value={'5'} control={<Radio />} label="5" />
                   <FormControlLabel value={'6'} control={<Radio />} label="6" />
                   <FormControlLabel value={'7'} control={<Radio />} label="7" />
-                </RadioGroup>
-                {/* </Grid>
-                <Grid item xs={6}> */}
-                <InputLabel className={classes.input} htmlFor="instructions">Instructions</InputLabel>
+                </RadioGroup> */}
+
+                {/* <InputLabel className={classes.input} htmlFor="instructions">Instructions</InputLabel>
                 <TextareaAutosize
                   id="instructions"
                   width="100hv"
@@ -301,7 +246,7 @@ export default function AddTaskForm({ open: openModal, handleClose: handleCloseM
                   className={classes.textArea}
                   aria-label="instructions"
                   onChange={handleChange(setInstructions)}
-                />
+                /> */}
               </CardContent>
               <CardActions>
                 <Button type="submit" color="primary">
@@ -313,41 +258,15 @@ export default function AddTaskForm({ open: openModal, handleClose: handleCloseM
         </Fade>
       </Modal>
 
-      <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-        <form onSubmit={handleSubmit}>
-          <DialogTitle id="form-dialog-title">Add a new film</DialogTitle>
-          <DialogContent>
-            <DialogContentText>
-              Did you miss any film in our list? Please, add it!
-        </DialogContentText>
-            <TextField
-              autoFocus
-              margin="dense"
-              id="name"
-              value={dialogValue.title}
-              onChange={(event) => setDialogValue({ ...dialogValue, title: event.target.value })}
-              label="title"
-              type="text"
-            />
-            <TextField
-              margin="dense"
-              id="name"
-              value={dialogValue.year}
-              onChange={(event) => setDialogValue({ ...dialogValue, year: event.target.value })}
-              label="year"
-              type="number"
-            />
-          </DialogContent>
-          <DialogActions>
-            <Button onClick={handleClose} color="primary">
-              Cancel
-        </Button>
-            <Button type="submit" color="primary">
-              Add
-        </Button>
-          </DialogActions>
-        </form>
-      </Dialog>
+      <AddBook
+        open={openBook}
+        handleClose={handleCloseBook}
+        dialogValue={dialogValue}
+        setDialogValue={setDialogValue}
+        setBookId={setBookId}
+      />
+
+
     </>
   )
 
