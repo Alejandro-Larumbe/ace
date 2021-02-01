@@ -50,5 +50,5 @@ def seed_lessons():
   db.session.commit()
 
 def undo_lessons():
-  db.session.execute('TRUNCATE lessons CASCADE;')
+  db.session.execute('TRUNCATE TABLE lessons RESTART IDENTITY CASCADE;')
   db.session.commit()

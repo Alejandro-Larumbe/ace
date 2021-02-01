@@ -1,14 +1,17 @@
 import React, { useState, useEffect } from 'react';
 import { useDispatch, useSelector } from 'react-redux';
 import Tasks from './Tasks';
-import { getLessonsTasks, getRepertoire } from './actions';
+import { getLessonsTasks } from './actions';
+import { getRepertoire } from '../repertoire/actions';
 import { setTitleView } from '../../store/actions/ui';
 
 export default function TasksContainer({ currentDate }) {
   const date = useSelector(state => state.tasks.date)
-  const tasks = useSelector(state => state.tasks)
+  const byId = useSelector(state => state.tasks.byId)
+  const booksById = useSelector(state => state.repertoire.booksById)
+  const piecesById = useSelector(state => state.repertoire.piecesById)
   const [loaded, setLoaded] = useState(false)
-  const instructorId = localStorage.getItem('user_id')
+  const [ instructorId ] = useState(localStorage.getItem('user_id'))
   const dispatch = useDispatch();
 
   useEffect(() => {
@@ -18,16 +21,17 @@ export default function TasksContainer({ currentDate }) {
       await dispatch(getLessonsTasks(instructorId, date.getFullYear(), date.getMonth(), date.getDate()))
       setLoaded(true)
     })()
-  }, [dispatch, date])
+  }, [dispatch, instructorId, date])
 
-  if (!loaded) return null
+  if (!loaded ) return null
 
   return (
     // <h1>hi</h1>
     <Tasks
     date={date}
-    tasks={tasks}
-
+    byId={byId}
+    booksById={booksById}
+    piecesById={piecesById}
     />
   )
 }

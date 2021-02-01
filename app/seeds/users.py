@@ -9,7 +9,6 @@ faker = Faker()
 def seed_users():
 
     demo_instructor = Instructor(
-            id= 1,
             first_name='Amelia',
             last_name='Taylor',
             profile_pic_url="https://ace-management.s3.us-east-2.amazonaws.com/HNashPhoto-9273+(1)+copy.jpg",
@@ -32,7 +31,7 @@ def seed_users():
 
 
 def undo_users():
-    db.session.execute('TRUNCATE adults CASCADE;')
-    db.session.execute('TRUNCATE instructors CASCADE;')
-    db.session.execute('TRUNCATE users CASCADE;')
+    db.session.execute('TRUNCATE TABLE adults RESTART IDENTITY CASCADE;')
+    db.session.execute('TRUNCATE TABLE instructors RESTART IDENTITY CASCADE;')
+    db.session.execute('TRUNCATE TABLE users RESTART IDENTITY CASCADE;')
     db.session.commit()

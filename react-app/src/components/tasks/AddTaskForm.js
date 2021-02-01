@@ -15,14 +15,18 @@ import RadioGroup from '@material-ui/core/RadioGroup';
 import FormControlLabel from '@material-ui/core/FormControlLabel';
 import FormLabel from '@material-ui/core/FormLabel';
 import Fade from '../../Fade';
+import FilledInput from '@material-ui/core/FilledInput';
+
 import { Select } from "@material-ui/core";
 import TextareaAutosize from '@material-ui/core/TextareaAutosize';
+import InputAdornment from '@material-ui/core/InputAdornment';
+
 import { addTask, getLessonsTasks } from './actions';
 import CloseIcon from '@material-ui/icons/Close';
 import Autocomplete, { createFilterOptions } from '@material-ui/lab/Autocomplete';
 import AddBook from '../repertoire/AddBook';
 import FreeSolo from './FreeSolo'
-import FreeSoloCreateOptionDialog from './FreeSoloCreateOptionDialog';
+import SelectBook from './FreeSoloCreateOptionDialog';
 
 const filter = createFilterOptions();
 
@@ -67,12 +71,12 @@ const useStyles = makeStyles((theme) => ({
 export default function AddTaskForm({ open: openModal, handleClose: handleCloseModal, id, booksById, piecesById, lessonId }) {
   const date = useSelector(state => state.tasks.date)
   const instructorId = localStorage.getItem('user_id')
-  const [duration, setDuration] = useState(0);
+  const [duration, setDuration] = useState(null);
   const [frequency, setFrequency] = React.useState(1);
   const [instructions, setInstructions] = useState();
-  const [typeId, setTypeId] = useState(2);
+  const [typeId, setTypeId] = useState(1);
   const [pieceId, setPieceId] = useState();
-  const [book, setBook] = useState('');
+  const [book, setBook] = useState(null);
   const [isCompleted] = useState(false)
   const classes = useStyles();
   const books = Object.values(booksById)
@@ -96,17 +100,23 @@ export default function AddTaskForm({ open: openModal, handleClose: handleCloseM
   const handleChange = (cb) => (event) => {
     cb(event.target.value);
   };
+  const handleRadioChange = (event) => {
+    if(event.target.value === frequency) {
+      setFrequency(null)
+    } else {
+      setFrequency(event.target.value);
+    }
+  };
 
   const onSubmitForm = (e) => {
     e.preventDefault()
-    console.log('dialogValue', dialogValue)
-    console.log('book', book)
-    // console.log(duration, frequency, instructions, typeId, lessonId, pieceId, book, isCompleted)
-    // const task = dispatch(addTask(duration, frequency, instructions, typeId, lessonId, pieceId, book, isCompleted))
-    // if (!task.errors) {
-    //   dispatch(getLessonsTasks(instructorId, date.getFullYear(), date.getMonth(), date.getDate()))
-    //   handleCloseModal()
-    // }
+    console.log(duration)
+    // console.log(duration, frequency, instructions, typeId, lessonId, pieceId, book.id, isCompleted)
+    const task = dispatch(addTask(+duration, +frequency, instructions, +typeId, +lessonId, +pieceId, book ? +book.id : null, isCompleted))
+    if (!task.errors) {
+      dispatch(getLessonsTasks(instructorId, date.getFullYear(), date.getMonth(), date.getDate()))
+      handleCloseModal()
+    }
   }
 
   const handleCloseBook = () => {
@@ -159,15 +169,12 @@ export default function AddTaskForm({ open: openModal, handleClose: handleCloseM
                 </>
               }
             />
+
             <form onSubmit={onSubmitForm}>
               <CardContent>
-                <FreeSoloCreateOptionDialog
-                options={books}
-                toggleOpen={toggleOpenBook}
-                setDialogValue={setDialogValue}
-                />
-              {/* <InputLabel id="task-type">Task Type</InputLabel>
+              <InputLabel id="task-type">Task Type</InputLabel>
                 <Select
+                  native
                   label='Task Type'
                   id='task-type'
                   value={typeId}
@@ -175,6 +182,7 @@ export default function AddTaskForm({ open: openModal, handleClose: handleCloseM
                   fullWidth
                   className={classes.input}
                 >
+                  {/* <option value="" /> */}
                   <option value={1}>Repertoire</option>
                   <option value={2}>Etudes</option>
                   <option value={3}>Technique</option>
@@ -184,55 +192,30 @@ export default function AddTaskForm({ open: openModal, handleClose: handleCloseM
                   <option value={7}>Theory</option>
                   <option value={8}>Rhythm Practice</option>
                   <option value={9}>Metronome Practice</option>
-                </Select> */}
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-
-                {/* <InputLabel className={classes.input} id="book">Choose a Book</InputLabel>
-                <Select
-                  label='book'
-                  id='book'
-                  value={book}
-                  onChange={handleChange(setBook)}
-                  fullWidth
-                >
-                  {books.map(each => {
-                    return (
-                      <option key={each.id} value={each.id}>{each.title}</option>
-                    )
-                  })}
                 </Select>
-                <InputLabel className={classes.input} id="piece">Piece</InputLabel>
-                <Select
-                  label='piece'
-                  id='piece'
-                  value={pieceId}
-                  onChange={handleChange(setPieceId)}
+
+                <SelectBook
+                options={books}
+                toggleOpen={toggleOpenBook}
+                setDialogValue={setDialogValue}
+                value={book}
+                setValue={setBook}
+                fullWidth={true}
+                label={'Select Book'}
+                />
+
+                <TextField
+                  className={classes.input}
                   fullWidth
-                >
-                  {pieces.map(each => {
-                    return (
-                      <option key={each.id} value={each.id}>{each.title}</option>
-                    )
-                  })}
-                </Select> */}
-                <CssBaseline />
-                {/* <TextField className={classes.input} fullWidth id="time" inputProps={inputPropsTime} label="How long?" onChange={handleChange(setDuration)} />
+                  id="time"
+                  type="number"
+                  inputProps={inputPropsTime}
+                  label="How many minutes?"
+                  onChange={handleChange(setDuration)}
+                  // endAdornment={<InputAdornment position="end">minutes</InputAdornment>}
+                />
                 <FormLabel className={classes.input} component="legend">How many days a week?</FormLabel>
-                <RadioGroup row aria-label="frequency" name="frequency" value={frequency} onClick={handleChange(setFrequency)}>
+                <RadioGroup row aria-label="frequency" name="frequency" value={frequency} onClick={handleRadioChange}>
                   <FormControlLabel value={'1'} control={<Radio />} label="1" />
                   <FormControlLabel value={'2'} control={<Radio />} label="2" />
                   <FormControlLabel value={'3'} control={<Radio />} label="3" />
@@ -240,9 +223,9 @@ export default function AddTaskForm({ open: openModal, handleClose: handleCloseM
                   <FormControlLabel value={'5'} control={<Radio />} label="5" />
                   <FormControlLabel value={'6'} control={<Radio />} label="6" />
                   <FormControlLabel value={'7'} control={<Radio />} label="7" />
-                </RadioGroup> */}
+                </RadioGroup>
 
-                {/* <InputLabel className={classes.input} htmlFor="instructions">Instructions</InputLabel>
+                <InputLabel className={classes.input} htmlFor="instructions">Instructions</InputLabel>
                 <TextareaAutosize
                   id="instructions"
                   width="100hv"
@@ -251,7 +234,7 @@ export default function AddTaskForm({ open: openModal, handleClose: handleCloseM
                   className={classes.textArea}
                   aria-label="instructions"
                   onChange={handleChange(setInstructions)}
-                /> */}
+                />
               </CardContent>
               <CardActions>
                 <Button type="submit" color="primary">

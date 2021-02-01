@@ -41,6 +41,7 @@ export const addBook = (instructorId, title, author) => async (dispatch) => {
     })
   })
   if (response.ok) {
+    dispatch(getRepertoire(instructorId))
     const data = await response.json();
     // console.log(data.id)
     return data

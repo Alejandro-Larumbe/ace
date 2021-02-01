@@ -3,13 +3,13 @@ from app.models import ResourceType, db
 
 def seed_resource_types():
   resource_type = [
-    ResourceType(type= "Sheet Music", id=1),
-    ResourceType(type= "Audio", id=2),
-    ResourceType(type= "Video", id=3),
+    ResourceType(type= "Sheet Music"),
+    ResourceType(type= "Audio"),
+    ResourceType(type= "Video"),
   ]
   db.session.add_all(resource_type)
   db.session.commit()
 
 def undo_resource_types():
-  db.session.execute('TRUNCATE resource_types CASCADE;')
+  db.session.execute('TRUNCATE TABLE resource_types RESTART IDENTITY CASCADE;')
   db.session.commit()

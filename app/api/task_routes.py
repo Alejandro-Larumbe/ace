@@ -52,7 +52,7 @@ def update_task(id):
   print('form data-----------', form.data)
   if form.validate_on_submit():
     task = LessonTask.query.get(id)
-      # duration = form.data['duration'] or None,
+    task.duration = form.data['duration'],
     task.frequency = form.data['frequency'],
     task.instructions = form.data['instructions'],
     task.type_id = form.data['type_id'],
@@ -68,6 +68,19 @@ def update_task(id):
     return jsonify(task.to_dict_camel())
   print(form.errors)
   return {'errors': validation_errors_to_error_messages(form.errors)}, 401
+
+
+@task_routes.route('/<int:id>', methods=['DELETE'])
+def delete_task(id):
+  try:
+    task = LessonTask.query.get(id)
+    db.session.delete(task)
+    db.session.commit()
+    return 'task deleted'
+  except:
+    # print(error)
+    return {'errors': 'error'}, 401
+
 
 
 @task_routes.route('instructor/<int:id>/date/<int:year>/<int:month>/<int:day>/')

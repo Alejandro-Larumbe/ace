@@ -12,11 +12,13 @@ import Autocomplete, { createFilterOptions } from '@material-ui/lab/Autocomplete
 const filter = createFilterOptions();
 
 export default function FreeSoloCreateOptionDialog(props) {
-  const [value, setValue] = React.useState('');
   const {
+    value,
+    setValue,
     options,
     toggleOpen,
-    setDialogValue
+    setDialogValue,
+    label
   } = props
 
   return (
@@ -74,7 +76,7 @@ export default function FreeSoloCreateOptionDialog(props) {
         style={{ width: 300 }}
         freeSolo
         renderInput={(params) => (
-          <TextField {...params} label="Free solo dialog" variant="outlined" />
+          <TextField {...params} label={label}  />
         )}
       />
     </React.Fragment>

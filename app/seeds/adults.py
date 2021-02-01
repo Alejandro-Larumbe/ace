@@ -41,14 +41,12 @@ def seed_adults():
     dob= faker.date_of_birth(minimum_age=4, maximum_age=15),
     is_student= True,
     is_parent= False,
-    id=2
   ))
 
 
   for i in range(19):
     adults.append(
         Adult(
-            id=i+3,
             first_name=faker.first_name(),
             last_name=faker.last_name(),
             profile_pic_url=avatars[i],

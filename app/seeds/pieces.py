@@ -515,5 +515,5 @@ def seed_pieces():
   db.session.commit()
 
 def undo_pieces():
-  db.session.execute('TRUNCATE pieces CASCADE;')
+  db.session.execute('TRUNCATE TABLE pieces RESTART IDENTITY CASCADE;')
   db.session.commit()

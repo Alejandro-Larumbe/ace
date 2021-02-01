@@ -42,8 +42,10 @@ const useStyles = makeStyles((theme) => ({
 
 
 
-export default function Tasks({ tasks, date }) {
-  const { byId, booksById, piecesById } = tasks
+export default function Tasks( props ) {
+
+  // const { byId } = props.tasks
+  const { booksById, piecesById, date, byId} = props
   const [open, setOpen] = useState(false);
   const [openEdit, setOpenEdit] = useState(false);
   const [lessonId, setLessonId] = useState('')
@@ -56,9 +58,9 @@ export default function Tasks({ tasks, date }) {
   const dispatch = useDispatch();
 
   useEffect(() => {
-  }, [tasks, dispatch])
+  }, [booksById, byId, dispatch])
 
-  if (!tasks) return null
+  // if (!byId) return null
 
   const dateHandler = (value) => {
     if (value === 'next') {
@@ -84,10 +86,10 @@ export default function Tasks({ tasks, date }) {
   const handleCloseEdit = () => {
     setOpenEdit(false);
   };
-  // console.log('--I---I-----', byId[16]['tasks'])
+
   return (
     <>
-      <EditTaskForm
+      {/* <EditTaskForm
         open={openEdit}
         handleClose={handleCloseEdit}
         lessonId={lessonId}
@@ -96,7 +98,7 @@ export default function Tasks({ tasks, date }) {
         // piecesById={piecesById}
         // tasks={byId[16]['tasks']}
         // i={i}
-      />
+      /> */}
       <AddTaskForm
         open={open}
         handleClose={handleClose}
@@ -107,7 +109,6 @@ export default function Tasks({ tasks, date }) {
       <div className={classes.root}>
 
         <div className={classes.title}>
-          <div>
             <Typography variant={'h3'} >
               <IconButton onClick={() => dateHandler('prev')}>
                 <ArrowBackIosIcon className={classes.icons} />
@@ -117,7 +118,6 @@ export default function Tasks({ tasks, date }) {
               </IconButton>
               {format((date), 'PP')}
             </Typography>
-          </div>
           <div>
             {format((date), 'PP') !== format((new Date()), 'PP') &&
               <Button onClick={() => dispatch(setTaskDate(new Date()))}>Today</Button>

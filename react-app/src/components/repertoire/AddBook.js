@@ -36,12 +36,12 @@ export default function AddBook(props) {
     // console.log(dialogValue.title, dialogValue.author)
 
     const newBook = await dispatch(addBook(instructorId, dialogValue.title, dialogValue.author))
-    console.log(newBook)
+    console.log('newBook', newBook)
 
-    // if (!newBook.errors) {
-    //   setBook(newBook.id)
-    //   handleClose();
-    // }
+    if (!newBook.errors) {
+      setBook(newBook)
+      handleClose();
+    }
   };
 
 
