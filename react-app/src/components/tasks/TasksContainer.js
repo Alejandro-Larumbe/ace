@@ -5,7 +5,7 @@ import { getLessonsTasks } from './actions';
 import { getRepertoire } from '../repertoire/actions';
 import { setTitleView } from '../../store/actions/ui';
 
-export default function TasksContainer({ currentDate }) {
+export default function TasksContainer() {
   const date = useSelector(state => state.tasks.date)
   const byId = useSelector(state => state.tasks.byId)
   const booksById = useSelector(state => state.repertoire.booksById)

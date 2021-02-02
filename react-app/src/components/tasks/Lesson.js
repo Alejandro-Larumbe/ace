@@ -1,4 +1,4 @@
-import React, { useEffect } from 'react';
+import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux';
 import { makeStyles } from '@material-ui/core/styles';
 import Card from '@material-ui/core/Card';
@@ -28,6 +28,7 @@ import EditIcon from '@material-ui/icons/Edit';
 import Typography from '@material-ui/core/Typography';
 import { format } from 'date-fns';
 import EditTaskForm from './EditTaskForm';
+import { deleteTask } from './actions';
 
 
 const useStyles = makeStyles((theme) => ({
@@ -46,6 +47,7 @@ export default function Lesson(props) {
   const { handleOpen, handleOpenEdit } = props
   const classes = useStyles();
   const dispatch = useDispatch();
+  const [instructorId] = useState(+localStorage.getItem('user_id'))
 
   const handleClick = (e) => {
     setLessonId(id)
@@ -69,6 +71,11 @@ export default function Lesson(props) {
   const onEdit = (id) => {
     setLessonId(id)
     handleOpenEdit()
+  }
+
+  const onDelete = (taskId ) => {
+    console.log(taskId, instructorId)
+    dispatch(deleteTask(taskId, instructorId, props.date))
   }
 
   return (
@@ -123,7 +130,7 @@ export default function Lesson(props) {
                 <>
                   {/* <ListItem onClick={handleClick} button /> */}
                   <Divider component="li" />
-                  <ListItem onClick={() => onEdit(each.id)} button>
+                  <ListItem onClick={() => onEdit(each.id)} >
                     <ListItemText
                       primary={
                         <>
@@ -182,7 +189,7 @@ export default function Lesson(props) {
                             {/* <IconButton edge="end" aria-label="delete">
                               <EditIcon />
                             </IconButton> */}
-                            <IconButton edge="end" aria-label="delete">
+                            <IconButton onClick={() => onDelete(each.id)} edge="end" aria-label="delete">
                               <DeleteIcon />
                             </IconButton>
                           </ListItemSecondaryAction>

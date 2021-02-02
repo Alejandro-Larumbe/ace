@@ -50,6 +50,7 @@ const useStyles = makeStyles((theme) => ({
 
 
 const PiecesAdd = ( props ) => {
+  const { open, handleClose, books } = props
 
   const instructorId = localStorage.getItem('user_id')
   const [title, setTitle] = useState();
@@ -73,9 +74,7 @@ const PiecesAdd = ( props ) => {
     dispatch(getRepertoire(instructorId))
   }, [dispatch]);
 
-  if (!props.piecesById) return null
-
-  const { open, handleClose, books } = props
+  // if (!props.piecesById) return null
 
   const onSubmit = async (e) => {
     e.preventDefault();
@@ -114,7 +113,7 @@ const PiecesAdd = ( props ) => {
       <Modal
         aria-labelledby="spring-modal-title"
         aria-describedby="spring-modal-description"
-        className={classes.modal}
+        // className={classes.modal}
         open={open}
         onClose={handleClose}
         closeAfterTransition

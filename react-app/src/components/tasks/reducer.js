@@ -1,6 +1,7 @@
 export const LOAD_LESSONS_TASKS = 'LOAD_LESSONS_TASKS'
 export const LOAD_REPERTOIRE = 'LOAD_REPERTOIRE'
 export const LOAD_TASK_DATE = 'LOAD_TASK_DATE'
+export const LOAD_TASK = 'LOAD_TASK'
 
 
 export default function reducer (state = {}, action) {
@@ -21,6 +22,11 @@ export default function reducer (state = {}, action) {
         ...state,
         'date': action.date
       }
+    case LOAD_TASK: {
+      return {
+        ...state,
+      }
+    }
     default: return state;
   }
 }

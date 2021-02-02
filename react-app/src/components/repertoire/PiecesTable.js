@@ -206,7 +206,7 @@ function PiecesTable({ piecesById, booksById, handleOpen }) {
   const [dense, setDense] = React.useState(false);
   const [rowsPerPage, setRowsPerPage] = React.useState(10);
   const dispatch = useDispatch();
-  const [open, setOpen] = useState(false);
+  // const [open, setOpen] = useState(false);
 
 
   useEffect(() => {

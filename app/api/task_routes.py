@@ -74,12 +74,23 @@ def update_task(id):
 def delete_task(id):
   try:
     task = LessonTask.query.get(id)
+    lesson = Lesson.query.get(task.lesson_id)
     db.session.delete(task)
     db.session.commit()
-    return 'task deleted'
+    return jsonify(lesson.start_time)
   except:
     # print(error)
     return {'errors': 'error'}, 401
+
+@task_routes.route('/lesson/<int:id>')
+def get_lesson_tasks(id):
+  try:
+    lesson = Lesson.query.get(id)
+    return jsonify({lesson.id: lesson.to_dict_camel_tasks()})
+  except:
+    return {'errors': 'error'}, 401
+
+
 
 
 

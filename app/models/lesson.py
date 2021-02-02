@@ -53,7 +53,7 @@ class Lesson(db.Model):
       "startTime": str(self.start_time),
       "endTime": str(self.end_time),
       "studentId": self.student_id,
-      # "instructorId": self.instructor_id,
+      "instructorId": self.instructor_id,
       "studentFirstName": self.student.first_name,
       "studentLastName": self.student.last_name,
       "profilePicUrl": self.student.profile_pic_url,

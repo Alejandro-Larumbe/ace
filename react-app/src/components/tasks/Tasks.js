@@ -127,7 +127,7 @@ export default function Tasks( props ) {
         {Object.values(byId).length > 0 ?
           Object.values(byId).map((each, i) => {
             // setI(i)
-            return <Lesson setCurrentId={setCurrentId} key={each.id} lesson={each} setLessonId={setLessonId} setCurrentId={setCurrentId} handleOpen={handleOpen } handleOpenEdit={handleOpenEdit } />
+            return <Lesson setCurrentId={setCurrentId} key={each.id} date={props.date} lesson={each} setLessonId={setLessonId} setCurrentId={setCurrentId} handleOpen={handleOpen } handleOpenEdit={handleOpenEdit } />
           })
           :
           <Typography variant={'h5'} gutterBottom={true}>

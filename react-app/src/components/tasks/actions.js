@@ -1,7 +1,7 @@
 import { DirectionsSubway } from '@material-ui/icons';
 import { parse } from 'date-fns';
 import { getRepertoire } from '../repertoire/actions'
-import { LOAD_LESSONS_TASKS, LOAD_REPERTOIRE, LOAD_TASK_DATE } from './reducer';
+import { LOAD_LESSONS_TASKS, LOAD_REPERTOIRE, LOAD_TASK_DATE, LOAD_TASK } from './reducer';
 
 export const getLessonsTasks = (id, year, month, day) => async (dispatch) => {
   const response = await fetch(`/api/tasks/instructor/${id}/date/${year}/${month}/${day}`)
@@ -78,4 +78,15 @@ export const updateTask = (duration, frequency, instructions, typeId, lessonId, 
 export const setTaskDate = (date) => async dispatch => {
   // const newDate = new Date(date)
   dispatch({ type: LOAD_TASK_DATE, date })
+}
+
+export const deleteTask = (taskId, instructorId, date) => async dispatch => {
+  const response = await fetch(`/api/tasks/${taskId}`, {
+    method: 'DELETE'
+  })
+  if (response.ok) {
+    const data = await response.json();
+    await dispatch(getLessonsTasks(instructorId, date.getFullYear(), date.getMonth(), date.getDate()))
+    // return data
+  }
 }

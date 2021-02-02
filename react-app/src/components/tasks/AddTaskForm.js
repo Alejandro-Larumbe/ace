@@ -27,6 +27,8 @@ import Autocomplete, { createFilterOptions } from '@material-ui/lab/Autocomplete
 import AddBook from '../repertoire/AddBook';
 import FreeSolo from './FreeSolo'
 import SelectBook from './FreeSoloCreateOptionDialog';
+import SelectPiece from './FreeSoloCreateOptionDialog';
+import { List, ListItem } from '@material-ui/core';
 
 const filter = createFilterOptions();
 
@@ -55,7 +57,7 @@ const useStyles = makeStyles((theme) => ({
     // position: 'relative'
   },
   input: {
-    marginottom: '15px'
+    marginBottom: '15px'
   },
   textArea: {
     width: '100%',
@@ -75,7 +77,7 @@ export default function AddTaskForm({ open: openModal, handleClose: handleCloseM
   const [frequency, setFrequency] = React.useState(1);
   const [instructions, setInstructions] = useState();
   const [typeId, setTypeId] = useState(1);
-  const [pieceId, setPieceId] = useState();
+  const [piece, setPiece] = useState();
   const [book, setBook] = useState(null);
   const [isCompleted] = useState(false)
   const classes = useStyles();
@@ -101,7 +103,7 @@ export default function AddTaskForm({ open: openModal, handleClose: handleCloseM
     cb(event.target.value);
   };
   const handleRadioChange = (event) => {
-    if(event.target.value === frequency) {
+    if (event.target.value === frequency) {
       setFrequency(null)
     } else {
       setFrequency(event.target.value);
@@ -111,8 +113,8 @@ export default function AddTaskForm({ open: openModal, handleClose: handleCloseM
   const onSubmitForm = (e) => {
     e.preventDefault()
     console.log(duration)
-    // console.log(duration, frequency, instructions, typeId, lessonId, pieceId, book.id, isCompleted)
-    const task = dispatch(addTask(+duration, +frequency, instructions, +typeId, +lessonId, +pieceId, book ? +book.id : null, isCompleted))
+    // console.log(duration, frequency, instructions, typeId, lessonId, piece, book.id, isCompleted)
+    const task = dispatch(addTask(+duration, +frequency, instructions, +typeId, +lessonId, piece ? +piece.id : null, book ? +book.id : null, isCompleted))
     if (!task.errors) {
       dispatch(getLessonsTasks(instructorId, date.getFullYear(), date.getMonth(), date.getDate()))
       handleCloseModal()
@@ -172,69 +174,89 @@ export default function AddTaskForm({ open: openModal, handleClose: handleCloseM
 
             <form onSubmit={onSubmitForm}>
               <CardContent>
-              <InputLabel id="task-type">Task Type</InputLabel>
-                <Select
-                  native
-                  label='Task Type'
-                  id='task-type'
-                  value={typeId}
-                  onChange={handleType}
-                  fullWidth
-                  className={classes.input}
-                >
-                  {/* <option value="" /> */}
-                  <option value={1}>Repertoire</option>
-                  <option value={2}>Etudes</option>
-                  <option value={3}>Technique</option>
-                  <option value={4}>Scales</option>
-                  <option value={5}>Tonalization</option>
-                  <option value={6}>Ear Training</option>
-                  <option value={7}>Theory</option>
-                  <option value={8}>Rhythm Practice</option>
-                  <option value={9}>Metronome Practice</option>
-                </Select>
-
-                <SelectBook
-                options={books}
-                toggleOpen={toggleOpenBook}
-                setDialogValue={setDialogValue}
-                value={book}
-                setValue={setBook}
-                fullWidth={true}
-                label={'Select Book'}
-                />
-
-                <TextField
-                  className={classes.input}
-                  fullWidth
-                  id="time"
-                  type="number"
-                  inputProps={inputPropsTime}
-                  label="How many minutes?"
-                  onChange={handleChange(setDuration)}
-                  // endAdornment={<InputAdornment position="end">minutes</InputAdornment>}
-                />
-                <FormLabel className={classes.input} component="legend">How many days a week?</FormLabel>
-                <RadioGroup row aria-label="frequency" name="frequency" value={frequency} onClick={handleRadioChange}>
-                  <FormControlLabel value={'1'} control={<Radio />} label="1" />
-                  <FormControlLabel value={'2'} control={<Radio />} label="2" />
-                  <FormControlLabel value={'3'} control={<Radio />} label="3" />
-                  <FormControlLabel value={'4'} control={<Radio />} label="4" />
-                  <FormControlLabel value={'5'} control={<Radio />} label="5" />
-                  <FormControlLabel value={'6'} control={<Radio />} label="6" />
-                  <FormControlLabel value={'7'} control={<Radio />} label="7" />
-                </RadioGroup>
-
-                <InputLabel className={classes.input} htmlFor="instructions">Instructions</InputLabel>
-                <TextareaAutosize
-                  id="instructions"
-                  width="100hv"
-                  rowsMin={10}
-                  rowsMax={20}
-                  className={classes.textArea}
-                  aria-label="instructions"
-                  onChange={handleChange(setInstructions)}
-                />
+                {/* <List style={{padding:'0'}}>
+                  <ListItem> */}
+                    <InputLabel id="task-type">Task Type</InputLabel>
+                    <Select
+                      native
+                      label='Task Type'
+                      id='task-type'
+                      value={typeId}
+                      onChange={handleType}
+                      fullWidth
+                      className={classes.input}
+                    >
+                      {/* <option value="" /> */}
+                      <option value={1}>Repertoire</option>
+                      <option value={2}>Etudes</option>
+                      <option value={3}>Technique</option>
+                      <option value={4}>Scales</option>
+                      <option value={5}>Tonalization</option>
+                      <option value={6}>Ear Training</option>
+                      <option value={7}>Theory</option>
+                      <option value={8}>Rhythm Practice</option>
+                      <option value={9}>Metronome Practice</option>
+                    </Select>
+                  {/* </ListItem>
+                  <ListItem> */}
+                    <SelectBook
+                      options={books}
+                      toggleOpen={toggleOpenBook}
+                      setDialogValue={setDialogValue}
+                      value={book}
+                      setValue={setBook}
+                      fullWidth={true}
+                      label={'Select Book'}
+                      className={classes.input}
+                    />
+                    <SelectPiece
+                      options={pieces}
+                      toggleOpen={toggleOpenBook}
+                      setDialogValue={setDialogValue}
+                      value={piece}
+                      setValue={setPiece}
+                      fullWidth={true}
+                      label={'Select Piece'}
+                      className={classes.input}
+                    />
+                  {/* </ListItem>
+                  <ListItem> */}
+                    <TextField
+                      className={classes.input}
+                      fullWidth
+                      id="time"
+                      type="number"
+                      inputProps={inputPropsTime}
+                      label="How many minutes?"
+                      onChange={handleChange(setDuration)}
+                    // endAdornment={<InputAdornment position="end">minutes</InputAdornment>}
+                    />
+                  {/* </ListItem>
+                  <ListItem> */}
+                    <FormLabel component="legend">How many days a week?</FormLabel>
+                    <RadioGroup className={classes.input} row aria-label="frequency" name="frequency" value={frequency} onClick={handleRadioChange}>
+                      <FormControlLabel value={'1'} control={<Radio />} label="1" />
+                      <FormControlLabel value={'2'} control={<Radio />} label="2" />
+                      <FormControlLabel value={'3'} control={<Radio />} label="3" />
+                      <FormControlLabel value={'4'} control={<Radio />} label="4" />
+                      <FormControlLabel value={'5'} control={<Radio />} label="5" />
+                      <FormControlLabel value={'6'} control={<Radio />} label="6" />
+                      <FormControlLabel value={'7'} control={<Radio />} label="7" />
+                    </RadioGroup>
+                  {/* </ListItem>
+                  <ListItem> */}
+                    <InputLabel className={classes.input} htmlFor="instructions">Instructions</InputLabel>
+                    <TextareaAutosize
+                      id="instructions"
+                      width="100hv"
+                      rowsMin={10}
+                      rowsMax={20}
+                      className={classes.textArea}
+                      aria-label="instructions"
+                      onChange={handleChange(setInstructions)}
+                    />
+                  {/* </ListItem>
+                </List> */}
               </CardContent>
               <CardActions>
                 <Button type="submit" color="primary">
