@@ -308,10 +308,30 @@ function SortingTable({ byId, booksById, handleOpen, type }) {
                       key={index}
                       selected={isItemSelected}
                     >
-                      <TableCell align="left">{row.title}</TableCell>
-                      <TableCell align="left">{row.composer}</TableCell>
-                      <TableCell align="left">{row.book}</TableCell>
-                      <TableCell align="left">{row.number}</TableCell>
+                      {
+                        type === 'pieces' && <TableCell align="left">{row.title}</TableCell>
+                      }
+                      {
+                        type === 'pieces' && <TableCell align="left">{row.composer}</TableCell>
+                      }
+                      {
+                        type === 'pieces' && <TableCell align="left">{row.book}</TableCell>
+                      }
+                      {
+                        type === 'pieces' && <TableCell align="left">{row.number}</TableCell>
+                      }
+                      {
+                        type === 'students' && <TableCell align="left">{row.firstName}</TableCell>
+                      }
+                      {
+                        type === 'students' && <TableCell align="left">{row.lastName}</TableCell>
+                      }
+                      {
+                        type === 'students' && <TableCell align="left">{row.email}</TableCell>
+                      }
+                      {
+                        type === 'students' && <TableCell align="left">{row.dob}</TableCell>
+                      }
                     </TableRow>
                   );
                 })}
@@ -334,13 +354,13 @@ function SortingTable({ byId, booksById, handleOpen, type }) {
         />
       </Paper>
       <Fab
-        onClick={type === 'pieces' ? () => handleOpen('forms') : null}
+        onClick={type === 'pieces' ? () => handleOpen('forms') : handleOpen}
         className={classes.fab}
         color="secondary"
         aria-label="edit">
-      <AddIcon />
-        </Fab>
-      </div >
+        <AddIcon />
+      </Fab>
+    </div >
     // </div>
   );
 }

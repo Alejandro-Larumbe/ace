@@ -5,8 +5,9 @@ import PiecesForm from './PiecesForm';
 import PiecesUpdate from './PiecesUpdate';
 import RepertoryFormContainer from './RepertoryForm';
 import PieceTable from '../modularComponents/SortingTable';
+import BooksTable from '../modularComponents/CollapsibleTable'
 
-function Repertoire( props ) {
+function Repertoire(props) {
   const [openForms, setOpenForms] = useState(false);
 
   const handleOpen = (value) => {
@@ -20,8 +21,9 @@ function Repertoire( props ) {
 
   return (
     <>
-      <PieceTable {...props} byId={props.piecesById} type={'pieces'} handleOpen={handleOpen}/>
-      <RepertoryFormContainer {...props} open={openForms} handleClose={handleClose}/>
+      <BooksTable type={'books'} data={Object.values(props.booksById)} />
+      <PieceTable {...props} byId={props.piecesById} type={'pieces'} handleOpen={handleOpen} />
+      <RepertoryFormContainer {...props} open={openForms} handleClose={handleClose} />
     </>
   )
 }

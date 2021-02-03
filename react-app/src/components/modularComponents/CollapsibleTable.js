@@ -130,7 +130,11 @@ const rows = [
   createData('Gingerbread', 356, 16.0, 49, 3.9, 1.5),
 ];
 
-function CollapsibleTable() {
+export default function CollapsibleTable(byId, type) {
+
+
+
+
   return (
     <TableContainer component={Paper}>
       <Table aria-label="collapsible table">
@@ -152,29 +156,4 @@ function CollapsibleTable() {
       </Table>
     </TableContainer>
   );
-}
-
-
-export default function RepertoireContainer() {
-  const id = localStorage.getItem('user_id')
-  const piecesById = useSelector(state => state.repertoire.piecesById)
-  const booksById = useSelector(state => state.repertoire.booksById)
-  const dispatch = useDispatch();
-
-  useEffect(() => {
-    dispatch(getRepertoire(id))
-  }, [dispatch]);
-
-
-
-
-
-
-
-
-
-
-  return (
-    <CollapsibleTable piecesById={piecesById} booksById={booksById} />
-  )
 }
