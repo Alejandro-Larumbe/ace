@@ -1,17 +1,15 @@
 import React, { useEffect, useState } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import { getRepertoire } from './actions';
-import PiecesTable from './PiecesTable';
 import PiecesForm from './PiecesForm';
 import PiecesUpdate from './PiecesUpdate';
 import RepertoryFormContainer from './RepertoryForm';
+import PieceTable from '../modularComponents/SortingTable';
 
 function Repertoire( props ) {
   const [openForms, setOpenForms] = useState(false);
-  const { piecesById, booksById } = props
 
   const handleOpen = (value) => {
-    // console.log(open)
     value === 'forms' && setOpenForms(true);
   };
 
@@ -22,8 +20,8 @@ function Repertoire( props ) {
 
   return (
     <>
-      <RepertoryFormContainer open={openForms} handleClose={handleClose}/>
-      <PiecesTable piecesById={piecesById} booksById={booksById} handleOpen={handleOpen} />
+      <PieceTable {...props} byId={props.piecesById} type={'pieces'} handleOpen={handleOpen}/>
+      <RepertoryFormContainer {...props} open={openForms} handleClose={handleClose}/>
     </>
   )
 }

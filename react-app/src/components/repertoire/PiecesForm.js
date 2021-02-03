@@ -14,10 +14,11 @@ import Fade from '../../Fade';
 import { addPiece } from './actions';
 import IconButton from '@material-ui/core/IconButton';
 import CloseIcon from '@material-ui/icons/Close';
-import AddBook from './AddBook';
+// import AddBook from './AddBook';
 import Autocomplete, { createFilterOptions } from '@material-ui/lab/Autocomplete';
 import { getRepertoire } from './actions';
-
+import SelectBook from '../modularComponents/AutoCompleteFreeSolo';
+import QuickAddPiece from '../modularComponents/AutoCompleteFreeSolo';
 
 const filter = createFilterOptions();
 
@@ -50,13 +51,14 @@ const useStyles = makeStyles((theme) => ({
 
 
 const PiecesForm = (props) => {
-  const { open, handleClose, books } = props
+  const { open, handleClose, books, pieces } = props
 
   const instructorId = localStorage.getItem('user_id')
   const [title, setTitle] = useState();
   const [composer, setComposer] = useState();
   const [number, setNumber] = useState();
-  const [bookId, setBookId] = useState('');
+  const [book, setBook] = useState('');
+  const [piece, setPiece] = useState('');
   const [errors, setErrors] = useState();
   const dispatch = useDispatch();
   // const types = ["instructors", "adults"]
@@ -64,11 +66,7 @@ const PiecesForm = (props) => {
   // const type = types[value]
   // let history = useHistory();
   const classes = useStyles();
-  const [openBookDialog, toggleOpenBookDialog] = useState(false);
-  const [dialogValue, setDialogValue] = useState({
-    title: '',
-    author: '',
-  });
+
 
   useEffect(() => {
     dispatch(getRepertoire(instructorId))
@@ -78,20 +76,15 @@ const PiecesForm = (props) => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
-    console.log(instructorId, title, composer, number, bookId)
-    let data = await dispatch(addPiece(instructorId, title, composer, number, bookId));
+    // console.log(instructorId, title, composer, number, bookId)
+    // let data = await dispatch(addPiece(instructorId, title, composer, number, bookId));
 
-    if (!data.errors) {
-      handleClose()
-    } else {
-    }
+    // if (!data.errors) {
+    //   handleClose()
+    // } else {
+    // }
   };
 
-  const handleCloseBookDialog = () => {
-    // dispatch(getRepertoire(instructorId))
-
-    toggleOpenBookDialog(false);
-  };
 
 
   const updateField = (cb) => (e) => {
@@ -109,7 +102,6 @@ const PiecesForm = (props) => {
                 ))}
               </div> */}
           <TextField
-            // variant="outlined"
             margin="normal"
             required
             fullWidth
@@ -120,11 +112,8 @@ const PiecesForm = (props) => {
             value={title}
             autoFocus
             onChange={updateField(setTitle)}
-          // variant="outlined"
-
           />
           <TextField
-            // variant="outlined"
             margin="normal"
             fullWidth
             name="composer"
@@ -135,73 +124,17 @@ const PiecesForm = (props) => {
             value={composer}
             onChange={updateField(setComposer)}
           />
-
-
-          <Autocomplete
-            value={dialogValue}
-            fullWidth
-            className={classes.input}
-            onChange={(event, newValue) => {
-              if (typeof newValue === 'string') {
-                // timeout to avoid instant validation of the dialog's form.
-                setTimeout(() => {
-                  toggleOpenBookDialog(true);
-                  setDialogValue({
-                    title: newValue,
-                    author: '',
-                  });
-                });
-              } else if (newValue && newValue.inputValue) {
-                toggleOpenBookDialog(true);
-                setDialogValue({
-                  title: newValue.inputValue,
-                  author: '',
-                });
-              }
-              // else {
-              //   setBookId(newValue);
-              // }
-            }}
-            filterOptions={(options, params) => {
-              const filtered = filter(options, params);
-
-              if (params.inputValue !== '') {
-                filtered.push({
-                  inputValue: params.inputValue,
-                  title: `Add "${params.inputValue}"`,
-                });
-              }
-
-              return filtered;
-            }}
-            id="free-solo-dialog-demo"
+          <SelectBook
             options={books}
-            getOptionLabel={(option) => {
-              // e.g value selected with enter, right from the input
-              if (typeof option === 'string') {
-                return option;
-              }
-              if (option.inputValue) {
-                return option.inputValue;
-              }
-              return option.title;
-            }}
-            selectOnFocus
-            // fullWidth
-            clearOnBlur
-            handleHomeEndKeys
-            renderOption={(option) => option.title}
-            // style={{ width: 300 }}
-            fullWidth
-            freeSolo
-            renderInput={(params) => (
-              <TextField {...params} label="book" />
-            )}
+            value={book}
+            setValue={setBook}
+            label={'Select Book'}
+            type={'book'}
           />
           <TextField
             // variant="outlined"
             margin="normal"
-            fullWidth
+            // fullWidth
             name="number"
             label="Number"
             type="number"
@@ -217,7 +150,7 @@ const PiecesForm = (props) => {
             className={classes.submit}
           >
             Save
-                </Button>
+          </Button>
         </CardActions>
       </form>
     </>

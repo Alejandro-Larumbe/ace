@@ -20,7 +20,7 @@ import Tooltip from '@material-ui/core/Tooltip';
 import DeleteIcon from '@material-ui/icons/Delete';
 import FilterListIcon from '@material-ui/icons/FilterList';
 import AddIcon from '@material-ui/icons/Add';
-import PiecesUpdate from './PiecesUpdate';
+import { format } from 'date-fns';
 
 
 function descendingComparator(a, b, orderBy) {
@@ -49,15 +49,25 @@ function stableSort(array, comparator) {
   return stabilizedThis.map((el) => el[0]);
 }
 
-const headCells = [
+const headCellsPieces = [
   { id: 'title', numeric: false, disablePadding: false, label: 'Title' },
   { id: 'composer', numeric: false, disablePadding: false, label: 'Composer' },
   { id: 'book', numeric: false, disablePadding: false, label: 'Book' },
   { id: 'number', numeric: true, disablePadding: false, label: 'Number' },
 ];
 
+const headCellsStudents = [
+  { id: 'firstName', numeric: false, disablePadding: false, label: 'First Name' },
+  { id: 'lastName', numeric: false, disablePadding: false, label: 'Last Name' },
+  { id: 'email', numeric: false, disablePadding: false, label: 'Email' },
+  { id: 'dob', numeric: true, disablePadding: false, label: 'DOB' },
+];
+
+
+
+
 function EnhancedTableHead(props) {
-  const { classes, onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = props;
+  const { classes, headCells, onSelectAllClick, order, orderBy, numSelected, rowCount, onRequestSort } = props;
   const createSortHandler = (property) => (event) => {
     onRequestSort(event, property);
   };
@@ -68,7 +78,7 @@ function EnhancedTableHead(props) {
         {headCells.map((headCell) => (
           <TableCell
             key={headCell.id}
-            align={ 'right'}
+            align={'left'}
             // padding={headCell.disablePadding ? 'none''default'}
             sortDirection={orderBy === headCell.id ? order : false}
           >
@@ -121,46 +131,6 @@ const useToolbarStyles = makeStyles((theme) => ({
   },
 }));
 
-const EnhancedTableToolbar = (props) => {
-  const classes = useToolbarStyles();
-  const { numSelected } = props;
-
-  return (
-    <Toolbar
-      className={clsx(classes.root, {
-        [classes.highlight]: numSelected > 0,
-      })}
-    >
-      {numSelected > 0 ? (
-        <Typography className={classes.title} color="inherit" variant="subtitle1" component="div">
-          {numSelected} selected
-        </Typography>
-      ) : (
-          <Typography className={classes.title} variant="h6" id="tableTitle" component="div">
-            Repertoire
-          </Typography>
-        )}
-
-      {numSelected > 0 ? (
-        <Tooltip title="Delete">
-          <IconButton aria-label="delete">
-            <DeleteIcon />
-          </IconButton>
-        </Tooltip>
-      ) : (
-          <Tooltip title="Filter list">
-            <IconButton aria-label="filter list">
-              <FilterListIcon />
-            </IconButton>
-          </Tooltip>
-        )}
-    </Toolbar>
-  );
-};
-
-EnhancedTableToolbar.propTypes = {
-  numSelected: PropTypes.number.isRequired,
-};
 
 const useStyles = makeStyles((theme) => ({
   root: {
@@ -197,7 +167,7 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function PiecesTable({ piecesById, booksById, handleOpen }) {
+function SortingTable({ byId, booksById, handleOpen, type }) {
   const classes = useStyles();
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('calories');
@@ -210,9 +180,9 @@ function PiecesTable({ piecesById, booksById, handleOpen }) {
 
 
   useEffect(() => {
-  }, [piecesById, booksById]);
+  }, [byId]);
 
-  if (!piecesById ) return null
+  if (!byId) return null
 
   // const handleOpen = () => {
   //   setOpen(true);
@@ -222,24 +192,40 @@ function PiecesTable({ piecesById, booksById, handleOpen }) {
   //   setOpen(false);
   // };
 
-  let pieces = Object.values(piecesById)
   // console.log('pieces-------', pieces)
 
-  function createData(id, title, composer, book, number) {
-    return { id, title, composer, book, number };
+  function createData(arg1, arg2, arg3, arg4, arg5) {
+    if (type === 'pieces') {
+      return { id: arg1, title: arg2, composer: arg3, book: arg4, number: arg5 };
+    } else if (type === 'students') {
+      return { id: arg1, firstName: arg2, lastName: arg3, book: arg4, dob: arg5 };
+    }
+
   }
 
   const rows = [];
 
-  pieces.forEach(each => {
-    let title = ''
-    if(booksById[each.bookId]) {
-      if(booksById[each.bookId]['title']) {
-        title = booksById[each.bookId]['title']
+  if (type === 'pieces') {
+    let pieces = Object.values(byId)
+    pieces.forEach(each => {
+      let title = ''
+      if (booksById[each.bookId]) {
+        if (booksById[each.bookId]['title']) {
+          title = booksById[each.bookId]['title']
+        }
       }
-    }
-    rows.push(createData(each.id, each.title || '', each.composer || '', title , each.number || ''))
-  })
+      rows.push(createData(each.id, each.title || '', each.composer || '', title, each.number || ''))
+    })
+  }
+
+  if (type === 'students') {
+    let students = Object.values(byId)
+
+    students.forEach(each => {
+      const dob = format(new Date(each.dob), 'PP')
+      rows.push(createData(each.id, each.firstName, each.lastName, each.email, dob))
+    })
+  }
 
 
   const handleRequestSort = (event, property) => {
@@ -280,74 +266,83 @@ function PiecesTable({ piecesById, booksById, handleOpen }) {
 
   return (
     // <div className={classes.toolbar} >
-      <div className={classes.root}>
-        {/* <PiecesUpdate open={open} handleClose={handleClose} piece={piece}/> */}
-        <Paper className={classes.paper}>
-          <EnhancedTableToolbar numSelected={selected.length} />
-          <TableContainer>
-            <Table
-              className={classes.table}
-              aria-labelledby="tableTitle"
-              size={dense ? 'small' : 'medium'}
-              aria-label="enhanced table"
-            >
-              <EnhancedTableHead
-                classes={classes}
-                numSelected={selected.length}
-                order={order}
-                orderBy={orderBy}
-                onSelectAllClick={handleSelectAllClick}
-                onRequestSort={handleRequestSort}
-                rowCount={rows.length}
-              />
-              <TableBody>
-                {stableSort(rows, getComparator(order, orderBy))
-                  .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
-                  .map((row, index) => {
-                    const isItemSelected = isSelected(row.name);
-                    const labelId = `enhanced-table-checkbox-${index}`;
+    <div className={classes.root}>
+      <Paper className={classes.paper}>
+        {/* <EnhancedTableToolbar numSelected={selected.length} /> */}
+        <TableContainer>
+          <Table
+            className={classes.table}
+            aria-labelledby="tableTitle"
+            size={dense ? 'small' : 'medium'}
+            aria-label="enhanced table"
+          >
+            <EnhancedTableHead
+              // select headCells according to type of table
+              headCells={
+                type === 'pieces' ? headCellsPieces :
+                  type === 'students' ? headCellsStudents :
+                    null
+              }
+              classes={classes}
+              numSelected={selected.length}
+              order={order}
+              orderBy={orderBy}
+              onSelectAllClick={handleSelectAllClick}
+              onRequestSort={handleRequestSort}
+              rowCount={rows.length}
+            />
+            <TableBody>
+              {stableSort(rows, getComparator(order, orderBy))
+                .slice(page * rowsPerPage, page * rowsPerPage + rowsPerPage)
+                .map((row, index) => {
+                  const isItemSelected = isSelected(row.name);
+                  const labelId = `enhanced-table-checkbox-${index}`;
 
-                    return (
-                      <TableRow
-                        hover
-                        onClick={(event) => handleClick(event, row.id)}
-                        role="checkbox"
-                        aria-checked={isItemSelected}
-                        tabIndex={-1}
-                        key={index}
-                        selected={isItemSelected}
-                      >
-                        <TableCell align="right">{row.title}</TableCell>
-                        <TableCell align="right">{row.composer}</TableCell>
-                        <TableCell align="right">{row.book}</TableCell>
-                        <TableCell align="right">{row.number}</TableCell>
-                      </TableRow>
-                    );
-                  })}
-                {emptyRows > 0 && (
-                  <TableRow style={{ height: (dense ? 33 : 53) * emptyRows }}>
-                    <TableCell colSpan={5} />
-                  </TableRow>
-                )}
-              </TableBody>
-            </Table>
-          </TableContainer>
-          <TablePagination
-            rowsPerPageOptions={[5, 10, 20]}
-            component="div"
-            count={rows.length}
-            rowsPerPage={rowsPerPage}
-            page={page}
-            onChangePage={handleChangePage}
-            onChangeRowsPerPage={handleChangeRowsPerPage}
-          />
-        </Paper>
-        <Fab onClick={() => handleOpen('forms')} className={classes.fab} color="secondary" aria-label="edit">
-            <AddIcon  />
+                  return (
+                    <TableRow
+                      hover
+                      onClick={(event) => handleClick(event, row.id)}
+                      role="checkbox"
+                      aria-checked={isItemSelected}
+                      tabIndex={-1}
+                      key={index}
+                      selected={isItemSelected}
+                    >
+                      <TableCell align="left">{row.title}</TableCell>
+                      <TableCell align="left">{row.composer}</TableCell>
+                      <TableCell align="left">{row.book}</TableCell>
+                      <TableCell align="left">{row.number}</TableCell>
+                    </TableRow>
+                  );
+                })}
+              {emptyRows > 0 && (
+                <TableRow style={{ height: (dense ? 33 : 53) * emptyRows }}>
+                  <TableCell colSpan={5} />
+                </TableRow>
+              )}
+            </TableBody>
+          </Table>
+        </TableContainer>
+        <TablePagination
+          rowsPerPageOptions={[5, 10, 20]}
+          component="div"
+          count={rows.length}
+          rowsPerPage={rowsPerPage}
+          page={page}
+          onChangePage={handleChangePage}
+          onChangeRowsPerPage={handleChangeRowsPerPage}
+        />
+      </Paper>
+      <Fab
+        onClick={type === 'pieces' ? () => handleOpen('forms') : null}
+        className={classes.fab}
+        color="secondary"
+        aria-label="edit">
+      <AddIcon />
         </Fab>
-      </div>
+      </div >
     // </div>
   );
 }
 
-export default PiecesTable;
+export default SortingTable;

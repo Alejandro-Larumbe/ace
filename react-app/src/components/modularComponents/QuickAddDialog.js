@@ -1,10 +1,10 @@
 import React, { useState } from "react";
 import { useDispatch, } from 'react-redux';
 import { Dialog, DialogTitle, DialogContent, DialogActions, TextField, Button } from '@material-ui/core';
-import { addBook } from './actions';
+import { addBook } from '../repertoire/actions';
 
 
-export default function AddBook(props) {
+export default function QuickAdd(props) {
   const [ instructorId ] = useState(localStorage.getItem('user_id'))
   const dispatch = useDispatch();
 
@@ -13,7 +13,8 @@ export default function AddBook(props) {
     handleClose,
     dialogValue,
     setDialogValue,
-    setBook
+    setValue,
+    type
   } = props
 
   const onCancel = () => {
@@ -39,7 +40,7 @@ export default function AddBook(props) {
     console.log('newBook', newBook)
 
     if (!newBook.errors) {
-      setBook(newBook)
+      setValue(newBook)
       handleClose();
     }
   };
@@ -50,7 +51,9 @@ export default function AddBook(props) {
   return (
     <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
     <form onSubmit={handleSubmit}>
-      <DialogTitle id="form-dialog-title">Quick Add Book</DialogTitle>
+      <DialogTitle id="form-dialog-title">
+        {`Quick Add ${type === 'book' ? 'Book' : type === 'piece' ? 'Piece' : null}`}
+      </DialogTitle>
       <DialogContent>
         {/* <DialogContentText>
           Did you miss any film in our list? Please, add it!

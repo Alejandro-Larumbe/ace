@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 
-import Card from '../modules/CardWithHeader';
-import Modal from '../modules/Modal';
+import Card from '../modularComponents/CardWithHeader';
+import Modal from '../modularComponents/Modal';
 import { makeStyles } from '@material-ui/core/styles';
 
-import Tab from '../modules/Tab'
+import Tab from '../modularComponents/Tab'
 import PiecesForm from "./PiecesForm";
 
 
@@ -18,6 +18,7 @@ export default function RepertoryForm(props) {
   const classes = useStyles();
   const dispatch = useDispatch()
   const [progress, setProgress] = useState(0);
+
 
 
   const handleChange = (event, newValue) => {
@@ -58,7 +59,7 @@ export default function RepertoryForm(props) {
             options={TabOptions}
           />
           {
-            repertoryType === 1 && <PiecesForm/>
+            repertoryType === 1 && <PiecesForm pieces={Object.values(props.piecesById)} books={Object.values(props.booksById)} {...props}/>
           }
 
         </Card>

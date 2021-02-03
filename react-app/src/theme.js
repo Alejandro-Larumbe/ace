@@ -16,18 +16,16 @@ export const theme = createMuiTheme({
     }
 
   },
-  Fab: {
-    main: amber[500]
-  },
-  typography: {
-    default: lime[500],
-  },
+  // typography: {
+  //   default: lime[500],
+  // },
   // button: {
   //   // primary:"#ff00a9"
   // },
 
   typography: {
 
+    default: lime[500],
 
     fontFamily: [
       'Lato',
@@ -37,14 +35,4 @@ export const theme = createMuiTheme({
       'sans-serif'
     ].join(','),
   },
-  textField: {
-    width: '90%',
-    marginLeft: 'auto',
-    marginRight: 'auto',
-    color: 'white',
-    paddingBottom: 0,
-    marginTop: 0,
-    fontWeight: 500
-},
-
 });
