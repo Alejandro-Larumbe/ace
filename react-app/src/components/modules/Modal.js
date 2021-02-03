@@ -23,7 +23,7 @@ const ModalFade = React.forwardRef(function Fade(props, ref) {
     to: { opacity: open ? 1 : 0 },
     onStart: () => {
       if (open && onEnter) {
-        // onEnter();
+        onEnter();
       }
     },
     onRest: () => {
@@ -42,7 +42,7 @@ const ModalFade = React.forwardRef(function Fade(props, ref) {
         onClose={props.handleClose}
         closeAfterTransition
         className={classes.modal}
-
+        disableBackdropClick={true}
         BackdropComponent={Backdrop}
         BackdropProps={{
           timeout: 500,

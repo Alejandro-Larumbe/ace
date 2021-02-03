@@ -342,7 +342,7 @@ function PiecesTable({ piecesById, booksById, handleOpen }) {
             onChangeRowsPerPage={handleChangeRowsPerPage}
           />
         </Paper>
-        <Fab onClick={handleOpen} className={classes.fab} color="secondary" aria-label="edit">
+        <Fab onClick={() => handleOpen('forms')} className={classes.fab} color="secondary" aria-label="edit">
             <AddIcon  />
         </Fab>
       </div>
