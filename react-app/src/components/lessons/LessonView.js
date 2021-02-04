@@ -71,3 +71,5 @@ export default function LessonView(props) {
     </>
   )
 }
+
+// TableRow onClick = event, row.id

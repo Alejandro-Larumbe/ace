@@ -21,7 +21,7 @@ function Repertoire(props) {
 
   return (
     <>
-      <BooksTable type={'books'} data={Object.values(props.booksById)} />
+      {/* <BooksTable type={'books'} data={Object.values(props.booksById)} /> */}
       <PieceTable {...props} byId={props.piecesById} type={'pieces'} handleOpen={handleOpen} />
       <RepertoryFormContainer {...props} open={openForms} handleClose={handleClose} />
     </>
