@@ -16,7 +16,7 @@ const StudentsContainer = () => {
   return (
     <StudentsRouter
       view={view}
-      currentStudentId={currentStudentId}
+      // currentStudentId={currentStudentId}
       studentsById={studentsById}
       getStudents={() => dispatch(getStudents(id))}
 
