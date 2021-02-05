@@ -1,7 +1,7 @@
 import React, { useEffect, useState } from 'react';
 import { Route } from 'react-router-dom';
 import { useSelector, useDispatch } from 'react-redux';
-import StudentsTable from './StudentsTable';
+import StudentsTable from './Students';
 import { getStudents } from './actions';
 import UserCard from '../user/UserCard';
 import UserEdit from '../user/UserEdit2';

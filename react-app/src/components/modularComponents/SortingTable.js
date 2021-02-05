@@ -167,7 +167,16 @@ const useStyles = makeStyles((theme) => ({
   }
 }));
 
-function SortingTable({ byId, booksById, handleOpen, type }) {
+function SortingTable(props) {
+  const {
+    byId,
+    booksById,
+    //  handleOpen,
+    type,
+    setCurrentId,
+    setOpen,
+    setMode
+  } = props
   const classes = useStyles();
   const [order, setOrder] = React.useState('asc');
   const [orderBy, setOrderBy] = React.useState('calories');
@@ -243,12 +252,19 @@ function SortingTable({ byId, booksById, handleOpen, type }) {
     setSelected([]);
   };
 
-  const handleClick = (event, id) => {
-    // dispatch(setCurrentStudentId(id))
-    // dispatch(setView('student'))
-    // history.push(`pieces/${id}`)
-  };
+  // const handleClick = (id) => (event) => {
+  //   console.log(id)
+  //   setCurrentId(id)
+  //   handleOpen('view')
+  // };
 
+
+  const handleOpen = (value, id) => async (event) => {
+    console.log('value', value)
+    if (id) setCurrentId(id)
+    setMode(value)
+    setOpen(true);
+  };
 
 
   const handleChangePage = (event, newPage) => {
@@ -301,7 +317,7 @@ function SortingTable({ byId, booksById, handleOpen, type }) {
                   return (
                     <TableRow
                       hover
-                      onClick={(event) => handleClick(event, row.id)}
+                      onClick={handleOpen('view', row.id)}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
@@ -354,7 +370,7 @@ function SortingTable({ byId, booksById, handleOpen, type }) {
         />
       </Paper>
       <Fab
-        onClick={type === 'pieces' ? () => handleOpen('forms') : handleOpen}
+        onClick={handleOpen(type === 'pieces' ? 'forms' : 'create')}
         className={classes.fab}
         color="secondary"
         aria-label="edit">

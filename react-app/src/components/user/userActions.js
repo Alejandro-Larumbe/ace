@@ -1,6 +1,6 @@
 import { getMonthData } from '../schedule/actions'
-
 import { LOAD_CURRENT_STUDENT } from './userReducer';
+import { getStudents } from '../students/actions';
 
 export const loadStudent = (id) => async (dispatch) => {
   const response = await fetch(`/api/users/${id}`)
@@ -22,12 +22,14 @@ export const deleteUser = (id) => async (dispatch) => {
 
   if (response.ok) {
     const data = await response.json();
+    // await dispatch(getStudents(instructorId))
+
     // dispatch(getMonthData(data.instructor_id, new Date().getFullYear(), new Date().getMonth() ))
     return data;
   }
 }
 
-export const editUser = (id, email, firstName, lastName, address, phoneNumber, type, studioName, dob) => async (dispatch) => {
+export const editUser = (email, firstName, lastName, type, id, instructorId, address, phoneNumber, studioName, dob) => async (dispatch) => {
   const response = await fetch(`/api/users/${id}`, {
     method: 'PUT',
     headers: {
@@ -47,6 +49,7 @@ export const editUser = (id, email, firstName, lastName, address, phoneNumber, t
   // console.log(response)
   if (response.ok) {
     const data = await response.json();
+    await dispatch(getStudents(instructorId))
     console.log('data----------', data)
     return data;
   }
@@ -68,12 +71,13 @@ export const createUser = (email, firstName, lastName, type, instructorId) => as
       })
     })
     // console.log('response,--------', await response.json())
-    console.log('responseOk', response.ok)
-    // if (response.ok) {
+    // console.log('responseOk', response.ok)
+    if (response.ok) {
+      await dispatch(getStudents(instructorId))
       const data = await response.json();
-      console.log('data----------', data)
+      // console.log('data----------', data)
       return data;
-    // }
+    }
   } catch (e) {
     console.log(e);
   }

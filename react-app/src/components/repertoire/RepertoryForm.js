@@ -44,7 +44,6 @@ export default function RepertoryForm(props) {
   return (
     <>
       <Modal
-        className={classes.modal}
         open={props.open}
         onClose={() => props.handleClose('forms')}
         in={props.open}

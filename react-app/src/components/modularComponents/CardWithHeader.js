@@ -6,9 +6,13 @@ import { Card, CardHeader } from '@material-ui/core';
 
 export default function CardWithHeader(props) {
   const {
-    handleClose,
+    setOpen,
     title
   } = props
+
+  const handleClose = () => {
+    setOpen(false);
+  };
 
   return (
     <Card style={{margin:'auto', width: props.width || 500}} variant="outlined" >
