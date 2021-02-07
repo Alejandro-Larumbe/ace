@@ -1,6 +1,4 @@
 export const LOAD_STUDENTS = 'LOAD_STUDENTS';
-export const LOAD_STUDENTS_VIEW = 'LOAD_STUDENTS_VIEW';
-export const LOAD_STUDENTS_ID = 'LOAD_STUDENTS_ID';
 
 
 const students = (state = {}, action) => {
@@ -14,18 +12,6 @@ const students = (state = {}, action) => {
         newState.allIds = [...newState.allIds, each.id]
       })
       return newState
-
-    case LOAD_STUDENTS_ID:
-      return {
-        ...state,
-        currentStudentId: action.id
-      }
-
-    case LOAD_STUDENTS_VIEW:
-      return {
-        ...state,
-        view: action.view
-      }
 
     default: return state;
   }

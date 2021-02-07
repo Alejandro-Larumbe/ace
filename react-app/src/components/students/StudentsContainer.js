@@ -2,7 +2,7 @@ import React, { useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import Students from './Students';
 import { getStudents } from './actions';
-import{setTitleView} from '../../store/actions/ui';
+import{ setTitleView }  from '../../store/actions/ui';
 
 
 const StudentsContainer = () => {

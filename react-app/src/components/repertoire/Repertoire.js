@@ -8,13 +8,23 @@ import PieceTable from '../modularComponents/SortingTable';
 import BooksTable from '../modularComponents/CollapsibleTable'
 import Modal from '../modularComponents/Modal';
 import ViewRepCard from '../modularComponents/CardWithActions'
-
+import ViewRepertoire from './ViewRepertoire';
+import SuccessSnackbar from '../modularComponents/SuccessSnackbar';
 
 function Repertoire(props) {
+  const {
+    piecesById,
+    booksById,
+  } = props
   const [openModal, setOpenModal] = useState(false);
   const [pieceId, setPieceId] = useState('')
-  const [mode, setMode] = useState('')
-  const [ repType, setRepType ] = useState('')
+  const [bookId, setBookId] = useState('')
+  const [mode, setMode] = useState()
+  const [openSnackbar, setOpenSnackbar] = useState(false)
+  const [successMessage, setSuccessMessage] = useState(false)
+  const [repType, setRepType] = useState('piece')
+
+  // const [ repType, setRepType ] = useState('')
   // const handleOpen = (value) => {
   //   value === 'forms' && setOpenForms(true);
   // };
@@ -22,41 +32,62 @@ function Repertoire(props) {
   // const handleClose = (value) => {
   //   value === 'forms' && setOpenForms(false);
   // };
-
+  console.log(mode, repType)
 
   return (
     <>
       <PieceTable
         {...props}
-        byId={props.piecesById}
+        byId={piecesById}
         type={'pieces'}
         setCurrentId={setPieceId}
         setMode={setMode}
         open={openModal}
         setOpen={setOpenModal}
+        setRepType={setRepType}
       />
       <Modal
         open={openModal}
         setOpen={setOpenModal}
+
       >
         {
-          (mode === "edit" || mode==="create") &&
-          <RepertoryFormContainer {...props} open={openModal} />
+          (mode === "edit" || mode === "create") &&
+          <RepertoryFormContainer
+            {...props}
+            open={openModal}
+            setOpen={setOpenModal}
+            book={booksById[bookId]}
+            piece={piecesById[pieceId]}
+            mode={mode}
+            setSuccessMessage={setSuccessMessage}
+            setOpenSnackbar={setOpenSnackbar}
+            successMessage={successMessage}
+            repType={repType}
+          />
         }
         {
-          (mode === 'view') &&
-          <ViewRepCard
-            setOpen={setOpenModal}
+          mode === 'view' &&
+          <ViewRepertoire
+            mode={mode}
             setMode={setMode}
-            title={'View Rep'}
-          >
-            {/* <Repertory/> */}
-          </ViewRepCard>
+            setOpen={setOpenModal}
+            book={booksById[bookId]}
+            piece={piecesById[pieceId]}
+            repType={repType}
+            // setRepType={setRepType}
+          />
 
         }
         {/* <BooksTable type={'books'} data={Object.values(props.booksById)} /> */}
-
       </Modal>
+
+      <SuccessSnackbar
+        open={openSnackbar}
+        setOpen={setOpenSnackbar}
+        message={successMessage}
+        setMessage={setSuccessMessage}
+      />
     </>
   )
 }

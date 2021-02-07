@@ -21,11 +21,8 @@ export const deleteUser = (id) => async (dispatch) => {
   })
 
   if (response.ok) {
-    const data = await response.json();
-    // await dispatch(getStudents(instructorId))
-
-    // dispatch(getMonthData(data.instructor_id, new Date().getFullYear(), new Date().getMonth() ))
-    return data;
+    const instructorId = await response.json();
+    return instructorId;
   }
 }
 
@@ -73,7 +70,6 @@ export const createUser = (email, firstName, lastName, type, instructorId) => as
     // console.log('response,--------', await response.json())
     // console.log('responseOk', response.ok)
     if (response.ok) {
-      await dispatch(getStudents(instructorId))
       const data = await response.json();
       // console.log('data----------', data)
       return data;

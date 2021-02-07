@@ -175,7 +175,8 @@ function SortingTable(props) {
     type,
     setCurrentId,
     setOpen,
-    setMode
+    setMode,
+    setRepType
   } = props
   const classes = useStyles();
   const [order, setOrder] = React.useState('asc');
@@ -217,13 +218,7 @@ function SortingTable(props) {
   if (type === 'pieces') {
     let pieces = Object.values(byId)
     pieces.forEach(each => {
-      let title = ''
-      if (booksById[each.bookId]) {
-        if (booksById[each.bookId]['title']) {
-          title = booksById[each.bookId]['title']
-        }
-      }
-      rows.push(createData(each.id, each.title || '', each.composer || '', title, each.number || ''))
+      rows.push(createData(each.id, each.title || '', each.composer || '', each.bookTitle || '', each.number || ''))
     })
   }
 
@@ -259,12 +254,17 @@ function SortingTable(props) {
   // };
 
 
-  const handleOpen = (value, id) => async (event) => {
-    console.log('value', value)
-    if (id) setCurrentId(id)
-    setMode(value)
+  const handleView = (id) => async (event) => {
+    if(type === 'pieces') setRepType('piece')
+    setCurrentId(id)
+    setMode('view')
     setOpen(true);
   };
+
+  const handleCreate = () => async () => {
+    setMode('create')
+    setOpen(true);
+  }
 
 
   const handleChangePage = (event, newPage) => {
@@ -317,7 +317,8 @@ function SortingTable(props) {
                   return (
                     <TableRow
                       hover
-                      onClick={handleOpen('view', row.id)}
+                      // onClick={handleView(type==='students' ? 'view' : ['view', 'piece'], row.id)}
+                      onClick={handleView(row.id)}
                       role="checkbox"
                       aria-checked={isItemSelected}
                       tabIndex={-1}
@@ -370,7 +371,7 @@ function SortingTable(props) {
         />
       </Paper>
       <Fab
-        onClick={handleOpen(type === 'pieces' ? 'forms' : 'create')}
+        onClick={handleCreate()}
         className={classes.fab}
         color="secondary"
         aria-label="edit">

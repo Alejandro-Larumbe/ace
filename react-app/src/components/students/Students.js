@@ -1,50 +1,14 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux'
-import { setView, setCurrentStudentId } from './actions';
-import { setUserCardMode } from '../../store/actions/ui'
-import { makeStyles } from '@material-ui/core/styles';
 import StudentTable from '../modularComponents/SortingTable';
 import ViewStudentCard from '../modularComponents/CardWithActions';
 import CardWithHeader from '../modularComponents/CardWithHeader';
 import Modal from '../modularComponents/Modal';
 import Student from '../user/UserView';
-import StudentForm from '../user/UserForm';
+import StudentForm from './StudentForm';
 import SuccessSnackbar from '../modularComponents/SuccessSnackbar';
+import { deleteStudent } from './actions'
 
-const useStyles = makeStyles((theme) => ({
-  root: {
-    flexGrow: 1,
-    // maxWidth: 700,
-    // width: '100%',
-    margin: `auto`,
-    width: '50%',
-    position: 'relative'
-  },
-  paper: {
-    width: '100%',
-    marginBottom: theme.spacing(2),
-  },
-  table: {
-    minWidth: 750,
-  },
-  visuallyHidden: {
-    border: 0,
-    clip: 'rect(0 0 0 0)',
-    height: 1,
-    margin: -1,
-    overflow: 'hidden',
-    padding: 0,
-    position: 'absolute',
-    top: 20,
-    width: 1,
-  },
-  toolbar: theme.mixins.toolbar,
-  fab: {
-    position: 'absolute',
-    bottom: theme.spacing(-7),
-    right: theme.spacing(-6),
-  }
-}));
 
 function Students(props) {
   const { getStudents, studentsById } = props
@@ -53,13 +17,24 @@ function Students(props) {
   const [openSnackbar, setOpenSnackbar] = useState(false)
   const [successMessage, setSuccessMessage] = useState(false)
   const [modalMode, setModalMode] = useState('')
-  const classes = useStyles();
 
   const dispatch = useDispatch();
 
   useEffect(() => {
     getStudents()
   }, [dispatch]);
+
+  const onDelete = async() => {
+    const data = await dispatch(deleteStudent(currentStudentId))
+    console.log(data)
+  if (!data.errors) {
+    setModalMode('')
+    setOpen(false)
+    setSuccessMessage('Deleted Student Successfully')
+    setOpenSnackbar(true)
+    await getStudents()
+    }
+  }
 
   console.log(modalMode)
 
@@ -71,11 +46,12 @@ function Students(props) {
       >
         <>
         {
-          modalMode === 'view' && (
+          (modalMode === 'view' && open === true) && (
             <ViewStudentCard
               avatar
               setOpen={setOpen}
               setMode={setModalMode}
+              onDelete={onDelete}
               title={`${studentsById[currentStudentId].firstName} ${studentsById[currentStudentId].lastName}`}
               src={studentsById[currentStudentId].profilePicUrl}
             >
@@ -90,12 +66,13 @@ function Students(props) {
               setOpen={setOpen}
               >
               <StudentForm
-                user={modalMode === 'edit' ? studentsById[currentStudentId] : null}
                 mode={modalMode}
                 setMode={setModalMode}
-                setOpenSnackbar={setOpenSnackbar}
-                setSuccessMessage={setSuccessMessage}
                 setOpen={setOpen}
+                setOpenSnackbar={setOpenSnackbar}
+                user={modalMode === 'edit' ? studentsById[currentStudentId] : null}
+                setSuccessMessage={setSuccessMessage}
+                getStudents={getStudents}
               />
             </CardWithHeader>
           )

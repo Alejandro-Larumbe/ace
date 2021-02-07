@@ -7,7 +7,7 @@ import DialogContentText from '@material-ui/core/DialogContentText';
 import DialogTitle from '@material-ui/core/DialogTitle';
 
 export default function AlertDialog(props) {
-  const { open, setOpen, message } = props
+  const { open, setOpen, message, callBack } = props
 
   const handleClickOpen = () => {
     setOpen(true);
@@ -27,16 +27,16 @@ export default function AlertDialog(props) {
       >
         <DialogTitle id="alert-dialog-title">{message}</DialogTitle>
         <DialogContent>
-          <DialogContentText id="alert-dialog-description">
+          {/* <DialogContentText id="alert-dialog-description">
             Let Google help apps determine location. This means sending anonymous location data to
             Google, even when no apps are running.
-          </DialogContentText>
+          </DialogContentText> */}
         </DialogContent>
         <DialogActions>
           <Button onClick={handleClose} color="primary">
-            Disagree
+            Cancel
           </Button>
-          <Button onClick={handleClose} color="primary" autoFocus>
+          <Button onClick={callBack} color="primary" autoFocus>
             Agree
           </Button>
         </DialogActions>

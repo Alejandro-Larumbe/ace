@@ -32,6 +32,7 @@ export default function CardWithHeader(props) {
         open={openDialogue}
         setOpen={setOpenDialogue}
         message={"Are you sure you want to delete student?"}
+        callBack={onDelete}
       />
       <Card style={{ margin: 'auto', width: props.width || 500 }} variant="outlined" >
         <CardHeader

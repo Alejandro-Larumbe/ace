@@ -19,6 +19,7 @@ import Autocomplete, { createFilterOptions } from '@material-ui/lab/Autocomplete
 import { getRepertoire } from './actions';
 import SelectBook from '../modularComponents/AutoCompleteFreeSolo';
 import QuickAddPiece from '../modularComponents/AutoCompleteFreeSolo';
+import { updatePiece } from './actions';
 
 const filter = createFilterOptions();
 
@@ -51,14 +52,20 @@ const useStyles = makeStyles((theme) => ({
 
 
 const PiecesForm = (props) => {
-  const { open, handleClose, books, pieces } = props
+  const {
+    open,
+    setOpen,
+    piece,
+    mode,
+    setMode,
+    books
+  } = props
 
   const instructorId = localStorage.getItem('user_id')
-  const [title, setTitle] = useState();
-  const [composer, setComposer] = useState();
-  const [number, setNumber] = useState();
+  const [title, setTitle] = useState(mode==='edit' ? piece.title : '');
+  const [composer, setComposer] = useState(mode==='edit' ? piece.composer : '');
+  const [number, setNumber] = useState(mode==='edit' ? piece.number : '');
   const [book, setBook] = useState('');
-  const [piece, setPiece] = useState('');
   const [errors, setErrors] = useState();
   const dispatch = useDispatch();
   // const types = ["instructors", "adults"]
@@ -76,13 +83,19 @@ const PiecesForm = (props) => {
 
   const onSubmit = async (e) => {
     e.preventDefault();
+    let data;
+    if (mode === 'edit') {
+      data = await dispatch(updatePiece(instructorId, title, composer, number, id, bookId));
+    }
+
     // console.log(instructorId, title, composer, number, bookId)
     // let data = await dispatch(addPiece(instructorId, title, composer, number, bookId));
 
-    // if (!data.errors) {
-    //   handleClose()
-    // } else {
-    // }
+    if (!data.errors) {
+      if (mode === 'edit') {
+        setMode('view')
+      }
+    }
   };
 
 

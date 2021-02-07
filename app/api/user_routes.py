@@ -37,7 +37,8 @@ def register_student():
             email=form.data['email'],
             hashed_password='pbkdf2:sha256:150000$0Y70Jx11$5170eba1cde3b4481c1a289401d7273375faa4691e3ff10e8bd1ac4e9784a5c6',
             type=form.data['type'],
-            instructor_id=form.data['instructor_id']
+            instructor_id=form.data['instructor_id'],
+            dob=form.data['dob']
         )
         print('-------------', user)
         db.session.add(user)
@@ -79,8 +80,9 @@ def user_update(id):
 def user_delete(id):
     # try:
         user= User.query.get(id)
+        instructor_id = user.instructor_id
         db.session.delete(user)
         db.session.commit()
-        return 'user deleted'
+        return jsonify(instructor_id)
     # except:
         # return {'errors': 'error'}, 401

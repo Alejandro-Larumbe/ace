@@ -1,12 +1,11 @@
 import React, { useState } from 'react';
-import { useDispatch, useSelector } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { CardActions } from '@material-ui/core';
-import { makeStyles } from '@material-ui/core/styles';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
-import { createUser, editUser } from './userActions';
+import { createStudent, editStudent } from './actions';
 import { format } from 'date-fns';
 
 import DateFnsUtils from '@date-io/date-fns';
@@ -16,11 +15,7 @@ import {
 } from '@material-ui/pickers';
 
 
-
-
-
-
-export default function UserForm({ user, mode, setSuccessMessage, setOpenSnackbar, setMode, setOpen }) {
+export default function UserForm({ getStudents, user, mode, setSuccessMessage, setOpenSnackbar, setMode, setOpen }) {
   const [email, setEmail] = useState(user ? user.email : '');
   const [firstName, setFirstName] = useState(user ? user.firstName : '');
   const [lastName, setLastName] = useState(user ? user.lastName : '');
@@ -36,21 +31,23 @@ export default function UserForm({ user, mode, setSuccessMessage, setOpenSnackba
     e.preventDefault();
     let data;
     if (mode === 'edit') {
-      data = await dispatch(editUser(email, firstName, lastName, user.type, id, instructorId, address, phoneNumber, studioName, dob))
+      data = await dispatch(editStudent(email, firstName, lastName, user.type, id, instructorId, address, phoneNumber, studioName, dob))
     }
     if (mode === 'create') {
-      data = await dispatch(createUser(email, firstName, lastName, 'adults', instructorId))
+      data = await dispatch(createStudent(email, firstName, lastName, 'adults', instructorId, dob))
     }
     if (!data.errors) {
       if (mode === 'edit') {
         setSuccessMessage(user.type === 'instructors' ? 'Profile Updated Successfully' : 'Student Updated Successfully')
         setOpenSnackbar(true)
         setMode('view')
+        getStudents()
       }
       if (mode === 'create') {
         setSuccessMessage("Student Registered Successfully")
         setOpenSnackbar(true)
         setOpen(false)
+        getStudents()
       }
     }
   }
@@ -109,6 +106,24 @@ export default function UserForm({ user, mode, setSuccessMessage, setOpenSnackba
               fullWidth
             />
           </ListItem>
+          <ListItem >
+                <MuiPickersUtilsProvider utils={DateFnsUtils}>
+                  <KeyboardDatePicker
+                    disableToolbar
+                    variant="inline"
+                    format="MM/dd/yyyy"
+                    margin="normal"
+                    fullWidth
+                    id="date-picker-inline"
+                    label="Choose a DOB"
+                    value={dob}
+                    onChange={handleDateChange}
+                    KeyboardButtonProps={{
+                      'aria-label': 'change date',
+                    }}
+                  />
+                </MuiPickersUtilsProvider>
+              </ListItem>
           {user && user.type === 'instructors' &&
             <ListItem >
               <TextField
@@ -147,24 +162,6 @@ export default function UserForm({ user, mode, setSuccessMessage, setOpenSnackba
                   value={address}
                   fullWidth
                 />
-              </ListItem>
-              <ListItem >
-                <MuiPickersUtilsProvider utils={DateFnsUtils}>
-                  <KeyboardDatePicker
-                    disableToolbar
-                    variant="inline"
-                    format="MM/dd/yyyy"
-                    margin="normal"
-                    fullWidth
-                    id="date-picker-inline"
-                    label="Choose a DOB"
-                    value={dob}
-                    onChange={handleDateChange}
-                    KeyboardButtonProps={{
-                      'aria-label': 'change date',
-                    }}
-                  />
-                </MuiPickersUtilsProvider>
               </ListItem>
             </>
           }

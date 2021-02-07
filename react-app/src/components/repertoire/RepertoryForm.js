@@ -4,25 +4,26 @@ import { useDispatch } from "react-redux";
 import Card from '../modularComponents/CardWithHeader';
 import Modal from '../modularComponents/Modal';
 import { makeStyles } from '@material-ui/core/styles';
-
+import CardWithHeader from '../modularComponents/CardWithHeader';
 import Tab from '../modularComponents/Tab'
 import PiecesForm from "./PiecesForm";
 
 
 export default function RepertoryForm(props) {
-  const [title, setTitle] = useState();
-  const [url, setUrl] = useState();
-  const [repertoryType, setRepertoryType] = useState(1)
-  const [loading, setLoading] = useState(false)
+  const {
+    repType,
+    setRepType,
+    tab,
+    mode,
+    setOpen
+  } = props
+  // const [title, setTitle] = useState();
 
-  const classes = useStyles();
-  const dispatch = useDispatch()
-  const [progress, setProgress] = useState(0);
 
 
 
   const handleChange = (event, newValue) => {
-    setRepertoryType(newValue);
+    setRepType(newValue);
   };
 
 
@@ -40,30 +41,30 @@ export default function RepertoryForm(props) {
 
   }, []);
 
+  console.log('reptype', repType)
 
   return (
     <>
-      <Modal
-        open={props.open}
-        onClose={() => props.handleClose('forms')}
-        in={props.open}
+      <CardWithHeader
+        setOpen={setOpen}
+        title={`${mode==='edit' ? 'Edit' : 'Add'} ${mode==='book' ? 'Book' : 'Piece'}`}
       >
-        <Card className={classes.root} variant="outlined"
-          title={`Add Repertoire`}
-          handleClose={() => props.handleClose('forms')}
-        >
+        {tab &&
           <Tab
-            value={repertoryType}
+            value={repType}
             handleChange={handleChange}
             options={TabOptions}
           />
-          {
-            repertoryType === 1 && <PiecesForm pieces={Object.values(props.piecesById)} books={Object.values(props.booksById)} {...props}/>
-          }
-
-        </Card>
-
-      </Modal>
+        }
+        {
+          repType === 'piece' &&
+          <PiecesForm
+            {...props}
+            // pieces={Object.values(props.piecesById)}
+            books={Object.values(props.booksById)}
+          />
+        }
+      </CardWithHeader>
     </>
   )
 
@@ -94,11 +95,11 @@ const useStyles = makeStyles((theme) => ({
 const TabOptions = [
   {
     label: 'Pieces',
-    value: 1
+    value: 'piece'
   },
   {
     label: 'Books',
-    value: 2
+    value: 'book'
   },
 
 ]
