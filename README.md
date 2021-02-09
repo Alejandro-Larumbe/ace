@@ -11,12 +11,6 @@
 <!-- For how-to notes on shield badges, see docs: https://shields.io/ -->
 
 
-<img
-src="https://ace-management.s3.us-east-2.amazonaws.com/ace-logo+(2).svg"
-alt="Logo"
-title=""
-width="100%">
-
 # ACE
 
 ## music studio manager
@@ -38,15 +32,6 @@ Asigns Tasks/Repertoire to Students.
 
 Upload Your Media
 
-<!-- SPLASHY IMAGE -->
-
-<img
-src="docs/images/splash.png"
-alt="Splashy 100%-width image"
-title=""
-width="100%">
-
-<!-- WEBSITE LINK -->
 
 ### Try the Demo!
 
@@ -66,15 +51,7 @@ https://ace-webapp.herokuapp.com/
 
 ## About
 
-[● See Website ●]()
-
 </div>
-
-<img src=""
-alt="Animated gif example of app in action, or interesting detail, etc."
-title=""
-width="50%"
-align="left">
 
 Ace is an app designed originally for my wife (Amelia Charlotte Eleanor... got it???) to help her manage her violin studio. The clean and intuitive design is meant to provide for an easy to use tool in order to track students, their lessons, and assignments.
 
@@ -86,17 +63,14 @@ Ace is an app designed originally for my wife (Amelia Charlotte Eleanor... got i
 
 <div align="center">
   <img
-    src=""
+    src="https://ace-management.s3.us-east-2.amazonaws.com/portfolio-1.jpg"
     alt="Full-width image"
     title=""
     width="100%">
 </div>
 
-<!-- Option 2: Multiple images in a row, 'width' attribute set to evenly split the x-axis space. Ensure matching canvas ratios for the best appearance. Two rows combined can make a nice 'square' collage. May be food for a 'full-screen screenshots' gallery. -->
-
-<div align="center">
   <img
-    src=""
+    src="https://ace-management.s3.us-east-2.amazonaws.com/Screen+Shot+2021-02-10+at+8.36.07+AM.png"
     alt="Image 1"
     title=""
     width="48%">
@@ -107,11 +81,9 @@ Ace is an app designed originally for my wife (Amelia Charlotte Eleanor... got i
     width="48%">
 </div>
 
-<!-- Option 3: Multiple images in a row, 'height' attribute set to hard values to ensure matching heights. Good for images with different aspect ratios. -->
-
 <div align="center">
   <img
-    src=""
+    src="https://ace-management.s3.us-east-2.amazonaws.com/Screen+Shot+2021-02-10+at+8.36.27+AM.png"
     alt="Image 1"
     title=""
     height="500px">
@@ -121,8 +93,6 @@ Ace is an app designed originally for my wife (Amelia Charlotte Eleanor... got i
     title=""
     height="500px">
 </div>
-
-<!-- FEATURES -->
 
 <div align="center">
 
@@ -195,37 +165,7 @@ An optional *brief* note describing scheduling or other planning details.
 
 <div align="center">
 
-## Development
-
-**DEV TOC**
-[Technologies](docs/development.md#technologies) ● [Concept](docs/development.md#concept) ● [Models](docs/development.md#models) ● [Routes](docs/development.md#routes) ● [Wireframes](docs/development.md#wireframes) ● [Code Highlights](#code-highlights) ● [Dev Snapshots](docs/development.md#development-snapshots)
-
-[[ See full dev notes HERE ]](readme/development.md)
-The full notes on this project's development are kept in a separate document linked above.
-It details the technical aspects of this project's development.
-A few sample snapshots are below from the development process.
-
-<img
-src=""
-alt="Snapshot 1"
-title=""
-height="250px">
-<img
-src=""
-alt="Snapshot 2"
-title=""
-height="250px">
-<img
-src=""
-alt="Snapshot 3"
-title=""
-height="250px">
-
 </div>
-
----
-
-<!-- CONTACT -->
 
 <div align="center">
 
@@ -238,36 +178,22 @@ Feel free to reach out to provide feedback, bug reports, or anything else :) .
 
 <!-- Include: Name, title, job/search status, (opt) photo, (opt) summary of contributions, (opt) a few words or a quote, socials badges (github follow, linkedin, angellist, email, resume, portfolio, twitter, etc.), (opt) team/contact page from app's site -->
 
-<img
-src="docs/images/portrait.png"
-alt="Alicia Mira Kim"
+[img
+src="https://ace-management.s3.us-east-2.amazonaws.com/A%26A-193+copy.jpg"
+alt="Alejandro Larumbe"
 height="100px"
-align="left">
+align="left"](img%0Asrc=%22https://ace-management.s3.us-east-2.amazonaws.com/A%26A-193+copy.jpg%E2%80%8B%22%0Aalt=%22A%E2%80%B8%22%0Aheight=%22100px%22%0Aalign=%22left%22)
 
 </div>
 
-### Alicia Mira Kim
+### Alejandro Larumbe
 
 *(Full-stack software developer, open to work)*
-
-[![Portfolio](https://img.shields.io/badge/-❤_Portfolio-f58?style=flat-square&logo=a&logoColor=white&link=https://alimirakim.github.io/)](https://alimirakim.github.io)
-<a href="docs/Kim-Mira-Alicia_Resume.pdf" download>![Resume PDF](https://img.shields.io/badge/-Resume-f00?style=flat-square&logo=adobe-acrobat-reader&logoColor=white)</a>
-[![Alicia's email](https://img.shields.io/badge/alicia.mira.kim@gmail.com-f4b400?style=flat-square&logo=gmail&logoColor=black&link=mailto:alicia.mira.kim@gmail.com)](mailto:alicia.mira.kim@gmail.com)
-[![Blog](https://img.shields.io/badge/-Blog-21759b?style=flat-square&logo=WordPress&logoColor=white&link=https://aliciamirakim.com/)](https://aliciamirakim.com)
-[![Linkedin](https://img.shields.io/badge/-LinkedIn-0077b5?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/alicia-mira-kim-416a0a41)](https://www.linkedin.com/in/alicia-mira-kim-416a0a41)
-[![Twitter](https://img.shields.io/badge/-Twitter-1da1f2?style=flat-square&logo=Twitter&logoColor=white&link=https://twitter.com/alimirakim)](https://twitter.com/alimirakim)
-[![AngelList](https://img.shields.io/badge/-AngelList-black?style=flat-square&logo=AngelList&logoColor=white&link=https://angel.co/u/alicia-mira-kim)](https://angel.co/u/alicia-mira-kim)
-[![GitHub alimirakim](https://img.shields.io/github/followers/alimirakim?label=follow&style=social)](https://github.com/alimirakim)
+[![Alicia's email](https://img.shields.io/badge/larumbemar@gmail.com-f4b400?style=flat-square&logo=gmail&logoColor=black&link=mailto:larumbemar@gmail.com)](mailto:alicia.mira.kim@gmail.com)
+[![Linkedin](https://img.shields.io/badge/-LinkedIn-0077b5?style=flat-square&logo=Linkedin&logoColor=white&link=https://www.linkedin.com/in/alejandro-larumbe/)](https://www.linkedin.com/in/alejandro-larumbe/1)
+[![AngelList](https://img.shields.io/badge/-AngelList-black?style=flat-square&logo=AngelList&logoColor=white&link=https://angel.co/u/alejandro-larumbe)](https://angel.co/u/alejandro-larumbe)
+[![GitHub alimirakim](https://img.shields.io/github/followers/alimirakim?label=follow&style=social)](https://github.com/alejandro-larumbe)
 
 </div>
 
 <br clear="both">
-
----
-
-<div align="center">
-
-**💖 THANK YOU (ATTRIBUTIONS) 💖**
-[Attribution 1 by Person A]() | [Attribution 2 by Person B]() | [Attribution 3 by Person C]()
-
-</div>
