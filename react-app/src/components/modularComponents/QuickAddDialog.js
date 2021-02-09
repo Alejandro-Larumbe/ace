@@ -50,7 +50,7 @@ export default function QuickAdd(props) {
 
   return (
     <Dialog open={open} onClose={handleClose} aria-labelledby="form-dialog-title">
-    <form onSubmit={handleSubmit}>
+    <form >
       <DialogTitle id="form-dialog-title">
         {`Quick Add ${type === 'book' ? 'Book' : type === 'piece' ? 'Piece' : null}`}
       </DialogTitle>
@@ -82,7 +82,7 @@ export default function QuickAdd(props) {
         <Button onClick={onCancel} color="primary">
           Cancel
     </Button>
-        <Button type="submit" color="primary">
+        <Button type="button" onClick={handleSubmit} color="primary">
           Add
     </Button>
       </DialogActions>

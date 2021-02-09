@@ -1,54 +1,15 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch, useSelector } from 'react-redux';
 import Button from '@material-ui/core/Button';
-import CssBaseline from '@material-ui/core/CssBaseline';
 import TextField from '@material-ui/core/TextField';
-import { Card, CardHeader, CardContent, CardActions } from '@material-ui/core';
-import Tabs from '@material-ui/core/Tabs';
-import Tab from '@material-ui/core/Tab';
-import Typography from '@material-ui/core/Typography';
-import { makeStyles } from '@material-ui/core/styles';
-import Modal from '@material-ui/core/Modal';
-import Backdrop from '@material-ui/core/Backdrop';
-import Fade from '../../Fade';
-import { addPiece } from './actions';
-import IconButton from '@material-ui/core/IconButton';
-import CloseIcon from '@material-ui/icons/Close';
+import { CardContent, CardActions } from '@material-ui/core';
+
 // import AddBook from './AddBook';
-import Autocomplete, { createFilterOptions } from '@material-ui/lab/Autocomplete';
 import { getRepertoire } from './actions';
 import SelectBook from '../modularComponents/AutoCompleteFreeSolo';
 import QuickAddPiece from '../modularComponents/AutoCompleteFreeSolo';
-import { updatePiece } from './actions';
-
-const filter = createFilterOptions();
-
-
-const useStyles = makeStyles((theme) => ({
-  modal: {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'center',
-  },
-  paper: {
-    height: 'auto',
-    display: 'flex',
-    maxWidth: '50vh',
-    backgroundColor: theme.palette.background.paper,
-    boxShadow: theme.shadows[5],
-    padding: theme.spacing(2, 2),
-    flexDirection: 'column',
-    // alignItems: 'center',
-  },
-  avatar: {
-    margin: theme.spacing(1),
-    backgroundColor: theme.palette.secondary.main,
-  },
-  form: {
-    width: '80%', // Fix IE 11 issue.
-    marginTop: theme.spacing(1),
-  }
-}));
+import { updatePiece, addPiece } from './actions';
+import { ModeCommentTwoTone } from "@material-ui/icons";
 
 
 const PiecesForm = (props) => {
@@ -58,44 +19,66 @@ const PiecesForm = (props) => {
     piece,
     mode,
     setMode,
-    books
+    booksById,
+    books,
+    setSuccessMessage,
+    setOpenSnackbar
   } = props
 
-  const instructorId = localStorage.getItem('user_id')
-  const [title, setTitle] = useState(mode==='edit' ? piece.title : '');
-  const [composer, setComposer] = useState(mode==='edit' ? piece.composer : '');
-  const [number, setNumber] = useState(mode==='edit' ? piece.number : '');
-  const [book, setBook] = useState('');
+  const [instructorId] = useState(localStorage.getItem('user_id'))
+  const [title, setTitle] = useState(mode === 'edit' ? piece.title : '');
+  const [composer, setComposer] = useState(mode === 'edit' ? piece.composer : '');
+  let [number, setNumber] = useState(mode === 'edit' ? piece.number : '');
+  const [pieceId] = useState(mode === 'edit' ? piece.id : '');
+  // const [bookId] = useState(mode==='edit' ? piece.bookId : '');
+  const [book, setBook] = useState((mode === 'edit' && piece.bookId) ? booksById[piece.bookId] : '');
   const [errors, setErrors] = useState();
   const dispatch = useDispatch();
   // const types = ["instructors", "adults"]
   // const [value, setValue] = useState(0)
   // const type = types[value]
   // let history = useHistory();
-  const classes = useStyles();
-
 
   useEffect(() => {
     dispatch(getRepertoire(instructorId))
   }, [dispatch]);
 
   // if (!props.piecesById) return null
-
+  // console.log(props.booksById)
   const onSubmit = async (e) => {
     e.preventDefault();
     let data;
+    if(number === '') number = null
+    const bookId = book ? book.id : null
+
+    console.log(pieceId, title, composer, number, bookId, instructorId)
     if (mode === 'edit') {
-      data = await dispatch(updatePiece(instructorId, title, composer, number, id, bookId));
-    }
-
-    // console.log(instructorId, title, composer, number, bookId)
-    // let data = await dispatch(addPiece(instructorId, title, composer, number, bookId));
-
-    if (!data.errors) {
-      if (mode === 'edit') {
+    //   // console.log('node', mode)
+      data = await dispatch(updatePiece(+pieceId, title, composer, +number, +bookId, +instructorId));
+      //   console.log('---------', data)
+      if (!data.errors) {
+        setSuccessMessage('piece updated successfully')
         setMode('view')
+        setOpenSnackbar(true)
       }
     }
+    if (mode === 'create') {
+      data = await dispatch(addPiece(title, composer, +number, +instructorId));
+      if (!data.errors) {
+        setSuccessMessage('piece created successfully')
+        setOpen(false)
+        setOpenSnackbar(true)
+      }
+    }
+
+    // // console.log(instructorId, title, composer, number, bookId)
+    // // let data = await dispatch(addPiece(instructorId, title, composer, number, bookId));
+
+    // console.log(data)
+    // if (!data.errors) {
+    //   if (mode === 'edit') {
+    //   }
+    // }
   };
 
 
@@ -143,24 +126,33 @@ const PiecesForm = (props) => {
             setValue={setBook}
             label={'Select Book'}
             type={'book'}
+            fullWidth
           />
           <TextField
             // variant="outlined"
             margin="normal"
-            // fullWidth
+            fullWidth
             name="number"
             label="Number"
             type="number"
             id="number"
             placeholder="Number"
             value={number}
+            InputProps={{
+              inputProps: {
+                min: 1
+              }
+            }}
             onChange={updateField(setNumber)}
           />
         </CardContent>
         <CardActions>
           <Button
+            variant="contained"
+            color="primary"
             type="submit"
-            className={classes.submit}
+            fullWidth
+          // className={classes.submit}
           >
             Save
           </Button>

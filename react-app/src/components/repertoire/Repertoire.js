@@ -60,10 +60,13 @@ function Repertoire(props) {
             book={booksById[bookId]}
             piece={piecesById[pieceId]}
             mode={mode}
+            setMode={setMode}
             setSuccessMessage={setSuccessMessage}
             setOpenSnackbar={setOpenSnackbar}
             successMessage={successMessage}
             repType={repType}
+            setRepType={setRepType}
+            tab={mode === 'create' ? true : false}
           />
         }
         {
@@ -75,7 +78,7 @@ function Repertoire(props) {
             book={booksById[bookId]}
             piece={piecesById[pieceId]}
             repType={repType}
-            // setRepType={setRepType}
+            setRepType={setRepType}
           />
 
         }

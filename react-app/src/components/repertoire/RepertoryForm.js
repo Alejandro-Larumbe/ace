@@ -60,8 +60,8 @@ export default function RepertoryForm(props) {
           repType === 'piece' &&
           <PiecesForm
             {...props}
-            // pieces={Object.values(props.piecesById)}
             books={Object.values(props.booksById)}
+            // pieces={Object.values(props.piecesById)}
           />
         }
       </CardWithHeader>

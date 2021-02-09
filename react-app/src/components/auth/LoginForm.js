@@ -57,7 +57,8 @@ const LoginForm = ({ authenticated, setAuthenticated, open, handleOpen, handleCl
   const dispatch = useDispatch();
   const types = ["instructors", "adults"]
   const [value, setValue] = useState(0)
-  const type = types[value]
+  const type = types['instructors']
+  // const type = types[value]
   let history = useHistory();
   const classes = useStyles();
 
@@ -128,7 +129,7 @@ const LoginForm = ({ authenticated, setAuthenticated, open, handleOpen, handleCl
             <Typography component="h1" variant="h5">
               Sign in
             </Typography>
-            <Tabs
+            {/* <Tabs
               value={value}
               indicatorColor="primary"
               textColor="primary"
@@ -137,7 +138,7 @@ const LoginForm = ({ authenticated, setAuthenticated, open, handleOpen, handleCl
             >
               <Tab label="Instructor" />
               <Tab label="Student" />
-            </Tabs>
+            </Tabs> */}
             <form onSubmit={onLogin}>
               <div style={{ color: '#ff00a9'}}>
                 {errors.map((error) => (
@@ -181,7 +182,7 @@ const LoginForm = ({ authenticated, setAuthenticated, open, handleOpen, handleCl
               >
                 Demo Instructor
               </Button>
-              <Button
+              {/* <Button
                 type="button"
                 fullWidth
                 variant="contained"
@@ -191,7 +192,7 @@ const LoginForm = ({ authenticated, setAuthenticated, open, handleOpen, handleCl
 
               >
                 Demo Student
-              </Button>
+              </Button> */}
               <Button
                 type="submit"
                 fullWidth

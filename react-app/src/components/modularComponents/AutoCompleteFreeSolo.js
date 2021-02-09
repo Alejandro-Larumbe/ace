@@ -18,7 +18,7 @@ export default function FreeSoloCreateOptionDialog(props) {
     value,
     setValue,
     options,
-    toggleOpen,
+    // toggleOpen,
     // setDialogValue,
     label,
     // dialogValue,
@@ -54,7 +54,7 @@ export default function FreeSoloCreateOptionDialog(props) {
 
   };
 
-
+  console.log('type', type)
   return (
     <React.Fragment>
       <AddBook
@@ -71,7 +71,7 @@ export default function FreeSoloCreateOptionDialog(props) {
           if (typeof newValue === 'string') {
             // timeout to avoid instant validation of the dialog's form.
             setTimeout(() => {
-              toggleOpen(true);
+              toggleOpenBook(true);
               setDialogValue(
                 type === 'book' ? {
                   title: newValue,
