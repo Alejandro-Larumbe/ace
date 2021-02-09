@@ -181,7 +181,7 @@ const NavBar = ({ setAuthenticated, user, studioName, studioLogoUrl }) => {
             open={open}
             onClose={handleClose}
           >
-            <MenuItem onClick={onProfile}>Profile</MenuItem>
+            {/* <MenuItem onClick={onProfile}>Profile</MenuItem> */}
             <MenuItem onClick={onLogout}>log out</MenuItem>
           </Menu>
 

@@ -53,7 +53,7 @@ https://ace-webapp.herokuapp.com/
 
 </div>
 
-Ace is an app designed originally for my wife (Amelia Charlotte Eleanor... got it???) to help her manage her violin studio. The clean and intuitive design is meant to provide for an easy to use tool in order to track students, their lessons, and assignments.
+Ace is an app designed originally for my wife (Amelia Charlotte Eleanor... got the app name?) to help her manage her violin studio. The clean and intuitive design is meant to provide for an easy to use tool in order to track students, their lessons, and assignments.
 
 <br clear="both">
 
