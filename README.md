@@ -10,12 +10,9 @@
 
 <!-- For how-to notes on shield badges, see docs: https://shields.io/ -->
 
-![GitHub Icon](https://img.shields.io/badge/-Shield_Badge_Example-black?style=flat-square&logo=github&logoColor=ff00ff)
-![Adobe Acrobat Reader Icon](https://img.shields.io/badge/-Shield_Badge_Example-ff00ff?style=flat-square&logo=adobe-acrobat-reader&logoColor=black)
-![GitHub Icon](https://img.shields.io/badge/-Shield_Badge_Example-black?style=flat-square&logo=github&logoColor=ff00ff)
 
 <img
-src="docs/images/logo.svg"
+src="https://ace-management.s3.us-east-2.amazonaws.com/ace-logo+(2).svg"
 alt="Logo"
 title=""
 width="100%">
@@ -41,7 +38,6 @@ Asigns Tasks/Repertoire to Students.
 
 Upload Your Media
 
-
 <!-- SPLASHY IMAGE -->
 
 <img
@@ -54,11 +50,11 @@ width="100%">
 
 ### Try the Demo!
 
-https://ace-webapp.herokuapp.com/[Live Website]</a>
+https://ace-webapp.herokuapp.com/
 
 <!-- OPTIONAL Use an image button for extra fancy points. -->
 
-<!-- <a href=""><img src="" alt="Button image to go to app site" title="Click to see the live site!"></a> -->
+<!-- <a href=""><img src="https://ace-management.s3.us-east-2.amazonaws.com/ace-logo+(2).svg" alt="Button image to go to app site" title="Click to see the live site!"></a> -->
 
 </div>
 
@@ -82,7 +78,6 @@ align="left">
 
 Ace is an app designed originally for my wife (Amelia Charlotte Eleanor... got it???) to help her manage her violin studio. The clean and intuitive design is meant to provide for an easy to use tool in order to track students, their lessons, and assignments.
 
-
 <br clear="both">
 
 <!-- OPTIONAL EXTRA IMAGE(S) -->
@@ -96,7 +91,6 @@ Ace is an app designed originally for my wife (Amelia Charlotte Eleanor... got i
     title=""
     width="100%">
 </div>
-
 
 <!-- Option 2: Multiple images in a row, 'width' attribute set to evenly split the x-axis space. Ensure matching canvas ratios for the best appearance. Two rows combined can make a nice 'square' collage. May be food for a 'full-screen screenshots' gallery. -->
 
@@ -142,7 +136,6 @@ Ace is an app designed originally for my wife (Amelia Charlotte Eleanor... got i
 * **Tools** Docker, Heroku, Visual Studio Code
 * **Libraries** Material-UI, Flask-WTF, WTForms
 
-
 <div align="center">
 
 ## Features
@@ -154,7 +147,6 @@ Ace is an app designed originally for my wife (Amelia Charlotte Eleanor... got i
 * Upload and update the reoertoire you use the most,
 * Set tasks for each lesson. Assign your rep, pieces, books, excercies. Set how many days a week and for how long.
 * Upload media and shhet music for your students. Audio, video and PDF files are supported.
-
 
 ### For the Future
 
@@ -200,7 +192,6 @@ An optional *brief* note describing scheduling or other planning details.
    flask run
    ```
 6. To run the React App in development, checkout the [README](./react-app/README.md) inside the `react-app` directory.
-
 
 <div align="center">
 
