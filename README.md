@@ -66,7 +66,19 @@ Ace is an app designed originally for my wife (Amelia Charlotte Eleanor... got i
     src="https://ace-management.s3.us-east-2.amazonaws.com/portfolio-1.jpg"
     alt="Full-width image"
     title=""
-    width="90%">
+    width="80%">
+</div>
+
+  <img
+    src="https://ace-management.s3.us-east-2.amazonaws.com/Screen+Shot+2021-02-10+at+8.36.07+AM.png"
+    alt="Image 1"
+    title=""
+    width="48%">
+  <img
+    src=""
+    alt="Image 2"
+    title=""
+    width="48%">
 </div>
 
 <div align="center">
@@ -74,12 +86,12 @@ Ace is an app designed originally for my wife (Amelia Charlotte Eleanor... got i
     src="https://ace-management.s3.us-east-2.amazonaws.com/Screen+Shot+2021-02-10+at+8.36.27+AM.png"
     alt="Image 1"
     title=""
-    height="400px">
+    height="500px">
   <img
-    src="https://ace-management.s3.us-east-2.amazonaws.com/Screen+Shot+2021-02-10+at+8.36.07+AM.png"
+    src=""
     alt="Image 2"
     title=""
-    height="400px">
+    height="500px">
 </div>
 
 <div align="center">
@@ -166,13 +178,11 @@ Feel free to reach out to provide feedback, bug reports, or anything else :) .
 
 <!-- Include: Name, title, job/search status, (opt) photo, (opt) summary of contributions, (opt) a few words or a quote, socials badges (github follow, linkedin, angellist, email, resume, portfolio, twitter, etc.), (opt) team/contact page from app's site -->
 
-<div align="left">
-  <img
-    src="https://ace-management.s3.us-east-2.amazonaws.com/A%26A-193+copy.jpg"
-    alt="Image 1"
-    title=""
-    height="400px">
-  <img
+[img
+src="https://ace-management.s3.us-east-2.amazonaws.com/A%26A-193+copy.jpg"
+alt="Alejandro Larumbe"
+height="100px"
+align="left"](img%0Asrc=%22https://ace-management.s3.us-east-2.amazonaws.com/A%26A-193+copy.jpg%E2%80%8B%22%0Aalt=%22A%E2%80%B8%22%0Aheight=%22100px%22%0Aalign=%22left%22)
 
 </div>
 
