@@ -66,7 +66,28 @@ Ace is an app designed originally for my wife (Amelia Charlotte Eleanor... got i
     src="https://ace-management.s3.us-east-2.amazonaws.com/portfolio-1.jpg"
     alt="Full-width image"
     title=""
-    width="90%">
+    width="80%">
+</div>
+
+<div align="center">
+  <img
+  src="https://ace-management.s3.us-east-2.amazonaws.com/Screen+Shot+2021-02-10+at+8.36.07+AM.png"
+    alt="Full-width image"
+    title=""
+    width="80%">
+</div>
+
+
+  <img
+    src="https://ace-management.s3.us-east-2.amazonaws.com/Screen+Shot+2021-02-10+at+8.36.07+AM.png"
+    alt="Image 1"
+    title=""
+    width="48%">
+  <img
+    src=""
+    alt="Image 2"
+    title=""
+    width="48%">
 </div>
 
 <div align="center">
@@ -74,12 +95,12 @@ Ace is an app designed originally for my wife (Amelia Charlotte Eleanor... got i
     src="https://ace-management.s3.us-east-2.amazonaws.com/Screen+Shot+2021-02-10+at+8.36.27+AM.png"
     alt="Image 1"
     title=""
-    height="400px">
+    height="500px">
   <img
-    src="https://ace-management.s3.us-east-2.amazonaws.com/Screen+Shot+2021-02-10+at+8.36.07+AM.png"
+    src=""
     alt="Image 2"
     title=""
-    height="400px">
+    height="500px">
 </div>
 
 <div align="center">
