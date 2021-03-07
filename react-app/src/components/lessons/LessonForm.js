@@ -122,7 +122,7 @@ const LessonForm = (props) => {
       />
         <form onSubmit={onSubmit}>
           <List component="nav" aria-label="mailbox folders">
-            <ListItem button>
+            <ListItem key={'lessonFormSelect'} button>
               <InputLabel style={{ width: '75%' }} id="select-student">Select Student:</InputLabel>
               <Select
                 labelId="select-student"
@@ -143,7 +143,7 @@ const LessonForm = (props) => {
                 })}
               </Select>
             </ListItem>
-            <ListItem button>
+            <ListItem key={'lessonFormDate'} button>
               <KeyboardDatePicker
                 disableToolbar
                 variant="inline"
@@ -182,7 +182,7 @@ const LessonForm = (props) => {
                 }}
               />
             </ListItem>
-            <ListItem button>
+            <ListItem key={'lessonForm'} button>
             </ListItem>
           </List>
           {/* <Divider light /> */}

@@ -4,12 +4,12 @@ import { getRepertoire } from './actions';
 import PiecesForm from './PiecesForm';
 import PiecesUpdate from './PiecesUpdate';
 import RepertoryFormContainer from './RepertoryForm';
-import PieceTable from '../modularComponents/SortingTable';
-import BooksTable from '../modularComponents/CollapsibleTable'
-import Modal from '../modularComponents/Modal';
-import ViewRepCard from '../modularComponents/CardWithActions'
+import PieceTable from '../materialUIBundles/SortingTable';
+import BooksTable from '../materialUIBundles/CollapsibleTable'
+import Modal from '../materialUIBundles/Modal';
+import ViewRepCard from '../materialUIBundles/CardWithActions'
 import ViewRepertoire from './ViewRepertoire';
-import SuccessSnackbar from '../modularComponents/SuccessSnackbar';
+import SuccessSnackbar from '../materialUIBundles/SuccessSnackbar';
 
 function Repertoire(props) {
   const {

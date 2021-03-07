@@ -1,11 +1,11 @@
 import React, { useState, useEffect } from "react";
 import { useDispatch } from "react-redux";
 
-import Card from '../modularComponents/CardWithHeader';
-import Modal from '../modularComponents/Modal';
+import Card from '../materialUIBundles/CardWithHeader';
+import Modal from '../materialUIBundles/Modal';
 import { makeStyles } from '@material-ui/core/styles';
-import CardWithHeader from '../modularComponents/CardWithHeader';
-import Tab from '../modularComponents/Tab'
+import CardWithHeader from '../materialUIBundles/CardWithHeader';
+import Tab from '../materialUIBundles/Tab'
 import PiecesForm from "./PiecesForm";
 
 

@@ -132,7 +132,7 @@ const NavBar = ({ setAuthenticated, user, studioName, studioLogoUrl }) => {
   };
 
   const onProfile = () => {
-    history.push(`/${id}`)
+    history.push(`/profile`)
     setAnchorEl(null);
   };
 

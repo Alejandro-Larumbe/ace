@@ -7,8 +7,9 @@ import Schedule from './schedule/Schedule';
 import Resources from './resources/ResourcesContainer';
 import Repertoire from './repertoire/Repertoire';
 import Lesson from './tasks/TasksContainer';
+import Profile from './user/Profile';
 const style = {
-  marginTop: '22vh',
+  marginTop: '16vh',
   marginLeft: 200
 };
 
@@ -39,9 +40,9 @@ export default function InstructorApp({ setAuthenticated }) {
           <Route path="/repertoire">
             <Repertoire />
           </Route>
-          {/* <Route path="/:id" >
+          <Route path="/profile" >
             <Profile />
-          </Route> */}
+          </Route>
         </Switch>
       </div>
     </BrowserRouter>

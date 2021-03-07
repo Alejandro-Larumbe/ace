@@ -1,12 +1,12 @@
 import React, { useEffect, useState } from 'react';
 import { useDispatch } from 'react-redux'
-import StudentTable from '../modularComponents/SortingTable';
-import ViewStudentCard from '../modularComponents/CardWithActions';
-import CardWithHeader from '../modularComponents/CardWithHeader';
-import Modal from '../modularComponents/Modal';
+import StudentTable from '../materialUIBundles/SortingTable';
+import ViewStudentCard from '../materialUIBundles/CardWithActions';
+import CardWithHeader from '../materialUIBundles/CardWithHeader';
+import Modal from '../materialUIBundles/Modal';
 import Student from '../user/UserView';
 import StudentForm from './StudentForm';
-import SuccessSnackbar from '../modularComponents/SuccessSnackbar';
+import SuccessSnackbar from '../materialUIBundles/SuccessSnackbar';
 import { deleteStudent } from './actions'
 
 

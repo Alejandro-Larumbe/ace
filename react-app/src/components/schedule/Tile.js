@@ -5,11 +5,8 @@ import { makeStyles } from '@material-ui/core/styles';
 import { Card, CardActionArea } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import { format } from 'date-fns'
-import { setTaskDate } from '../tasks/actions';
 import List from '@material-ui/core/List';
 import ListItem from '@material-ui/core/ListItem';
-import ListItemIcon from '@material-ui/core/ListItemIcon';
-import ListItemText from '@material-ui/core/ListItemText';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import { setSelectedDate, setLessonId } from './actions';
 import { setLessonView } from '../../store/actions/ui';
@@ -46,7 +43,6 @@ const useStyles = makeStyles((theme) => ({
 
 export default function Tile({ data, day, date, handleOpen }) {
   const classes = useStyles();
-  const history = useHistory();
   // const id = localStorage.getItem("user_id");
   const dispatch = useDispatch();
   const isToday = () => {
@@ -73,7 +69,7 @@ export default function Tile({ data, day, date, handleOpen }) {
         <CssBaseline />
         {/* <Card onClick={() => clickHandler('create')} className={`${isToday() && classes.currentDay} ${classes.root}`} elevation={2}  square> */}
         <Card className={`${isToday() && classes.currentDay} ${classes.root}`} elevation={2} square>
-          <List dense style={{ lineHeight: '0.5' }} aria-label="main mailbox folders">
+          <List dense id={classes.date} style={{ lineHeight: '0.5' }} aria-label="main mailbox folders">
             <ListItem onClick={() => clickHandler('create', null)} button color="textSecondary" className={classes.title} >
               {day}
             </ListItem>
@@ -82,7 +78,7 @@ export default function Tile({ data, day, date, handleOpen }) {
                 const id = each.id
                 // console.log(date)
                 return (
-                  <ListItem style={{ marginBottom: '3px' }} onClick={() => clickHandler('view', id)} button>
+                  <ListItem key={id} style={{ marginBottom: '3px' }} onClick={() => clickHandler('view', id)} button>
                     {each.time} - {each.name} {each.lastNameInitial}
                   </ListItem>
                 )

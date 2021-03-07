@@ -6,8 +6,8 @@ import { CardContent, CardActions } from '@material-ui/core';
 
 // import AddBook from './AddBook';
 import { getRepertoire } from './actions';
-import SelectBook from '../modularComponents/AutoCompleteFreeSolo';
-import QuickAddPiece from '../modularComponents/AutoCompleteFreeSolo';
+import SelectBook from '../materialUIBundles/AutoCompleteFreeSolo';
+import QuickAddPiece from '../materialUIBundles/AutoCompleteFreeSolo';
 import { updatePiece, addPiece } from './actions';
 import { ModeCommentTwoTone } from "@material-ui/icons";
 

@@ -17,7 +17,7 @@ const StudentApp = ({ setAuthenticated, authenticated }) => {
 
   useEffect(() => {
     dispatch(getInstructor(instructorId))
-  }, [])
+  }, [dispatch, instructorId])
 
   if (!authenticated) {
     return <Redirect to="/" />
