@@ -1,6 +1,6 @@
-import React, { useState, useEffect } from 'react';
-import { useSelector, useDispatch } from "react-redux";
-import { BrowserRouter, Redirect, Route, Switch, useParams } from 'react-router-dom';
+import React from 'react';
+import { useSelector } from "react-redux";
+import { BrowserRouter, Route, Switch } from 'react-router-dom';
 import Navbar from './NavBar';
 import Students from './students/StudentsContainer';
 import Schedule from './schedule/Schedule';
@@ -10,13 +10,10 @@ import Lesson from './tasks/TasksContainer';
 const style = {
   marginTop: '22vh',
   marginLeft: 200
-}
+};
 
 export default function InstructorApp({ setAuthenticated }) {
   const user = useSelector((state) => state.user)
-
-
-
   return (
     <BrowserRouter basename={'/instructors'}>
       <Navbar
@@ -48,6 +45,5 @@ export default function InstructorApp({ setAuthenticated }) {
         </Switch>
       </div>
     </BrowserRouter>
-
   )
 }

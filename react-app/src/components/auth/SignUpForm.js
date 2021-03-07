@@ -1,25 +1,15 @@
 import React, { useState } from "react";
-import { Redirect, useHistory, useParams } from 'react-router-dom';
+import { useHistory } from 'react-router-dom';
 import { useDispatch } from 'react-redux';
 import { signUp } from '../../store/actions/authActions';
 import Button from '@material-ui/core/Button';
 import TextField from '@material-ui/core/TextField';
 import { makeStyles } from '@material-ui/core/styles';
-
-import Avatar from '@material-ui/core/Avatar';
 import CssBaseline from '@material-ui/core/CssBaseline';
 import Link from '@material-ui/core/Link';
 import Paper from '@material-ui/core/Paper';
 import Grid from '@material-ui/core/Grid';
-import LockOutlinedIcon from '@material-ui/icons/LockOutlined';
 import Typography from '@material-ui/core/Typography';
-import InputLabel from '@material-ui/core/InputLabel';
-import MenuItem from '@material-ui/core/MenuItem';
-import FormHelperText from '@material-ui/core/FormHelperText';
-import FormControl from '@material-ui/core/FormControl';
-import Select from '@material-ui/core/Select';
-
-
 
 // const image = 'url(https://ace-management.s3.us-east-2.amazonaws.com/chuttersnap-Kx4Mm3ZnZBc-unsplash+(2).jpg)';
 
@@ -106,13 +96,6 @@ const SignUpForm = ({ setAuthenticated }) => {
   const updateField = (callback) => (e) => {
     callback(e.target.value);
   };
-
-
-  // if (authenticated && type === "adults") {
-  //   return <Redirect to={`/students/${userId}/schedule`} />
-  // } else if (authenticated && type === "instructors") {
-  //   return <Redirect to={`/${type}/${userId}/schedule`} />
-  // }
 
   return (
     <>
@@ -223,7 +206,6 @@ const SignUpForm = ({ setAuthenticated }) => {
                   Sign In
               </Button>
               <Button
-                  // type="submit"
                   href="/"
                   fullWidth
                   variant="contained"
@@ -250,10 +232,5 @@ const SignUpForm = ({ setAuthenticated }) => {
 
   );
 };
-
-const style = {
-  width: '25%',
-  heigth: 'auto'
-}
 
 export default SignUpForm;

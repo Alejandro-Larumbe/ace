@@ -7,18 +7,17 @@ import { authenticate } from "./services/auth";
 import { loadUser } from './store/actions/authActions';
 import InstructorApp from "./components/InstructorApp";
 import StudentApp from './components/StudentApp';
-import ProtectedRoute from './components/auth/ProtectedRoute'
-import InstructorPrivateRoute from './components/auth/InstructorPrivateRoute'
-import StudentPrivateRoute from './components/auth/StudentPrivateRoute'
-import { setTitleView } from './store/actions/ui'
+import ProtectedRoute from './components/auth/ProtectedRoute';
+import InstructorPrivateRoute from './components/auth/InstructorPrivateRoute';
+import StudentPrivateRoute from './components/auth/StudentPrivateRoute';
+
 
 function App() {
   const [authenticated, setAuthenticated] = useState(false);
   const [loaded, setLoaded] = useState(false);
-  const [ type, setType ] = useState();
+  const [type, setType] = useState();
   const dispatch = useDispatch();
 
-  // debugger;
   useEffect(() => {
     let user;
     (async () => {
@@ -47,9 +46,7 @@ function App() {
 
   return (
     <BrowserRouter>
-      {/* <Switch> */}
-      {/* </Switch> */}
-      <InstructorPrivateRoute  authenticated={authenticated} path="/instructors" >
+      <InstructorPrivateRoute authenticated={authenticated} path="/instructors" >
         <InstructorApp
           authenticated={authenticated}
           setAuthenticated={setAuthenticated}
@@ -62,13 +59,13 @@ function App() {
         />
       </StudentPrivateRoute>
       <ProtectedRoute path="/signup" authenticated={authenticated} exact={true}>
-          <SignUpForm setAuthenticated={setAuthenticated} />
-        </ProtectedRoute>
-        <ProtectedRoute path="/" authenticated={authenticated} >
-          <Splash setAuthenticated={setAuthenticated} />
-        </ProtectedRoute>
+        <SignUpForm setAuthenticated={setAuthenticated} />
+      </ProtectedRoute>
+      <ProtectedRoute path="/" authenticated={authenticated} >
+        <Splash setAuthenticated={setAuthenticated} />
+      </ProtectedRoute>
     </BrowserRouter>
   )
-}
+};
 
 export default App;

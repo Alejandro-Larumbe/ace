@@ -11,9 +11,6 @@ export default function FreeSolo(props) {
     setValue
   } = props
 
-
-
-
   return (
     <Autocomplete
       value={value}

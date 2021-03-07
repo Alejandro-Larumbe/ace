@@ -191,7 +191,7 @@ const NavBar = ({ setAuthenticated, user, studioName, studioLogoUrl }) => {
         {
         titleView === 'students' &&
 
-          <h1>{`Welcome ${firstName}`}</h1>
+          <h1>students</h1>
         }
          {
           titleView === 'schedule' &&
