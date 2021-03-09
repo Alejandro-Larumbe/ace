@@ -1,24 +1,15 @@
-import React, { useState } from "react";
+import React from "react";
 import { Redirect, useHistory, useParams } from 'react-router-dom';
-import { useDispatch, useSelector } from 'react-redux';
-import Button from '@material-ui/core/Button';
+import { useSelector } from 'react-redux';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import TextField from '@material-ui/core/TextField';
 import Paper from '@material-ui/core/Paper';
 import Typography from '@material-ui/core/Typography';
 import { makeStyles } from '@material-ui/core/styles';
 import Modal from '@material-ui/core/Modal';
 import Backdrop from '@material-ui/core/Backdrop';
-import InputLabel from '@material-ui/core/InputLabel';
-import Radio from '@material-ui/core/Radio';
-import RadioGroup from '@material-ui/core/RadioGroup';
-import FormControlLabel from '@material-ui/core/FormControlLabel';
-import FormLabel from '@material-ui/core/FormLabel';
+
 import Fade from '../../Fade';
-import { Select } from "@material-ui/core";
-import { Grid, } from '@material-ui/core';
-import TextareaAutosize from '@material-ui/core/TextareaAutosize';
-import { updateTask, getLessonsTasks } from './actions';
+
 
 const inputPropsTime = {
   type: "number",

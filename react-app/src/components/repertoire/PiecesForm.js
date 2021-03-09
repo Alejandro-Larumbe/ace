@@ -25,11 +25,18 @@ const PiecesForm = (props) => {
     setOpenSnackbar
   } = props
 
+  // pass in initial vales as prop
   const [instructorId] = useState(localStorage.getItem('user_id'))
   const [title, setTitle] = useState(mode === 'edit' ? piece.title : '');
-  const [composer, setComposer] = useState(mode === 'edit' ? piece.composer : '');
-  let [number, setNumber] = useState(mode === 'edit' ? piece.number : '');
-  const [pieceId] = useState(mode === 'edit' ? piece.id : '');
+  const [composer, setComposer] = useState(piece?.composer);
+  let [number, setNumber] = useState(piece?.number);
+
+  // optional chaining
+
+  // nullish coallescent
+  // pieces?.title ?? ''
+
+  const [pieceId] = useState(pieces?.title);
   // const [bookId] = useState(mode==='edit' ? piece.bookId : '');
   const [book, setBook] = useState((mode === 'edit' && piece.bookId) ? booksById[piece.bookId] : '');
   const [errors, setErrors] = useState();
@@ -51,7 +58,6 @@ const PiecesForm = (props) => {
     if(number === '') number = null
     const bookId = book ? book.id : null
 
-    console.log(pieceId, title, composer, number, bookId, instructorId)
     if (mode === 'edit') {
     //   // console.log('node', mode)
       data = await dispatch(updatePiece(+pieceId, title, composer, +number, +bookId, +instructorId));

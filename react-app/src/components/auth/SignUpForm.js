@@ -83,13 +83,13 @@ const SignUpForm = ({ setAuthenticated }) => {
       user.append('instructor_id', instructorId);
 
       user = await dispatch(signUp(user));
-
-      if (!user.errors) {
-        setAuthenticated(true);
-        history.push(`/${type}/${user.id}/schedule`)
-      } else {
-        setErrors(user.errors);
-      }
+      console.log(user)
+      // if (!user.errors) {
+      //   setAuthenticated(true);
+      //   history.push(`/${type}/${user.id}/schedule`)
+      // } else {
+      //   setErrors(user.errors);
+      // }
     }
   };
 

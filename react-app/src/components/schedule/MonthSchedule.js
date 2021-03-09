@@ -1,15 +1,12 @@
-import React, { useState } from 'react';
+import React from 'react';
 import { useDispatch } from 'react-redux';
 import Tile from './Tile';
 import { weekDays } from './calendarRows';
 import { makeStyles } from '@material-ui/core/styles';
-import { IconButton } from '@material-ui/core';
 import Typography from '@material-ui/core/Typography';
 import CssBaseline from '@material-ui/core/CssBaseline';
-import { format, addMonths, subMonths } from 'date-fns';
-import ArrowBackIosIcon from '@material-ui/icons/ArrowBackIos';
-import ArrowForwardIosIcon from '@material-ui/icons/ArrowForwardIos';
-import { setCurrentDate } from './actions';
+import { format } from 'date-fns';
+
 
 
 const useStyles = makeStyles((theme) => ({
@@ -61,11 +58,9 @@ export default function MonthSchedule( props ) {
                     // const date = new Date(each)
                     let data = []
                     const day = format(new Date(each), 'd')
-                    // console.log('data day--------', byDay[date])
 
                     if (byDay[date]) {
                       byDay[date].forEach(each => {
-                        // console.log('byEd eacn-----------', byId[each]['startTime'])
                         const time = format(new Date(byId[each]['startTime']), 'p')
                         data.push({
                           dateObject: byId[each]['startTime'],
@@ -76,9 +71,7 @@ export default function MonthSchedule( props ) {
                         })
                       })
                     }
-                    console.log('before',data)
                     data.sort((a, b) => (a.dateObject) > (b.dateObject) ? 1 : -1)
-                    console.log('efter',data)
                     return (
                       <td key={i}>
                         <Tile setSelectedDate={setSelectedDate} handleOpen={handleOpen} date={date} day={day} setLessonId={setLessonId} data={data}></Tile>

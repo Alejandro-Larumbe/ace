@@ -13,6 +13,9 @@ import AddBook from './QuickAddDialog';
 
 const filter = createFilterOptions();
 
+
+// pass the specific funtion
+
 export default function FreeSoloCreateOptionDialog(props) {
   const {
     value,
@@ -26,6 +29,7 @@ export default function FreeSoloCreateOptionDialog(props) {
   } = props
   const [openBook, toggleOpenBook] = useState(false);
   const [openPiece, toggleOpenPiece] = useState(false);
+  // field 1, and field 2
   const [dialogValue, setDialogValue] = useState(
       type === 'book' ? { title: '', author: '' }
       :
@@ -34,6 +38,7 @@ export default function FreeSoloCreateOptionDialog(props) {
           null
     );
 
+    //pass field names as props to the dialog
   const handleCloseBook = () => {
     if (type === 'book') {
       setDialogValue({
@@ -46,7 +51,7 @@ export default function FreeSoloCreateOptionDialog(props) {
     if (type === 'piece') {
       setDialogValue({
         title: '',
-        conposer: '',
+        composer: '',
       }
       );
       toggleOpenPiece(false);

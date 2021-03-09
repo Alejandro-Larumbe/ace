@@ -61,6 +61,7 @@ export default function RepertoryForm(props) {
           <PiecesForm
             {...props}
             books={Object.values(props.booksById)}
+
             // pieces={Object.values(props.piecesById)}
           />
         }

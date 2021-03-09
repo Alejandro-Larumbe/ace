@@ -106,9 +106,6 @@ export default function RepertoireContainer() {
     dispatch(getRepertoire(id))
   }, [dispatch]);
 
-
-
-
   return (
     <Repertoire piecesById={piecesById} booksById={booksById} />
   )
